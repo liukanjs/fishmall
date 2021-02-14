@@ -1,0 +1,44 @@
+$(function() {
+	var key = getcookie('key');
+	var lat = getcookie('lat');
+	var lng = getcookie('lng');
+	var city_name = unescape(getcookie('city_name'));
+	var city_id = "";
+
+	$.ajax({
+		url: "/static/js/plugins/citys/citys.json",
+		type: 'post',
+		data: 'json',
+		timeout: '16000',
+		error: function(a, b, c) {
+			NProgress.done();
+			if (c != "error") {
+				$(window).apptip({
+					msg: c
+				});
+			} else {
+				$(window).apptip({
+					msg: "加载失败，请检查网络设置"
+				});
+			}
+		},
+		success: function(result) {
+			var data = result.datas;
+			var citystr = city_name.substring(0, 2);
+			$(data).each(function(i, e) {
+				var tcity = e.region_name;
+				//console.log(e.region_name);
+				if (tcity.match(citystr) != null) {
+					city_id = e.region_id;
+					$('.mine_location').text(city_name);
+					$('.mine_location').attr('href', 'index.html?city_id=' + city_id);
+				};
+			});
+
+			var html = template.render("city", result);
+			$("#city_list").html(html);
+
+		}
+	});
+
+})

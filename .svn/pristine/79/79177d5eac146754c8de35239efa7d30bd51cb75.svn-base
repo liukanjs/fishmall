@@ -1,0 +1,66 @@
+<?php
+namespace common\model;
+
+use think\Model;
+use common\model\MallGoods as MG;
+
+class CartList extends Model
+{
+    protected $type = [
+        'create_time' => 'timestamp:Y/m/d H:i:s',
+        'update_time' => 'timestamp:Y/m/d H:i:s'
+    ];
+
+    public function Cart_List($user_id)
+    {
+        $my_cart_list = $this->all(['user_id' => $user_id]);
+        $goods_price = 0;
+        $score_price = 0;
+        $post_price = 0;
+        foreach ($my_cart_list as $key => $value) {
+
+
+            $model_Mg = new MG;
+            $data = $model_Mg->get($value['goods_id']);
+            if(empty($data)){
+                $this->db()->where('goods_id',$value['goods_id'])->delete();
+                continue;
+            }
+
+            $style = unserialize($data['style']);
+            $style_arr = array();
+            if (!empty($style)) {
+                foreach ($style as $values) {
+                    $style_arr[$values['name']][] = ['name' => $values['name'], 'info' => $values['info'], 'price' => $values['price']];
+                }
+            }
+            $style_arr2 = array();
+            if (!empty($style_arr)) {
+                foreach ($style_arr as $values) {
+                    $style_arr2[] = $values;
+                }
+            }
+            if (!empty($style_arr2)) {
+                $data['title'] .= '[' . $style_arr2[$value['style_id']][$value['style_info_id']]['name'] . $style_arr2[$value['style_id']][$value['style_info_id']]['info'] . ']';
+                $data['rmb_price'] = $style_arr2[$value['style_id']][$value['style_info_id']]['price'];
+            }
+            $goods_num = $value['goods_num'];
+            $data['goods_num'] = $goods_num;
+            $goods_price += $data['rmb_price'] * $goods_num;
+            $score_price += $data['score_price'] * $goods_num;
+            $data['total_rmb_price'] = $data['rmb_price'] * $goods_num;
+            $data['total_score_price'] = $data['score_price'] * $goods_num;
+            if (empty($data['img_list'])) $data['img_list'] = '/static/images/1-1.jpg';
+            $goods_img = explode(',', $data['img_list']);
+            $data['img'] = $goods_img[0];
+            $my_cart_list[$key] = $data;
+            if ($goods_num == 1) {
+                $post_price += $data['post_price'];
+            } else if ($goods_num > 1) {
+                $post_price += $data['post_price'];
+                $post_price += $data['post_price2'] * ($goods_num - 1);
+            }
+        }
+        return array('cart_list' => $my_cart_list, 'goods_price' => $goods_price, 'score_price' => $score_price, 'post_price' => $post_price);
+    }
+}

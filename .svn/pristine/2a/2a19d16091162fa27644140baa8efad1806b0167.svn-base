@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>狂野钓鱼 - 首页</title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../../../../../public/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../../../../../public/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+
+    <!-- Morris -->
+    <link href="../../../../../public/static/js/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="../../../../../public/static/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="../../../../../public/static/css/animate.min.css" rel="stylesheet">
+    <link href="../../../../../public/static/css/style.min.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-success pull-right">月</span>
+                    <h5>收入</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$total.total_rmb_price}</h1>
+
+                    <div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i>
+                    </div>
+                    <small>同比</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">月</span>
+                    <h5>订单</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$total.total_order_num}</h1>
+
+                    <div class="stat-percent font-bold text-info">0% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>同比</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">月</span>
+                    <h5>会员</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$total.total_member_num}</h1>
+
+                    <div class="stat-percent font-bold text-navy">0% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>同比</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-danger pull-right">月</span>
+                    <h5>帖子</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins">{$total.total_thread_num}</h1>
+
+                    <div class="stat-percent font-bold text-danger">0% <i class="fa fa-level-down"></i>
+                    </div>
+                    <small>同比</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>最新本月统计</h5>
+
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-xs btn-white active">天</button>
+                            <button type="button" class="btn btn-xs btn-white">月</button>
+                            <button type="button" class="btn btn-xs btn-white">年</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>七日内热门单品</h5>
+
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>商品称</th>
+                                    <th>销量</th>
+                                    <th>下单金额</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="$total.total_goods_list" id="go" key="k" }
+                                <tr>
+                                    <td>{$k}</td>
+                                    <td>{$go.title}</td>
+                                    <td>{$go.goods_num}</td>
+                                    <td>{$go.rmb_price}</td>
+                                </tr>
+                                {/volist}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>七日内活跃会员</h5>
+
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <table class="table table-hover no-margins">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>会员名</th>
+                                    <th>消费鱼古</th>
+                                    <th>消费金额</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="$total.total_user_list" id="go" key="k" }
+                                <tr>
+                                    <td>{$k}</td>
+                                    <td>{$go.user_name}</td>
+                                    <td>{$go.total_score_price}</td>
+                                    <td>{$go.total_rmb_price}</td>
+                                </tr>
+                                {/volist}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../../../../../public/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="../../../../../public/static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../../../../../public/static/js/content.min.js?v=1.0.0"></script>
+<script src="../../../../../public/static/js/plugins/echarts/echarts.min.js"></script>
+</body>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('flot-dashboard-chart'));
+
+    // 指定图表的配置项和数据
+    option = {
+        title: {
+            text: '订单统计'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['订单数', '付款数']
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: {$total.month|json_encode}
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '订单数',
+                type: 'line',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#1ab394'
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#1ab394'
+                        }, {
+                            offset: 1,
+                            color: '#1ab394'
+                        }])
+                    }
+                },
+                data: {$total.order_num|json_encode}
+            },
+            {
+                name: '付款数',
+                type: 'line',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'top'
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        color: '#464f88'
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#464f88'
+                        }, {
+                            offset: 1,
+                            color: '#464f88'
+                        }])
+                    }
+                },
+                data: {$total.pay_price|json_encode}
+            }
+        ]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</html>

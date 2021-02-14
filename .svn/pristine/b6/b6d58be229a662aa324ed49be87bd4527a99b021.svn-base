@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>狂野钓鱼 - 富文本编辑器</title>
+
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link href="../../../../../public/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+		<link href="../../../../../public/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+		<link href="../../../../../public/static/css/animate.min.css" rel="stylesheet">
+		<link href="../../../../../public/static/js/plugins/summernote/summernote.css" rel="stylesheet">
+		<link href="../../../../../public/static/js/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+		<link href="../../../../../public/static/css/style.min.css" rel="stylesheet">
+
+		<style type="text/css">
+			.ad {
+				display: none !important;
+				display: none
+			}
+		</style>
+	</head>
+	</head>
+
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated fadeInUp">
+
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>发帖
+                        <small>发表话题内容</small>
+                    </h5>
+							<div class="ibox-tools">
+								<a href="#" class="btn btn-primary btn-xs win-back"> 返回 </a>
+							</div>
+						</div>
+						<div class="ibox-content no-padding">
+							<form class="form-horizontal m-t" id="commentForm">
+
+
+								<textarea class="form-control" name="content" id="content" rows="10" cols="10">{$info.content}</textarea>
+
+								<div class="form-group margin-large-top">
+									<label class="col-sm-1 control-label">图片：</label>
+
+									<div class="col-sm-11">
+										
+										<div class="clearfix img-list">
+										{foreach name="info.images_list" item="vo" key="k" }
+											<div class="pull-left relative addimg margin-bottom">
+												<div class="margin-right">
+													<img width="200" height="200" src="{$vo}" />
+												</div>
+												<span class="fa fa-close img_del text-default" onclick="del_img()"></span></div>
+												
+										{/foreach}
+										</div>
+
+										<div class="height clearfix margin-top">
+											<button type="button" class="btn btn-primary" style="vertical-align: bottom;" onclick="doUpload();">上传图片</button>
+											<span>请上传1:1图片</span>
+										</div>
+
+										<input id="image" name="image" type="hidden" class="form-control" value="{$info.image}" required="" aria-required="true">
+									</div>
+								</div>
+								<div class="text-right ibox-content">
+									<button type="submit" class="btn btn-primary">发布</button>
+								</div>
+                                <input name="ctype" type="hidden" value="1">
+                                <input name="atype" type="hidden" value="1">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../../../../public/static/js/jquery.min.js?v=2.1.4"></script>
+		<script src="../../../../../public/static/js/plugins/validate/jquery.validate.min.js"></script>
+		<script src="../../../../../public/static/js/bootstrap.min.js?v=3.3.6"></script>
+		<script src="../../../../../public/static/js/content.min.js?v=1.0.0"></script>
+		<script src="../../../../../public/static/js/plugins/summernote/summernote.min.js"></script>
+		<script src="../../../../../public/static/js/plugins/summernote/summernote-zh-CN.js"></script>
+		<script src="../../../../../public/static/js/plugins/demo/form-validate-demo.min.js"></script>
+		<script src="../../../../../public/static/js/plugins/upload/jquery.upload.js"></script>
+		<script src="../../../../../public/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+		<script src="../../../../../public/static/js/plugins/layer/layer.min.js"></script>
+		<script>
+			//初始化图片url
+			var imglist_val = [];
+			var pic_len = 9;
+			
+			function doUpload() {
+				// 上传方法
+				$.upload({
+					// 上传地址
+					url: '/admin/index/upload',
+					// 文件域名字
+					fileName: 'filedata',
+					// 其他表单数据
+					params: {up: 1},
+					// 上传完成后, 返回json, text
+					dataType: 'json',
+					// 上传之前回调,return true表示可继续上传
+					onSend: function() {
+						if ($('.updata_pic').size() >= pic_len) {
+							toastr.info("最多上传9张");
+							return false;
+						} else {
+							return true;
+						}
+					},
+					// 上传之后回调
+					onComplate: function(data) {
+						var img_h = '<div class="pull-left clearfix relative addimg margin-bottom"><div class="margin-right"><img class="updata_pic" width="200" height="200"/></div><span class="fa fa-close img_del"></span></div>'
+						$('.img-list').prepend(img_h);
+						$('.updata_pic').eq(0).attr('src', data.datas).show();
+
+						var deval = $('input[name=image]').val();
+						if (deval != "") {
+							imglist_val.unshift(deval);
+						}
+						imglist_val.unshift(data.datas);
+						console.log(data.datas);
+						$("input[name=image]").val(imglist_val.toString());
+
+						//删除图片事件
+						del_img();
+					}
+				});
+			}
+
+			function del_img() {
+				Array.prototype.del = function(n) {　
+					if (n < 0)　 {　　
+						return this;　
+					} else {
+						return this.slice(0, n).concat(this.slice(n + 1, this.length));　
+					}　　
+				};
+
+				$('.img_del').each(function(i, e) {
+					$(this).click(function() {
+						var index = $('.img_del').index($(this)); //当前按钮的索引值
+						var html = $(this).parent('.addimg');
+						html.remove();
+						var val = $("input[name=image]").val().split(',');
+						console.log(val);
+						val = val.del(index);
+						imglist_val = imglist_val.del(index);
+						$("input[name=image]").val(val.toString());
+					})
+				});
+
+			}
+		</script>
+	</body>
+
+</html>

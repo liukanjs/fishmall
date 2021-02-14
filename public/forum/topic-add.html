@@ -1,0 +1,171 @@
+<!--发帖-->
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>发帖</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+	</head>
+
+	<body>
+
+		<header class="layout margin-bottom boxshow">
+			<div class="height-large clearfix relative">
+				<div class="float-left">
+					<span class="margin-left text-big ticon-back win-back block"></span>
+				</div>
+				<div class="float-right">
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-default win-refresh">发表话题</div>
+			</div>
+		</header>
+
+		<section class="layout">
+			<form class="form form-block" id="topic_add">
+				<section>
+					<div class="padding">
+						
+						<div class="form-group">
+							<div class="field">
+								<select class="input" name="typeid" id="typeid">
+									<option value="">请选择社区频道</option>									
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="field">
+								<textarea rows="5" type="text" class="input" id="message" name="message" maxlength="3000" placeholder="说点什么吧..."></textarea>
+							</div>
+							<div class="text-right text-gray height" id="word_len">3000</div>
+						</div>
+						<div class="form-group">
+							<div class="field line">
+								<div class="x4 w_h padding-little">
+									<a class="w_h_img updata_img  input-file" id="ppp">+图片
+										<input size="100" name="img_list" id="img_list"  type="hidden" />
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field">
+								<input type="text" class="input" id="address" name="address" maxlength="50" placeholder="我的地址..."></input>
+							</div>
+						</div>
+
+						<input type="hidden" name="client" value="wechat">
+
+						<div class="error-tips height hide text-red">
+						</div>
+						<div class="form-button">
+							<button class="button button-small  button-block bg-main" type="submit" id="tpbtn">提交</button>
+						</div>
+					</div>
+				</section>
+
+			</form>
+		</section>
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/jquery.validate.min.js"></script>
+		<script src="../static/js/messages_zh.min.js"></script>
+		<script src="../static/js/plugins/upload/jquery.upload.js"></script>
+		<script src="http://map.qq.com/api/js?v=2.exp&key=2N2BZ-KKZA4-ZG4UB-XAOJU-HX2ZE-HYB4O&libraries=geometry,convertor"></script>
+		<script src="../static/js/tmpl/forum/topic-add.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+
+		<script type="text/javascript">
+			//精确定位地址
+			jQuery(function($) {
+				var qqcGeocoder = null;
+				var clientLatLng = null;
+				$.gpsposition = function() {
+					$("#address").val("正在获取定位地址...");
+					var translatePoint = function(position) {
+						var currentLat = position.coords.latitude;
+						var currentLon = position.coords.longitude;
+						clientLatLng = new qq.maps.LatLng(currentLat, currentLon);
+
+						qq.maps.convertor.translate(new qq.maps.LatLng(currentLat, currentLon), 1, function(res) {
+							latlng = res[0];
+							console.log(latlng);
+							qqcGeocoder.getAddress(latlng);
+						});
+					}
+
+					qqcGeocoder = new qq.maps.Geocoder({
+						complete: function(result) {
+							var nowNearPoi = null;
+							var nearPoi;
+
+							for (var nearPoiKey in result.detail.nearPois) {
+								nearPoi = result.detail.nearPois[nearPoiKey];
+								if (nowNearPoi == null || nowNearPoi.dist > nearPoi.dist) {
+									nowNearPoi = nearPoi;
+								}
+							}
+
+							var address = nowNearPoi.address + nowNearPoi.name;
+							var reg = new RegExp("^" + result.detail.addressComponents.country, "gi");
+							address = address.replace(reg, '');
+							/*reg = new RegExp("^" + result.detail.addressComponents.province, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.city, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.district, "gi");
+							address = address.replace(reg, '');*/
+							$("#address").val(address);
+						}
+					});
+
+					var citylocation = new qq.maps.CityService({
+						complete: function(result) {
+							clientLatLng = result.detail.latLng;
+							qqcGeocoder.getAddress(result.detail.latLng);
+						}
+					});
+
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(translatePoint, function(error) {
+							citylocation.searchLocalCity();
+						}, {
+							enableHighAccuracy: true
+						});
+					} else {
+						citylocation.searchLocalCity();
+					}
+				}
+				$.gpsposition();
+
+			});
+		</script>
+	</body>
+
+</html>

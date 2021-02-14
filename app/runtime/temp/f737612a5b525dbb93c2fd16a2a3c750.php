@@ -1,0 +1,614 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:67:"D:\www\fishmall\public/../app/admin/index\view\home\index_edit.html";i:1490624576;}*/ ?>
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>狂野钓鱼总后台</title>
+
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link href="../../../../../public/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+		<link href="../../../../../public/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+		<link href="../../../../../public/static/js/plugins/bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+		<link href="../../../../../public/static/js/plugins/chosen/chosen.css" rel="stylesheet">
+		<link href="../../../../../public/static/css/animate.min.css" rel="stylesheet">
+		<link href="../../../../../public/static/js/plugins/summernote/summernote.css" rel="stylesheet">
+		<link href="../../../../../public/static/js/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+		<link href="../../../../../public/static/css/style.min.css?v=4.1.0" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../../../../../public/static/css/swiper-3.3.1.min.css" />
+
+
+
+        <script src="../../../../../public/static/js/jquery.min.js?v=2.1.4"></script>
+
+	</head>
+    <?php switch($_GET['item_type']): case "banner": ?>
+    <body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <form class="form-horizontal m-t" id="commentForm">
+                    <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                    <input type="hidden" name="item_type" value="<?php echo $_GET['item_type']; ?>">
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>首页轮播图设置
+                                <small>设置首页轮播图</small>
+                            </h5>
+							<div class="ibox-tools">
+								<a href="javascript:;" class="btn btn-primary btn-xs win-back"> 返回 </a>
+							</div>
+                        </div>
+                        <div class="ibox-content m-t"><strong>轮播图编辑-640x260</strong></div>
+                        <div class="ibox-content">
+
+                            <!--轮播图-->
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <?php if(is_array($info['item_data']) || $info['item_data'] instanceof \think\Collection): $i = 0; $__LIST__ = $info['item_data'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?>
+                                    <div class="swiper-slide">
+                                        <a href="<?php echo $vo['url']; ?>"><img src="<?php echo $vo['image']; ?>" width="100%" /></a>
+                                    </div>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                </div>
+                                <!-- 分页器 -->
+                                <div class="swiper-pagination"></div>
+                                <!-- 滚动条 -->
+                                <div class="swiper-scrollbar"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="padding border">
+                                        <img class="banner_img" src="<?php echo $info['item_data'][0]['image']; ?>" width="100%" />
+                                        <label class="height">跳转url</label>
+                                        <input type="url" name="url1" id="url1" value="<?php echo $info['item_data'][0]['url']; ?>" class="form-control" />
+                                        <input type="hidden" name="image1" id="image1" value="<?php echo $info['item_data'][0]['image']; ?>"  class="imgurl" />
+                                        <button type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="padding border">
+                                        <img class="banner_img" src="<?php echo $info['item_data'][1]['image']; ?>" width="100%" />
+                                        <label class="height">跳转url</label>
+                                        <input type="url" name="url2" id="url2" value="<?php echo $info['item_data'][1]['url']; ?>" class="form-control" />
+                                        <input type="hidden" name="image2" id="image2" value="<?php echo $info['item_data'][1]['image']; ?>" class="imgurl"  />
+                                        <button type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="padding border">
+                                        <img class="banner_img" src="<?php echo $info['item_data'][2]['image']; ?>" width="100%" />
+                                        <label class="height">跳转url</label>
+                                        <input type="url" name="url3" id="url3" value="<?php echo $info['item_data'][2]['url']; ?>" class="form-control" />
+                                        <input type="hidden" name="image3" id="image3" value="<?php echo $info['item_data'][2]['image']; ?>" class="imgurl"  />
+                                        <button type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="padding border">
+                                        <img class="banner_img" src="<?php echo $info['item_data'][3]['image']; ?>" width="100%" />
+                                        <label class="height">跳转url</label>
+                                        <input type="url" name="url4" id="url4" value="<?php echo $info['item_data'][3]['url']; ?>" class="form-control" />
+                                        <input type="hidden" name="image4" id="image4" value="<?php echo $info['item_data'][3]['image']; ?>" class="imgurl" />
+                                        <button type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row padding-big">
+                                <div class="text-center padding-big">
+                                    <button class="btn btn-primary" type="submit" style="width: 200px;">发布</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var config = {
+                ".chosen-select": {},
+                ".chosen-select-deselect": {
+                    allow_single_deselect: !0
+                },
+                ".chosen-select-no-single": {
+                    disable_search_threshold: 10
+                },
+                ".chosen-select-no-results": {
+                    no_results_text: "Oops, nothing found!"
+                },
+                ".chosen-select-width": {
+                    width: "95%"
+                }
+            };
+            for (var selector in config) $(selector).chosen(config[selector]);
+            $(".summernote").summernote({
+                lang: "zh-CN"
+            })
+
+            var banner = new Swiper('.swiper-container', {
+                loop: true,
+                autoplay: 5000,
+                pagination: '.swiper-pagination',
+                scrollbar: '.swiper-scrollbar',
+            })
+
+        });
+
+
+        function doUpload(e) {
+            var par=$(e).parents('.padding');
+            var banner_img=par.find('.banner_img');
+            var img_url=par.find('.imgurl');
+            // 上传方法
+            $.upload({
+                // 上传地址
+                url: '/admin/index/upload',
+                // 文件域名字
+                fileName: 'filedata',
+                // 其他表单数据
+                params: {
+                    up: 1
+                },
+                // 上传完成后, 返回json, text
+                dataType: 'json',
+                // 上传之前回调,return true表示可继续上传
+                onSend: function() {
+                    return true;
+                },
+                // 上传之后回调
+                onComplate: function(data) {
+
+                    banner_img.attr('src', data.datas).show();
+
+                    img_url.val(data.datas);
+                }
+            });
+        }
+
+    </script>
+    </body>
+    <?php break; case "3pics": ?>
+    <body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+					<div class="ibox">
+						<div class="ibox-title">
+							<h5>首页区块设置
+								<small>设置首页推荐广告</small>
+							</h5>
+							<div class="ibox-tools">
+								<a href="#" class="btn btn-primary btn-xs win-back"> 返回 </a>
+							</div>
+						</div>
+						<div class="ibox-content m-t"><strong>广告位编辑</strong></div>
+                        <div class="ibox-content">
+							<!-- 广告块-->
+                            <form class="form-horizontal m-t" id="commentForm">
+
+                                <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                                <input type="hidden" name="item_type" value="<?php echo $_GET['item_type']; ?>">
+
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">左图：</label>
+                                            <div class="col-sm-9">
+                                                <div class="padding">
+                                                    <div class="clearfix">
+                                                        <img class="banner_img" src="<?php echo $info['item_data']['left']['image']; ?>" width="320" height="260" />
+                                                        <button style="vertical-align: bottom" type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                                    </div>
+                                                    <label class="height">跳转url</label>
+                                                    <input type="url" name="url1" id="url1" value="<?php echo $info['item_data']['left']['url']; ?>" class="form-control" placeholder="请输入网址" />
+                                                    <input type="hidden" name="image1" id="image1" value="<?php echo $info['item_data']['left']['image']; ?>"  class="imgurl" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">右上图：</label>
+                                            <div class="col-sm-9">
+                                                <div class="padding">
+                                                    <div class="clearfix">
+                                                        <img class="banner_img" src="<?php echo $info['item_data']['right_top']['image']; ?>" width="320" height="130" />
+                                                        <button style="vertical-align: bottom" type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                                    </div>
+                                                    <label class="height">跳转url</label>
+                                                    <input type="url" name="url2" id="url2" value="<?php echo $info['item_data']['right_top']['url']; ?>" class="form-control" placeholder="请输入网址" />
+                                                    <input type="hidden" name="image2" id="image2" value="<?php echo $info['item_data']['right_top']['image']; ?>"  class="imgurl" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label">右下图：</label>
+                                            <div class="col-sm-9">
+                                                <div class="padding">
+                                                    <div class="clearfix">
+                                                        <img class="banner_img" src="<?php echo $info['item_data']['right_sub']['image']; ?>" width="320" height="130" />
+                                                        <button style="vertical-align: bottom" type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                                    </div>
+                                                    <label class="height">跳转url</label>
+                                                    <input type="url" name="url3" id="url3" value="<?php echo $info['item_data']['right_sub']['image']; ?>" class="form-control" placeholder="请输入网址" />
+                                                    <input type="hidden" name="image3" id="image3" value="<?php echo $info['item_data']['right_sub']['image']; ?>"  class="imgurl" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <div class="row padding-big">
+                                        <div class="text-center padding-big">
+                                            <button class="btn btn-primary" type="submit" style="width: 200px;">发布</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </form>
+
+                        </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var config = {
+                ".chosen-select": {},
+                ".chosen-select-deselect": {
+                    allow_single_deselect: !0
+                },
+                ".chosen-select-no-single": {
+                    disable_search_threshold: 10
+                },
+                ".chosen-select-no-results": {
+                    no_results_text: "Oops, nothing found!"
+                },
+                ".chosen-select-width": {
+                    width: "95%"
+                }
+            };
+            for (var selector in config) $(selector).chosen(config[selector]);
+            $(".summernote").summernote({
+                lang: "zh-CN"
+            })
+
+            var banner = new Swiper('.swiper-container', {
+                loop: true,
+                autoplay: 5000,
+                pagination: '.swiper-pagination',
+                scrollbar: '.swiper-scrollbar',
+            })
+
+        });
+
+
+        function doUpload(e) {
+            var par=$(e).parents('.padding');
+            var banner_img=par.find('.banner_img');
+            var img_url=par.find('.imgurl');
+            // 上传方法
+            $.upload({
+                // 上传地址
+                url: '/admin/index/upload',
+                // 文件域名字
+                fileName: 'filedata',
+                // 其他表单数据
+                params: {
+                    up: 1
+                },
+                // 上传完成后, 返回json, text
+                dataType: 'json',
+                // 上传之前回调,return true表示可继续上传
+                onSend: function() {
+                    return true;
+                },
+                // 上传之后回调
+                onComplate: function(data) {
+
+                    banner_img.attr('src', data.datas).show();
+
+                    img_url.val(data.datas);
+                }
+            });
+        }
+
+    </script>
+    </body>
+    <?php break; case "iconlist": ?>
+    <body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>首页设置
+                                <small>设置网站推荐宫格图</small>
+                            </h5>
+							<div class="ibox-tools">
+								<a href="#" class="btn btn-primary btn-xs win-back"> 返回 </a>
+							</div>
+                        </div>
+                        <div class="ibox-content m-t"><strong>宫格编辑-120x120</strong></div>
+                        <div class="ibox-content clearfix">
+							<!-- 宫格区块-->
+                            <form class="form-horizontal m-t" id="commentForm" novalidate="novalidate">
+
+                                <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                                <input type="hidden" name="item_type" value="<?php echo $_GET['item_type']; ?>">
+
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="padding border">
+                                                <img class="banner_img" src="<?php echo $info['item_data'][0]['image']; ?>" width="100%">
+                                                <label class="height">跳转url</label>
+                                                <input type="url" name="url1" id="url1" value="<?php echo $info['item_data'][0]['url']; ?>" class="form-control">
+                                                <input type="hidden" name="image1" id="image1" value="<?php echo $info['item_data'][0]['image']; ?>" class="imgurl">
+                                                <button type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="padding border">
+                                                <img class="banner_img" src="<?php echo $info['item_data'][1]['image']; ?>" width="100%">
+                                                <label class="height">跳转url</label>
+                                                <input type="url" name="url2" id="url2" value="<?php echo $info['item_data'][1]['url']; ?>" class="form-control">
+                                                <input type="hidden" name="image2" id="image2" value="<?php echo $info['item_data'][1]['image']; ?>" class="imgurl">
+                                                <button type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="padding border">
+                                                <img class="banner_img" src="<?php echo $info['item_data'][2]['image']; ?>" width="100%">
+                                                <label class="height">跳转url</label>
+                                                <input type="url" name="url3" id="url3" value="<?php echo $info['item_data'][2]['url']; ?>" class="form-control">
+                                                <input type="hidden" name="image3" id="image3" value="<?php echo $info['item_data'][2]['image']; ?>" class="imgurl">
+                                                <button type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="padding border">
+                                                <img class="banner_img" src="<?php echo $info['item_data'][3]['image']; ?>" width="100%">
+                                                <label class="height">跳转url</label>
+                                                <input type="url" name="url4" id="url4" value="<?php echo $info['item_data'][3]['url']; ?>" class="form-control">
+                                                <input type="hidden" name="image4" id="image4" value="<?php echo $info['item_data'][3]['image']; ?>" class="imgurl">
+                                                <button type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="padding border">
+                                                <img class="banner_img" src="<?php echo $info['item_data'][4]['image']; ?>" width="100%">
+                                                <label class="height">跳转url</label>
+                                                <input type="url" name="url5" id="url5" value="<?php echo $info['item_data'][4]['url']; ?>" class="form-control">
+                                                <input type="hidden" name="image5" id="image5" value="<?php echo $info['item_data'][4]['image']; ?>" class="imgurl">
+                                                <button type="button" class="btn btn-default margin-top" onclick="doUpload(this)">图片上传</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row padding-big">
+                                        <div class="text-center padding-big">
+                                            <button class="btn btn-primary" type="submit" style="width: 200px;">发布</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </form>
+
+                        </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var config = {
+                ".chosen-select": {},
+                ".chosen-select-deselect": {
+                    allow_single_deselect: !0
+                },
+                ".chosen-select-no-single": {
+                    disable_search_threshold: 10
+                },
+                ".chosen-select-no-results": {
+                    no_results_text: "Oops, nothing found!"
+                },
+                ".chosen-select-width": {
+                    width: "95%"
+                }
+            };
+            for (var selector in config) $(selector).chosen(config[selector]);
+            $(".summernote").summernote({
+                lang: "zh-CN"
+            })
+
+            var banner = new Swiper('.swiper-container', {
+                loop: true,
+                autoplay: 5000,
+                pagination: '.swiper-pagination',
+                scrollbar: '.swiper-scrollbar',
+            })
+
+        });
+
+
+        function doUpload(e) {
+            var par=$(e).parents('.padding');
+            var banner_img=par.find('.banner_img');
+            var img_url=par.find('.imgurl');
+            // 上传方法
+            $.upload({
+                // 上传地址
+                url: '/admin/index/upload',
+                // 文件域名字
+                fileName: 'filedata',
+                // 其他表单数据
+                params: {
+                    up: 1
+                },
+                // 上传完成后, 返回json, text
+                dataType: 'json',
+                // 上传之前回调,return true表示可继续上传
+                onSend: function() {
+                    return true;
+                },
+                // 上传之后回调
+                onComplate: function(data) {
+
+                    banner_img.attr('src', data.datas).show();
+
+                    img_url.val(data.datas);
+                }
+            });
+        }
+
+    </script>
+    </body>
+    <?php break; case "active": ?>
+    <body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                    <div class="ibox">
+                        <div class="ibox-title">
+                            <h5>首页设置
+                                <small>设置首页文章模块</small>
+                            </h5>
+							<div class="ibox-tools">
+								<a href="#" class="btn btn-primary btn-xs win-back"> 返回 </a>
+							</div>
+                        </div>
+                        <div class="ibox-content m-t"><strong>文章列表编辑</strong></div>
+                        <div class="ibox-content clearfix">
+							<!-- 活动、文章设置区块-->
+
+							<form class="form-horizontal m-t" id="commentForm">
+                                <input type="hidden" name="id" value="<?php echo $_GET['id']; ?>">
+                                <input type="hidden" name="item_type" value="<?php echo $_GET['item_type']; ?>">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">板块名称：</label>
+									<div class="col-sm-9">
+										<input value="<?php echo $info['item_data']['title']; ?>" type="text" name="title" class="form-control" placeholder="请输入板块名称">
+
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">文章显示数：</label>
+									<div class="col-sm-9">
+										<input value="<?php echo $info['item_data']['len']; ?>" type="number" name="len" class="form-control" placeholder="请输入文章的显示数量">
+
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-12 col-sm-offset-3">
+										<button class="btn btn-primary" type="submit">保存</button>
+									</div>
+								</div>
+							</div>
+							</form>
+						</div>
+					</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            var config = {
+                ".chosen-select": {},
+                ".chosen-select-deselect": {
+                    allow_single_deselect: !0
+                },
+                ".chosen-select-no-single": {
+                    disable_search_threshold: 10
+                },
+                ".chosen-select-no-results": {
+                    no_results_text: "Oops, nothing found!"
+                },
+                ".chosen-select-width": {
+                    width: "95%"
+                }
+            };
+            for (var selector in config) $(selector).chosen(config[selector]);
+            $(".summernote").summernote({
+                lang: "zh-CN"
+            })
+
+            var banner = new Swiper('.swiper-container', {
+                loop: true,
+                autoplay: 5000,
+                pagination: '.swiper-pagination',
+                scrollbar: '.swiper-scrollbar',
+            })
+
+        });
+
+
+        function doUpload(e) {
+            var par=$(e).parents('.padding');
+            var banner_img=par.find('.banner_img');
+            var img_url=par.find('.imgurl');
+            // 上传方法
+            $.upload({
+                // 上传地址
+                url: '/admin/index/upload',
+                // 文件域名字
+                fileName: 'filedata',
+                // 其他表单数据
+                params: {
+                    up: 1
+                },
+                // 上传完成后, 返回json, text
+                dataType: 'json',
+                // 上传之前回调,return true表示可继续上传
+                onSend: function() {
+                    return true;
+                },
+                // 上传之后回调
+                onComplate: function(data) {
+
+                    banner_img.attr('src', data.datas).show();
+
+                    img_url.val(data.datas);
+                }
+            });
+        }
+
+    </script>
+    </body>
+    <?php break; endswitch; ?>
+
+
+    <script src="../../../../../public/static/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../../../../../public/static/js/content.min.js?v=1.0.0"></script>
+    <script src="../../../../../public/static/js/plugins/chosen/chosen.jquery.js"></script>
+    <script src="../../../../../public/static/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="../../../../../public/static/js/plugins/validate/messages_zh.min.js"></script>
+    <script src="../../../../../public/static/js/plugins/demo/form-validate-demo.min.js"></script>
+    <script src="../../../../../public/static/js/plugins/summernote/summernote.min.js"></script>
+    <script src="../../../../../public/static/js/plugins/summernote/summernote-zh-CN.js"></script>
+    <script src="../../../../../public/static/js/swiper-3.3.1.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../../../../public/static/js/plugins/upload/jquery.upload.js"></script>
+
+
+</html>

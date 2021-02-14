@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>活动</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/swiper-3.3.1.min.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/swipebox.min.css" />
+	</head>
+
+	<body>
+
+		<header class="layout margin-bottom boxshow app-top">
+			<div class="height-large clearfix relative">
+				<div class="float-left">
+					<!--<span class="margin-left text-big ticon-search win-back block"></span>-->
+				</div>
+				<div class="float-right relative">
+					<a href="javascript:;" id="addinfo">
+						<span class="margin-right text-big ticon-edit "></span>
+					</a>
+					<div class="city-list boxshow hide">
+						<ul>
+							<li><a href="topic-add.html">发话题</a></li>
+							<!--<li><a href="article-add.html">发攻略</a></li>-->
+							<li><a href="activity-add.html">发活动</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="head-tab clearfix">
+					<a class="head-tab-main" href="index.html">社区</a>
+					<a class="head-tab-main active" href="activity.html">活动</a>
+				</div>
+
+			</div>
+		</header>
+		<section style="height: 42px;"></section>
+
+		<section class="layout">
+			<!--导航-->
+			<div id="navlist"></div>
+			<!--版块-->
+			<div id="forummain" class="forum-main margin-top"></div>
+		</section>
+
+		<section class="meiqia boxshow hide" id="to-top">
+			<!--返回顶部样式-->
+			<a class="text-white win-backtop" href="javascript:;"><span class="text-large ticon-top wx-ticon"></span></a>
+		</section>
+
+		<!--切换标签的ajax加载效果-->
+		<div class="text-center text-big padding text-gray hide" id="list_loading">
+			<span class="ticon-loading icon-spin"></span> 加载中...
+		</div>
+		<section class="blank"></section>
+
+		<script type="text/html" id="class_type">
+			<!--顶部导航-->
+			<div class="navtop boxshow">
+				<div class="swiper-container swiper-container-horizontal swiper-container-free-mode">
+					<div class="swiper-wrapper">
+						<% for (var i in class_type) { %>
+						<div class="swiper-slide" ctype="<%= class_type[i].ctype %>" atype="<%= class_type[i].atype %>" typeid="<%= class_type[i].id %>">
+							<%= class_type[i].name %>
+						</div>
+						<% } %>
+					</div>
+				</div>
+			</div>
+		</script>
+
+		
+		<script type="text/html" id="strategy_list">
+			<!--话题列表样式-->
+			<% for (var i in strategy_list) { %>
+			<div class="boxshow padding margin-bottom">
+				<a href="topic-info.html?topic_id=<%= strategy_list[i].id %>">
+					<div class="clearfix relative">
+						<div class="float-left">
+							<img src="<%= strategy_list[i].user_icon %>" width="50" height="50" class="radius-circle">
+						</div>
+						<div class="float-left margin-left">
+							<div class="media-body relative">
+								<div class="text-twoline height">
+									<%= strategy_list[i].user_name %>
+									<!--<span class="tag bg-main"><%= strategy_list[i].level %></span>-->
+								</div>
+								<div class="">
+									<span class="text-gray"><%= strategy_list[i].last_time %></span>
+								</div>
+							</div>
+						</div>
+						
+						<%if(strategy_list[i].ismy==1){%>
+						<!--仅支持发起人可见及删除-->
+						<div class="content_del" id="<%= strategy_list[i].id %>">
+							<span class="ticon-delete"></span>
+						</div>
+						<% }%>
+						
+					</div>
+					<div class="margin-small-top">
+						<div class="height-small">
+							<pre class="tppre"><%=strategy_list[i].note %></pre>
+						</div>
+					</div>
+				</a>
+					
+					<div class="margin-small-top img_list">
+						<%if(strategy_list[i].img_list.length==1 &&  strategy_list[i].img_list[0].img==""){%>
+							<div></div>
+						<%}else if(strategy_list[i].img_list.length>2 ){%>
+						<div class="line">
+							<% for (var j in strategy_list[i].img_list) { %>
+							<a class="x4 w_h text-center border border-white swipebox" href="<%= strategy_list[i].img_list[j].img %>" title="<%=i%>"  rel="gallery-100<%=i%>"  style="background: url(<%= strategy_list[i].img_list[j].img %>) no-repeat;background-position:center center;background-size: 200%;"">
+								
+									<img src="<%= strategy_list[i].img_list[j].img %>"  alt="image"  class="hide" />
+							</a>
+							<% }%>
+						</div>
+						<% }else{ %>
+						<div class="div-table clearfix">
+							<% for (var j in strategy_list[i].img_list) { %>
+							<div class="table-cell border border-white">
+								<a href="<%= strategy_list[i].img_list[j].img %>" class="swipebox"  rel="gallery-<%=i%>" title="<%=i%>">
+									<img src="<%= strategy_list[i].img_list[j].img %>"  alt="image"  width="100%" />
+								</a>
+							</div>
+							<% }%>
+						</div>
+
+						<% } %>
+
+					</div>
+					<div class="clearfix margin-small-top text-gray">
+						<%if(strategy_list[i].address!="正在获取定位地址..." && strategy_list[i].address!=''){%>
+						<div class="float-left">
+							<span class="ticon-location"><%= strategy_list[i].address %></span>
+						</div>
+						<%}%>
+						<div class="float-right padding-right">
+							<%if(strategy_list[i].like==1){%> 
+								<span class="ticon-appreciatefill ticon-appreciate margin-small-right appreciate" myid="<%=strategy_list[i].id%>" type='1'></span><%if(strategy_list[i].top_num>0){%><%= strategy_list[i].top_num %><%}%>
+							<%}else{%>
+								<span class="ticon-appreciate ticon-appreciate margin-small-right appreciate" myid="<%=strategy_list[i].id%>" type='1'></span><%if(strategy_list[i].top_num>0){%><%= strategy_list[i].top_num %><%}%>
+							<%}%>
+							 <%if(strategy_list[i].discuss>0){%><span class="ticon-comment"></span><%= strategy_list[i].discuss %><%}%>
+						</div>
+					</div>
+			</div>
+			<% } %>
+		</script>
+
+		<script type="text/html" id="art_list">
+			<!--文章样式-->
+			<% for (var i in strategy_list) { %>
+			<div class="media media-x relative boxshow padding-small">
+				<a href="article-info.html?article_id=<%= strategy_list[i].id %>">
+					<div class="float-left">
+						<img src="<%= strategy_list[i].img_list[0].img %>" width="80" class="radius">
+					</div>
+					<div class="media-body relative">
+						<div class="text-twoline height">
+							<%= strategy_list[i].title %>
+						</div>
+						<div class="height-big">
+							<span class="text-gray"><%= strategy_list[i].tags %></span>
+						</div>
+						<div class="clearfix text-gray">
+							<div class="float-left">
+								<%= strategy_list[i].create_time %>
+							</div>
+						<div class="float-right padding-right">
+							<%if(strategy_list[i].like==1){%> 
+								<span class="ticon-appreciatefill ticon-appreciate margin-small-right appreciate" myid="<%=strategy_list[i].id%>" type='1'></span><%if(strategy_list[i].top_num>0){%><%= strategy_list[i].top_num %><%}%>
+							<%}else{%>
+								<span class="ticon-appreciate ticon-appreciate margin-small-right appreciate" myid="<%=strategy_list[i].id%>" type='1'></span><%if(strategy_list[i].top_num>0){%><%= strategy_list[i].top_num %><%}%>
+							<%}%>
+							 <%if(strategy_list[i].discuss>0){%><span class="ticon-comment"></span><%= strategy_list[i].discuss %><%}%>
+						</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<% } %>
+		</script>
+
+		<script type="text/html" id="activity_list">
+			<!--活动列表样式-->
+			<% for (var i in strategy_list) { %>
+			<div class="margin-top boxshow">
+				<div class="relative">
+					<a href="activity-info.html?activity_id=<%= strategy_list[i].id %>" class="block relative">
+						<img src="../static/images/16-9.jpg" data-src="<%= strategy_list[i].img_list[0].img %>"  width="100%" />
+						<div style="position:absolute;left: 0;right: 0;top: 0;bottom: 0;background: url(<%= strategy_list[i].img_list[0].img %>) 50% 50% / 100% no-repeat;"></div>
+					</a>
+					<div class="countdown"><span class="ticon-time"></span>
+						<%= strategy_list[i].time_str%>
+					</div>
+				</div>
+				<div class="padding-small">
+					<div class="line clearfix">
+						<div class="x10 text-oneline">
+							<%= strategy_list[i].title %>
+						</div>
+						<div class="x2 text-right">
+							<span class="text-gray text-oneline"><%= strategy_list[i].join_num %>人参加</span>
+						</div>
+					</div>
+					<div class="clearfix text-gray">
+						<div class="float-left">
+							<%= strategy_list[i].create_time %>
+						</div>
+						<div class="float-right">
+							<%= strategy_list[i].tags %>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<% } %>
+		</script>
+
+		<script type="text/html" id="footer">
+			<!--底部样式-->
+			<footer class="wx-footer padding-small-top padding-small-bottom">
+				<div class="wx-menu line text-center text-white">
+					<% for (var i in item) { %>
+					<a class="<%= item[i].active %>" href="<%= item[i].url %>">
+						<div class="x20">
+							<div class="text-big"><span class="<%= item[i].icon %> "></span>
+							</div>
+							<div class="">
+								<%= item[i].txt %>
+							</div>
+						</div>
+					</a>
+					<% } %>
+				</div>
+			</footer>
+		</script>
+
+		<input type="hidden" name="type" value="1">
+		<input type="hidden" name="type_id" value="1">
+		<input type="hidden" name="pagesize" value="12">
+		<input type="hidden" name="curpage" value="1">
+		<input type="hidden" name="page_total">
+		<input type="hidden" name="hasmore">
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/swiper-3.3.1.jquery.min.js"></script>
+		<script src="../static/js/jquery.swipebox.js"></script>
+		<script src="../static/js/tmpl/forum/activity.js"></script>
+		<script src="../static/js/tmpl/footer.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+
+		<script src="http://map.qq.com/api/js?v=2.exp&key=2N2BZ-KKZA4-ZG4UB-XAOJU-HX2ZE-HYB4O&libraries=geometry,convertor"></script>
+		
+		<script type="text/javascript">
+			//精确定位地址
+			jQuery(function($) {
+				var qqcGeocoder = null;
+				var clientLatLng = null;
+				$.gpsposition = function() {
+					var translatePoint = function(position) {
+						var currentLat = position.coords.latitude;
+						var currentLon = position.coords.longitude;
+						clientLatLng = new qq.maps.LatLng(currentLat, currentLon);
+
+						qq.maps.convertor.translate(new qq.maps.LatLng(currentLat, currentLon), 1, function(res) {
+							latlng = res[0];
+							console.log(latlng);
+							qqcGeocoder.getAddress(latlng);
+						});
+					}
+
+					qqcGeocoder = new qq.maps.Geocoder({
+						complete: function(result) {
+							console.log(result);
+							var lat=result.detail.location.lat;
+							var lng=result.detail.location.lng;
+							var city_name=result.detail.addressComponents.city;
+							
+							addcookie('lat',lat);
+							addcookie('lng',lng);
+							addcookie('city_name',city_name);
+							
+							var nowNearPoi = null;
+							var nearPoi;
+
+							for (var nearPoiKey in result.detail.nearPois) {
+								nearPoi = result.detail.nearPois[nearPoiKey];
+								if (nowNearPoi == null || nowNearPoi.dist > nearPoi.dist) {
+									nowNearPoi = nearPoi;
+								}
+							}
+
+							var address = nowNearPoi.address + nowNearPoi.name;
+							var reg = new RegExp("^" + result.detail.addressComponents.country, "gi");
+							address = address.replace(reg, '');
+							/*reg = new RegExp("^" + result.detail.addressComponents.province, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.city, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.district, "gi");
+							address = address.replace(reg, '');*/
+							console.log(address);addcookie('address',address);
+						}
+					});
+
+					var citylocation = new qq.maps.CityService({
+						complete: function(result) {
+							clientLatLng = result.detail.latLng;
+							qqcGeocoder.getAddress(result.detail.latLng);
+						}
+					});
+
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(translatePoint, function(error) {
+							citylocation.searchLocalCity();
+						}, {
+							enableHighAccuracy: true
+						});
+					} else {
+						citylocation.searchLocalCity();
+					}
+				}
+				$.gpsposition();
+
+			});
+		</script>
+	</body>
+
+</html>

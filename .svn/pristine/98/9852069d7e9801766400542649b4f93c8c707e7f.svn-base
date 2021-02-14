@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>钓场</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/swiper-3.3.1.min.css" />
+	</head>
+
+	<body>
+		<header class="layout margin-bottom boxshow app-top">
+			<div class="height-large clearfix relative">
+				<div class="float-left margin-left">
+					<a href="location.html" id="addinfo">
+						<span id="city_val" city_id='234'>深圳</span>
+						<span class="margin-right text-big ticon-unfold"></span>
+					</a>
+				</div>
+				<div class="float-right relative">
+					<a href="place-add.html">
+						<span class="margin-right text-big ticon-edit"></span>
+					</a>
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-default win-refresh">钓场</div>
+			</div>
+			<div class="layout bg-white border-top clearfix">
+				<ul class="wx-list-top">
+					<li class="current keyorder" key="1" order="desc">综合<span class="margin-little-left">&nbsp;</span>
+					</li>
+					<li class="keyorder" key="2" order="asc">距离<span class="margin-little-left ticon-unfold"></span>
+					</li>
+					<li class=" keyorder" key="3" order="asc">价格<span class="margin-little-left ticon-unfold"></span>
+					</li>
+					<li class="keyorder" key="4" order="asc">人气<span class="margin-little-left ticon-unfold"></span>
+					</li>
+				</ul>
+			</div>
+		</header>
+		<section style="height: 42px;"></section>
+		<section style="height: 42px;"></section>
+		<section class="layout" id="main-container">
+			<!--钓场列表-->
+			<div class="height-large text-center text-gray">已经到底啦...</div>
+		</section>
+		<section class="blank"></section>
+		<script type="text/html" id="place_list">
+			<% for (var i in place_list) { %>
+			<div class="media media-x relative boxshow padding-small">
+				<a href="place-info.html?place_id=<%= place_list[i].id %>">
+					<div class="float-left">
+						<img class="pre" src="<%= place_list[i].img %>" width="80">
+					</div>
+					<div class="media-body relative">
+						<div class="height clearfix">
+							<div class="x8 height text-oneline "><span class="text-default"><%= place_list[i].title %></span></div>
+							<div class="x4 height text-right text-oneline">
+								<span class=""><%= place_list[i].price %></span>
+							</div>
+						</div>
+						<div class="text-gray text-twoline height-big">
+							<%if(place_list[i].type==""){%>
+								<span class="text-gray">[<%= place_list[i].type %>]</span>
+							<%}else{%>
+								<span class="text-gray">渔具店</span>
+							<%}%>
+							<span><%= place_list[i].tags %></span>
+						</div>
+						<div class="line clearfix height">
+							<div class="x7  text-oneline">
+								<span><%= place_list[i].address %></span>
+							</div>
+							<div class="x5 oneline text-gray text-right">
+								<%if(place_list[i].top_num>0){%>
+									<span class="ticon-like"><%= place_list[i].top_num %></span>
+								<%}%>
+								<span class="ticon-location"><%= place_list[i].distance %>km</span>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<% } %>
+		</script>
+		<script type="text/html" id="footer">
+			<!--底部样式-->
+			<footer class="wx-footer padding-small-top padding-small-bottom">
+				<div class="wx-menu line text-center text-white">
+					<% for (var i in item) { %>
+					<a class="<%= item[i].active %>" href="<%= item[i].url %>">
+						<div class="x20">
+							<div class="text-big"><span class="<%= item[i].icon %> "></span>
+							</div>
+							<div class="">
+								<%= item[i].txt %>
+							</div>
+						</div>
+					</a>
+					<% } %>
+				</div>
+			</footer>
+		</script>
+		<section class="meiqia boxshow hide" id="to-top">
+			<!--返回顶部样式-->
+			<a class="text-white win-backtop" href="javascript:;"><span class="text-large ticon-top wx-ticon"></span></a>
+		</section>
+		<!--切换标签的ajax加载效果-->
+		<!--<div class="text-center text-big padding text-gray">
+			<span class="ticon-loading icon-spin"></span> 加载中...
+		</div>-->
+		<input type="hidden" name="type" value="1">
+		<input type="hidden" name="city_id" value="">
+		<input type="hidden" name="pagesize" value="12">
+		<input type="hidden" name="curpage" value="1">
+		<input type="hidden" name="order" value="desc">
+		<input type="hidden" name="page_total">
+		<input type="hidden" name="hasmore">
+		
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="http://map.qq.com/api/js?v=2.exp&key=2N2BZ-KKZA4-ZG4UB-XAOJU-HX2ZE-HYB4O&libraries=geometry,convertor"></script>
+		<script src="../static/js/tmpl/place/index.js"></script>
+		<script src="../static/js/tmpl/footer.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+		<script type="text/javascript">
+			//精确定位地址
+			jQuery(function($) {
+				var qqcGeocoder = null;
+				var clientLatLng = null;
+				$.gpsposition = function() {
+					var translatePoint = function(position) {
+						var currentLat = position.coords.latitude;
+						var currentLon = position.coords.longitude;
+						clientLatLng = new qq.maps.LatLng(currentLat, currentLon);
+
+						qq.maps.convertor.translate(new qq.maps.LatLng(currentLat, currentLon), 1, function(res) {
+							latlng = res[0];
+							console.log(latlng);
+							qqcGeocoder.getAddress(latlng);
+						});
+					}
+
+					qqcGeocoder = new qq.maps.Geocoder({
+						complete: function(result) {
+							console.log(result);
+							var lat=result.detail.location.lat;
+							var lng=result.detail.location.lng;
+							var city_name=result.detail.addressComponents.city;
+							
+							addcookie('lat',lat);
+							addcookie('lng',lng);
+							addcookie('city_name',city_name);
+							
+							var nowNearPoi = null;
+							var nearPoi;
+
+							for (var nearPoiKey in result.detail.nearPois) {
+								nearPoi = result.detail.nearPois[nearPoiKey];
+								if (nowNearPoi == null || nowNearPoi.dist > nearPoi.dist) {
+									nowNearPoi = nearPoi;
+								}
+							}
+
+							var address = nowNearPoi.address + nowNearPoi.name;
+							var reg = new RegExp("^" + result.detail.addressComponents.country, "gi");
+							address = address.replace(reg, '');
+							/*reg = new RegExp("^" + result.detail.addressComponents.province, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.city, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.district, "gi");
+							address = address.replace(reg, '');*/
+							addcookie('address',address);
+						}
+					});
+
+					var citylocation = new qq.maps.CityService({
+						complete: function(result) {
+							clientLatLng = result.detail.latLng;
+							qqcGeocoder.getAddress(result.detail.latLng);
+						}
+					});
+
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(translatePoint, function(error) {
+							citylocation.searchLocalCity();
+						}, {
+							enableHighAccuracy: true
+						});
+					} else {
+						citylocation.searchLocalCity();
+					}
+				}
+				$.gpsposition();
+
+			});
+		</script>
+	</body>
+
+</html>

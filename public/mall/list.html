@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>商品列表</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/swiper-3.3.1.min.css" />
+
+	</head>
+
+	<body>
+
+		<header class="layout margin-bottom boxshow app-top">
+			<div class="height-large clearfix relative">
+				<div class="float-left ">
+					<!--<span class="margin-left text-big ticon-back win-back block">-->
+						<a href="/" class="margin-left text-big ticon-home block"></a>
+					<!--</span>-->
+				</div>
+				<div class="float-right  relative">
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-default win-refresh">商品列表</div>
+
+			</div>
+			<div class="layout bg-white border-top clearfix">
+				<ul class="wx-list-top">
+					<li class="current   keyorder" key="1">综合<span class="margin-little-left">&nbsp;</span>
+					</li>
+					<li class="keyorder" key="2">销量<span class="margin-little-left ticon-unfold"></span>
+					</li>
+					<li class=" keyorder" key="3">价格<span class="margin-little-left ticon-unfold"></span>
+					</li>
+					<li class="keyorder" key="4">人气<span class="margin-little-left ticon-unfold"></span>
+					</li>
+				</ul>
+			</div>
+		</header>
+		<section style="height: 42px;"></section>
+		<section style="height: 42px;"></section>
+
+		<section class="layout" id="main-container"></section>
+
+		<div class="height-large text-center text-gray">已经到底啦...</div>
+
+		<section class="meiqia boxshow hide" id="to-top">
+			<!--返回顶部样式-->
+			<a class="text-white win-backtop" href="javascript:;"><span class="text-large ticon-top wx-ticon"></span></a>
+		</section>
+
+		<script type="text/html" id="goods_list">
+				<%if(goods_list.length>0){%>
+			<!--商品列表-->
+			<div class="line">
+
+				<%for(var i in goods_list){%>
+				<div class="x6 padding radius">
+					<div class="boxshow">
+						<div class="relative">
+							<a href="goods.html?goods_id=<%=goods_list[i].id%>">
+								<img class="pre" src="<%=goods_list[i].img%>"  width="100%" />
+							</a>
+							<%if(goods_list[i].stock<=0){%>
+							<!--无货提醒-->
+							<div class="goods-tip">
+								<div class="text-center">
+									<a href="points-goods.html" class="text-white text-default  padding-small bg-tr"><span class="ticon-emoji wx-ticon"></span> 抢光啦! </a>
+								</div>
+							</div>
+							<%}%>
+
+						</div>
+						<div class="bg padding-small-left padding-small-right ">
+							<div class="text-twoline height goods-tit">
+								<%=goods_list[i].title%>
+							</div>
+							<div class="clearfix height" style="height: 30px;">
+								<div class="float-left">
+									<%if(goods_list[i].rmb_price>0){%>
+									<span class="text-big text-bold text-main">￥<%=parseFloat(goods_list[i].rmb_price)%></span>
+									<%if(goods_list[i].score_price>0){%> +
+									<span class="text-big text-bold text-main"><%=goods_list[i].score_price%></span>鱼古
+									<%}%>
+									<%}else{%>
+									<span class="text-big text-bold text-main"><%=goods_list[i].score_price%></span>鱼古
+									<%}%>
+								</div>
+							</div>
+
+							<!--<div class="height">
+								<span class="text-big"><span class="tag bg-main margin-right"><small>鱼古兑换</small></span></span>
+							</div>-->
+
+						</div>
+					</div>
+
+				</div>
+				<%}%>
+
+			</div>
+
+			<%}else{%>
+				<div class="padding-large text-center text-gray">暂无记录,<a class="text-main" href="/">去首页逛逛？</article> </div>
+			<%}%>
+		</script>
+
+		<!--切换标签的ajax加载效果-->
+		<!--<div class="text-center text-big padding text-gray">
+			<span class="ticon-loading icon-spin"></span> 加载中...
+		</div>-->
+
+		<input type="hidden" name="type" value="">
+		<input type="hidden" name="typeid" value="">
+		<input type="hidden" name="goods_type" value="">
+		<input type="hidden" name="keyword" value="">
+		<input type="hidden" name="order" value="">
+		<input type="hidden" name="pagesize" value="12">
+		<input type="hidden" name="curpage" value="1">
+		<input type="hidden" name="page_total">
+		<input type="hidden" name="hasmore">
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/tmpl/mall/list.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+	</body>
+
+</html>

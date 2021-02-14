@@ -1,0 +1,180 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: asus
+ * Date: 2016/6/5
+ * Time: 20:46
+ */
+
+function ctype($item)
+{
+    $ctype = new ctype();
+    return $ctype->sel_item($item);
+}
+
+function atype($item)
+{
+    $atype = new atype();
+    return $atype->sel_item($item);
+}
+
+class ctype extends Enums
+{
+    const forum = 1;
+
+    const active = 2;
+
+    const __default = self::forum;
+
+    const __item_data = "1:社区;2:活动";
+}
+
+class atype extends Enums
+{
+    const topic = 1;
+
+    const article = 2;
+
+    const active = 3;
+
+    const __default = self::topic;
+
+    const __item_data = "1:话题;2:文章;3:活动";
+}
+
+class Enums
+{
+    /**
+     * Constant with default value for creating enum object
+     */
+    const __default = null;
+    const __item_data = null;
+
+    private $value;
+
+    private $strict;
+
+    private $items = array();
+
+    private static $constants = array();
+
+    /**
+     * Returns list of all defined constants in enum class.
+     * Constants value are enum values.
+     *
+     * @param bool $includeDefault If true, default value is included into return
+     * @return array Array with constant values
+     */
+    public function getConstList($includeDefault = false)
+    {
+
+        $class = get_class($this);
+
+        if (!array_key_exists($class, self::$constants)) {
+            self::populateConstants();
+        }
+
+        return $includeDefault ? array_merge(self::$constants[__CLASS_], array(
+            "__default" => self::__default,
+            "__item_data" => self::__item_data
+        )) : self::$constants[__CLASS_];
+    }
+
+    /**
+     * Creates new enum object. If child class overrides __construct(),
+     * it is required to call parent::__construct() in order for this
+     * class to work as expected.
+     *
+     * @param mixed $initialValue Any value that is exists in defined constants
+     * @param bool $strict If set to true, type and value must be equal
+     * @throws UnexpectedValueException If value is not valid enum value
+     */
+    public function __construct($initialValue = null, $strict = true)
+    {
+
+        $class = get_class($this);
+
+        if (!array_key_exists($class, self::$constants)) {
+            self::populateConstants();
+        }
+
+        if ($initialValue === null) {
+            $initialValue = self::$constants[$class]["__default"];
+        }
+
+        $temp = self::$constants[$class];
+
+        if (!in_array($initialValue, $temp, $strict)) {
+            throw new UnexpectedValueException("Value is not in enum " . $class);
+        }
+        $this->set_data(self::$constants[$class]["__item_data"]);
+
+        $this->value = $initialValue;
+        $this->strict = $strict;
+    }
+
+    private function populateConstants()
+    {
+        $class = get_class($this);
+
+        $r = new ReflectionClass($class);
+        $constants = $r->getConstants();
+
+        self::$constants = array(
+            $class => $constants
+        );
+    }
+
+    /**
+     * Returns string representation of an enum. Defaults to
+     * value casted to string.
+     *
+     * @return string String representation of this enum's value
+     */
+    public function __toString()
+    {
+        return (string)$this->value;
+    }
+
+    /**
+     * Checks if two enums are equal. Only value is checked, not class type also.
+     * If enum was created with $strict = true, then strict comparison applies
+     * here also.
+     *
+     * @return bool True if enums are equal
+     */
+    public function equals($object)
+    {
+        if (!($object instanceof Enum)) {
+            return false;
+        }
+
+        return $this->strict ? ($this->value === $object->value)
+            : ($this->value == $object->value);
+    }
+
+    public function set_data($str_data)
+    {
+        $item = explode(';', $str_data);
+        foreach ($item as $val) {
+            $this->add_item(explode(':', $val));
+        }
+    }
+
+    public function add_item($item)
+    {
+        $this->items[] = array('id' => $item[0], 'value' => $item[1]);
+    }
+
+    public function sel_item($item)
+    {
+        foreach ($this->items as $val) {
+            if ($val['id'] == $item) return $val['value'];
+        }
+    }
+
+    public function get_items()
+    {
+        return $this->items;
+    }
+}

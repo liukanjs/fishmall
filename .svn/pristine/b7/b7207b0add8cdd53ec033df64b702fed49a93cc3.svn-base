@@ -1,0 +1,299 @@
+//发布钓场
+//http://www.fish.com/api/place/index/place_add
+//POST['key'] = '1234'
+//POST['title'] = '1234'
+//POST['province'] = '20'
+//POST['city'] = '234'
+//POST['county'] = '2332'
+//POST['address'] = '2332'
+//POST['img_list'] = '123.jpg,324.jpg,1231.jpg,1231.jpg,1231.jpg,1231.jpg,1231.jpg,1231.jpg,1231.jpg,1231.jpg,1231.jpg,1231.jpg,1231.jpg'
+//POST['type'] = '1'
+//POST['fish_name'] = 'bimuyu,gaoji'
+//POST['price'] = '200'
+//POST['tel'] = '1300000000'
+//POST['note'] = '活动简介'
+//POST['service'] = 'wifi,停车场'
+
+$(function() {
+	var key = getcookie('key');
+	if (key == '') {
+		location.href = '/login.html';
+	}
+	
+	//初始化图片url
+	var imglist_val = "";
+
+	//话题图片等高
+	$('.w_h').each(function() {
+		$(this).height($(this).width());
+	});
+
+	//字数监控
+	$('#note').keyup(function() {
+		var len = $(this).val().length;
+		$('#word_len').text(300 - len);
+	});
+	
+	
+	$.ajax({
+		type: "post",
+		url: ApiUrl + "/place/index/get_place_type",
+		dataType: 'json',
+		timeout: '10000',
+		error: function(a, b, c) {
+			if (c != "error") {
+				$(window).apptip({
+					msg: c
+				});
+			} else {
+				$(window).apptip({
+					msg: "加载失败，请检查网络设置"
+				});
+			}
+		},
+		success: function(result) {
+			var data = result.datas.place_type;
+			if (result.code == 1) {
+				$.each(data, function(i, e) {
+					var html = '<option value="' + e.id + '">' + e.name + '</option>';
+					$('#type').append(html);
+				});
+			} else {
+				$(window).apptip({
+					msg: "请检查网络设置"
+				})
+			}
+
+		}
+	});
+
+
+	//表单验证
+	$.validator.addMethod("ismobile", function(value, element) {
+		var length = value.length;
+		var mobiles = /^(1[3|4|5|7|8])+\d{9}?$/;
+		return this.optional(element) || (length == 11 && mobiles.test(value));
+	}, "请正确填写您的手机号码");
+	$.validator.addMethod("isPhone", function(value, element) {
+		var length = value.length;
+		var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
+		var tel = /^\d{3,4}-?\d{7,9}$/;
+		return this.optional(element) || (tel.test(value) || mobile.test(value));
+	}, "请正确填写您的联系电话");
+	$.validator.addMethod("chinese", function(value, element) {
+		var length = value.length;
+		var chinese = /^[\u0391-\uFFE5]+$/;
+		return this.optional(element) || (length <= 4 && chinese.test(value));
+	}, "请正确填写中文姓名");
+	jQuery.validator.addMethod("checkPic", function(value, element) {
+		var filepath = $(element).val();
+		//获得上传文件名
+		var fileArr = filepath.split(",");
+		var fileTArr = fileArr[fileArr.length - 1].toLowerCase().split(".");
+		var filetype = fileTArr[fileTArr.length - 1];
+		console.log(filetype);
+		//切割出后缀文件名
+		if (filetype === "jpg" || filetype === "gif" || filetype === "jpeg" || filetype === "png") {
+			return true;
+		} else {
+			return false;
+		}
+	}, "上传图片格式不适合");
+
+	var checkForm = $("#place_add").validate({
+		ignore: [],
+		rules: {
+			title: {
+				required: true,
+				minlength: 3
+			},
+			province: {
+				required: true
+			},
+			city: {
+				required: true
+			},
+			county: {
+				required: true
+			},
+			address: {
+				required: true,
+				minlength: 5
+			},
+			img: {
+				required: true,
+				checkPic: true
+			},
+			type: {
+				required: true
+			},
+			fish_name: {
+				required: true,
+				minlength: 2
+			},
+			price: {
+				required: true
+			},
+			tel: {
+				required: true,
+				isPhone: true
+			},
+			note: {
+				required: true,
+				minlength: 5,
+				maxlength: 300
+			},
+			service: {
+				required: true,
+				minlength: 5,
+			}
+		},
+		messages: {
+			title: {
+				required: "请输入钓场名称",
+				minlength: "钓场名称不得少于3个字"
+			},
+			province: {
+				required: "请选择省"
+			},
+			city: {
+				required: "请选择市"
+			},
+			county: {
+				required: "请选择区县"
+			},
+			address: {
+				required: "请输入详细地址",
+				minlength: "地址太短啦"
+			},
+			img: {
+				required: "请上传图片",
+				checkPic: "请使用jpg的图片格式"
+			},
+			type: {
+				required: "请选择钓场类型"
+			},
+			fish_name: {
+				required: "请输入鱼种",
+				minlength: "请输入不少于1个种类的鱼种"
+			},
+			price: {
+				required: "请输入人均价格（元）"
+			},
+			tel: {
+				required: "请输入您的手机号码",
+				isPhone: "手机格式有误"
+			},
+			note: {
+				required: "请填写钓场简介",
+				minlength: "字太少啦。。。",
+				maxlength: "字太多啦。。。"
+			},
+			service: {
+				required: "请填写钓场的配套服务",
+				minlength: "字太少啦，至少5个字",
+			}
+		},
+		submitHandler: function() {
+			plbtn();
+		}
+	});
+
+	//发表钓场
+	function plbtn() {
+		var title = $("input[name=title]").val();
+		var province = $("select[name=province]").val();
+		var city = $("select[name=city]").val();
+		var county = $("select[name=county]").val();
+		var address = $("input[name=address]").val();
+		var img = $("input[name=img]").val();
+		var type = $("select[name=type]").val();
+		var fish_name = $("input[name=fish_name]").val();
+		var price = $("input[name=price]").val();
+		var tel = $("input[name=tel]").val();
+		var note = $("textarea[name=note]").val();
+		var service = $("input[name=service]").val();
+
+		$.ajax({
+			type: "post",
+			url: ApiUrl + "/place/index/place_add",
+			dataType: 'json',
+			data: {
+				key: key,
+				title: title,
+				province: province,
+				city: city,
+				county: county,
+				address: address,
+				img: img,
+				type: type,
+				fish_name: fish_name,
+				price: price,
+				tel: tel,
+				note: note,
+				service:service
+			},
+			timeout: '10000',
+			error: function(a, b, c) {
+				if (c != "error") {
+					$(window).apptip({
+						msg: c
+					});
+				} else {
+					$(window).apptip({
+						msg: "加载失败，请检查网络设置"
+					});
+				}
+			},
+			success: function(result) {
+				var data = result.datas;
+				if (result.code == 1) {
+					$(window).appalert({
+						tit: "操作提示",
+						msg: "操作成功，钓场已发布！",
+						cbk: function() {
+							window.location.href = WapSiteUrl + '/place/index.html';
+						}
+					});
+					return false;
+				} else {
+					$(window).apptip({
+						msg: result.error
+					})
+
+				}
+
+			}
+		});
+
+	};
+
+	//上传图片
+	$('#pic').click(function() {
+		// 上传方法
+		$.upload({
+			// 上传地址
+			url: '/admin/index/upload',
+			// 文件域名字
+			fileName: 'filedata',
+			// 其他表单数据
+			params: {
+				up: 1,
+				key: key
+			},
+			// 上传完成后, 返回json, text
+			dataType: 'json',
+			// 上传之后回调
+			onComplate: function(data) {
+				$('#imgshow').attr('src', data.datas).show();
+				//$('.input-file.input-img').append("<img style='height:100%' src='" + data.datas + "' />");
+				$('.add_pic').remove();
+				$("input[name=img]").val(data.datas);
+			},
+			// 上传之前回调,return true表示可继续上传
+			onSend: function() {
+				return true;
+			}
+		});
+	})
+})

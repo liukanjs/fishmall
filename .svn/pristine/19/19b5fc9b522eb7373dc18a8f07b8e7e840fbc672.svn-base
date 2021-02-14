@@ -1,0 +1,17 @@
+<?php
+namespace common\model;
+
+use think\Model;
+
+class Region extends Model
+{
+    /**
+     * TODO 获取对于地名
+     * @param $id
+     */
+    public function get_name($id)
+    {
+        $region_info = $this->get(['region_id' => $id]);
+        return $region_info['region_name'];
+    }
+}

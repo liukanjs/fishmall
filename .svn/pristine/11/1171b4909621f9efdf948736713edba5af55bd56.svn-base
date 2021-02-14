@@ -1,0 +1,13 @@
+<?php
+namespace common\logic;
+
+use think\Model;
+
+class Region extends Model
+{
+    public function get_city_all()
+    {
+        $region = model('Region');
+        return $region->all();
+    }
+}

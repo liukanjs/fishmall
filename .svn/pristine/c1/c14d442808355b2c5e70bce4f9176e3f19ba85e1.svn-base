@@ -1,0 +1,39 @@
+$(function() {
+	var footer_json = {
+		item: [{
+				"icon": "ticon-home",
+				"url": "/index.html",
+				"txt": "首页",
+				"active": ""
+			}, {
+				"icon": "ficon-shequ1",
+				"url": "/forum/index.html",
+				"txt": "社区",
+				"active": ""
+			}, {
+				"icon": "ficon-diaodian",
+				"url": "/place/index.html",
+				"txt": "钓场",
+				"active": ""
+			},
+			{"icon":"ficon-fishing","url":"/mall/index.html","txt":"商城","active":""},
+			{
+				"icon": "ticon-my text-big",
+				"url": "/user/index.html",
+				"txt": "我",
+				"active": ""
+			},
+		]
+	};
+	$(footer_json.item).each(function(k, v) {
+		var wxurl = location.href;
+		if (wxurl == WapSiteUrl + '' + v.url) {
+			v.active = "active";
+		};
+	});
+	var html = template.render("footer", footer_json);
+	$("body").append(html);
+	
+
+
+});

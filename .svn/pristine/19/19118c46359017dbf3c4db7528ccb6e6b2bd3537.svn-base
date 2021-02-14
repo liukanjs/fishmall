@@ -1,0 +1,192 @@
+//我的订单
+//http://www.fish.com/api.php/member/index/order_list
+//POST['key'] = '1234'
+//订单状态[0=已取消，10=待支付，20=已支付待发货，30=已发货，40=已完成]
+
+$(function() {
+	var key = getcookie('key');
+	if (key == '') {
+		location.href = '/login.html';
+	}
+	var isok = false;
+	init();
+
+	function init() {
+		$.ajax({
+			url: ApiUrl + "/member/index/order_list",
+			type: 'POST',
+			data: {
+				key: key
+			},
+			timeout: '16000',
+			error: function(a, b, c) {
+				NProgress.done();
+				if (c != "error") {
+					$(window).apptip({
+						msg: c
+					});
+				} else {
+					$(window).apptip({
+						msg: "加载失败，请检查网络设置"
+					});
+				}
+			},
+			success: function(result) {
+				NProgress.done();
+				var data = result.datas;
+				var html = '';
+				if (data == null) {
+					location.href = '/404.html';
+					return;
+				}
+				isok = true;
+				html = template.render('order_list', data);
+				$("#main-container").html(html);
+
+				//图片预加载
+				$('img.pre').each(function(i, e) {
+					var _src = $(this).attr("data-img");
+					$(this).attr("src", _src);
+				});
+
+				order_del();
+				order_pay();
+
+			}
+		});
+	}
+
+	function order_del() {
+		$('.order_del').click(function() {
+			var order_id = $(this).attr('order_id');
+			$.ajax({
+				url: ApiUrl + "/member/index/order_can",
+				type: 'POST',
+				data: {
+					key: key,
+					id: order_id
+				},
+				timeout: '16000',
+				error: function(a, b, c) {
+					NProgress.done();
+					if (c != "error") {
+						$(window).apptip({
+							msg: c
+						});
+					} else {
+						$(window).apptip({
+							msg: "加载失败，请检查网络设置"
+						});
+					}
+				},
+				success: function(result) {
+					var data = result.datas;
+					if (result.code == 1) {
+						$(window).apptip({
+							msg: '订单已取消!'
+						})
+						init();
+					} else {
+						$(window).apptip({
+							msg: result.error
+						})
+					}
+				}
+			});
+		});
+	}
+
+	function order_pay() {
+		$('.order_pay').click(function() {
+			var order_id = $(this).attr('order_id');
+			$.ajax({
+				url: ApiUrl + "/member/index/order_pay",
+				type: 'POST',
+				data: {
+					key: key,
+					id: order_id
+				},
+				timeout: '16000',
+				error: function(a, b, c) {
+					NProgress.done();
+					if (c != "error") {
+						$(window).apptip({
+							msg: c
+						});
+					} else {
+						$(window).apptip({
+							msg: "加载失败，请检查网络设置"
+						});
+					}
+				},
+				success: function(result) {
+					var data = result.datas;
+					if (result.code == 1) {
+						getScript("http://res.wx.qq.com/open/js/jweixin-1.0.0.js", function() {
+							getScript(ApiUrl + '/index/WechatApi/jsapi?url=jsapi&url=' + encodeURIComponent(location.href), function() {
+								wx.ready(function() {
+									var pay_json = data.paydata;
+									wx.chooseWXPay({
+										timestamp: pay_json.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+										nonceStr: pay_json.nonceStr, // 支付签名随机串，不长于 32 位
+										package: pay_json.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+										signType: pay_json.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+										paySign: pay_json.paySign, // 支付签名
+										success: function(res) {
+											$(window).appalert({
+												msg: '支付成功！',
+												cbk: function() {
+													init();
+												}
+											});
+										},
+										cancel: function(res) {
+											$(window).apptip({
+												msg: "取消支付"
+											});
+											location.href = '/user/myorder.html';
+										},
+										fail: function(res) {
+											$(window).appalert({
+												msg: "支付失败,请重试"+res.errMsg,
+												cbk: function() {
+													location.href = '/mall/index.html';
+												}
+											})
+										}
+									});
+								});
+								wx.error(function(res) {
+									$(window).appalert({
+										msg: res.errMsg
+									});
+								});
+							});
+						});
+					} else {
+						$(window).apptip({
+							msg: result.error
+						})
+					}
+				}
+			});
+		});
+	}
+
+	//自动显示回到顶部按钮
+	var scrolll_hght;
+	var totophtml = '';
+	$(window).scroll(function() {
+		var dh = $(document).height(); //整个页面文档的高度
+		var to_top = $(this).scrollTop(); //滚动条的高度
+		var wh = $(this).height(); //窗口的高度；
+		scrolll_hght = dh - to_top - wh; //滚动到底部的位置；
+		//返回到顶部按钮
+		if (to_top > wh) {
+			$("#to-top").show();
+		} else {
+			$("#to-top").hide();
+		};
+	});
+
+});

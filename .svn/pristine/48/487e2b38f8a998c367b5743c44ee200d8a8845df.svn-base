@@ -1,0 +1,182 @@
+//文章详情页
+//http://www.fish.com/api.php/forum/index/article_info?article_id=100
+
+$(function () {
+    var key = getcookie('key');
+    var article_id = GetQueryString("article_id");
+    //渲染页面
+    $.ajax({
+        url: ApiUrl + "/forum/index/article_info",
+        type: 'post',
+        dataType: 'json',
+        data: {
+            article_id: article_id,
+            key: key
+        },
+        timeout: '10000',
+        error: function (a, b, c) {
+            if (c != "error") {
+                $(window).apptip({
+                    msg: c
+                });
+            } else {
+                $(window).apptip({
+                    msg: "加载失败，请检查网络设置"
+                });
+            }
+        },
+        success: function (result) {
+            var data = result.datas;
+            var html = '';
+            if (data == null) {
+                location.href = '/404.html';
+                return;
+            }
+            $('title,#arttitle').text(data.article.title);
+            
+            isok = true;
+            $.each(data, function (k, v) {
+                html += template.render(k, v);
+            });
+            var title = data.article.title;
+            $("#title,title").text(title);
+            $("#main-container").html(html);
+            //收藏事件
+            zambia();
+
+            //评论事件
+            $('#comment').click(function () {
+                if (key == '') {
+                    $(window).appconfirm({
+                        msg: '您尚未登录，请登录后进行评论！',
+                        yes: function () {
+                            location.href = location.href = '/login.html';
+                        }
+                    });
+                } else {
+                    var messages = $('#message').val();
+                    if (messages != '') {
+                        $.ajax({
+                            type: "post",
+                            url: ApiUrl + "/index/index/get_discuss_list",
+                            dataType: 'json',
+                            data: {
+                                id: article_id,
+                                key: key,
+                                messages: messages
+                            },
+                            timeout: '10000',
+                            error: function (a, b, c) {
+                                if (c != "error") {
+                                    $(window).apptip({
+                                        msg: c
+                                    });
+                                } else {
+                                    $(window).apptip({
+                                        msg: "加载失败，请检查网络设置"
+                                    });
+                                }
+                            },
+                            success: function (result) {
+                                var data = result.datas;
+                                var comment_html = "";
+                                if (result.code == 1) {
+                                    comment_html = template.render('discuss_list', data.discuss_list);
+                                    $('#comment_list').remove();
+                                    $('#comment_add').before(comment_html);
+                                    $(window).appalert({
+                                        tit: "操作提示",
+                                        msg: "评论成功！"
+                                    });
+									$('#message').val('');
+                                    var offset_top = $('#comment_list').offset().top;
+                                    $('body,html').animate({
+                                        scrollTop: offset_top - $('header').height()
+                                    }, 300);
+                                    return false;
+                                } else {
+                                    $(window).apptip({
+                                        msg: "请检查网络设置"
+                                    })
+
+                                }
+
+                            }
+                        });
+                    } else {
+                        $(window).apptip({
+                            msg: "请输入评论内容"
+                        })
+                    }
+
+                }
+            })
+
+
+            $('.emotion').qqFace({
+                id: 'facebox',
+                assign: 'message',
+                path: '/static/arclist/' //表情存放的路径
+            });
+        }
+
+    });
+
+
+	//点赞
+	function zambia() {
+		$('.appreciate').click(function() {
+			if (key == '') {
+				$(window).appconfirm({
+					msg: '您尚未登录，请登录后进行评论！',
+					yes: function() {
+						location.href = location.href = '/login.html';
+					}
+				});
+			} else {
+				$.ajax({
+					type: "post",
+					url: ApiUrl + "/index/index/set_praise",
+					dataType: 'json',
+					data: {
+						id: article_id,
+						key: key
+					},
+					timeout: '10000',
+					error: function(a, b, c) {
+						if (c != "error") {
+							$(window).apptip({
+								msg: c
+							});
+						} else {
+							$(window).apptip({
+								msg: "加载失败，请检查网络设置"
+							});
+						}
+					},
+					success: function(result) {
+						var data = result.datas;
+						if (data == 1) {
+							$('.appreciate').removeClass('ticon-appreciate').addClass('ticon-appreciatefill');
+
+							$(window).apptip({
+								msg: "已点赞！"
+							});
+						} else if (data == 2) {
+							$('.appreciate').removeClass('ticon-appreciatefill').addClass('ticon-appreciate');
+							$(window).apptip({
+								msg: "已取消"
+							})
+						} else {
+							$(window).apptip({
+								msg: "请检查网络..."
+							})
+						}
+					}
+				});
+			}
+		})
+	};
+
+
+});

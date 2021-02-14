@@ -1,0 +1,414 @@
+[ 2016-11-16T10:03:27+08:00 ] 127.0.0.1 127.0.0.1 GET /api/index
+[ log ] www.liuhao.com/api/index [运行时间：0.908052s][吞吐率：1.10req/s] [内存消耗：1,730.84kb] [文件加载：59]
+[ error ] [8]未定义索引 : len
+
+[ 2016-11-16T10:03:30+08:00 ] 127.0.0.1 127.0.0.1 POST /api/mall/index/index
+[ log ] www.liuhao.com/api/mall/index/index [运行时间：0.361020s][吞吐率：2.77req/s] [内存消耗：2,004.41kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_mall_goods` WHERE  `score_price` <> 0  )
+[ sql ] ( SELECT * FROM `fi_mall_goods` WHERE  `score_price` = 0  )
+
+[ 2016-11-16T10:03:36+08:00 ] 127.0.0.1 127.0.0.1 POST /api/mall/index/goods_info
+[ log ] www.liuhao.com/api/mall/index/goods_info [运行时间：0.140008s][吞吐率：7.14req/s] [内存消耗：1,704.18kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_mall_goods` WHERE  `score_price` = 0  )
+
+[ 2016-11-16T10:04:06+08:00 ] 127.0.0.1 127.0.0.1 POST /api/mall/index/goods_info
+[ log ] www.liuhao.com/api/mall/index/goods_info [运行时间：0.116007s][吞吐率：8.62req/s] [内存消耗：1,704.18kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_mall_goods` WHERE  `score_price` = 0  )
+
+[ 2016-11-16T10:07:16+08:00 ] 127.0.0.1 127.0.0.1 POST /api/mall/index/goods_info
+[ log ] www.liuhao.com/api/mall/index/goods_info [运行时间：0.111007s][吞吐率：9.01req/s] [内存消耗：1,704.18kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_mall_goods` WHERE  `score_price` = 0  )
+
+[ 2016-11-16T16:58:03+08:00 ] 127.0.0.1 127.0.0.1 GET /api/index
+[ log ] www.liuhao.com/api/index [运行时间：3.607207s][吞吐率：0.28req/s] [内存消耗：1,730.70kb] [文件加载：59]
+[ error ] [8]未定义索引 : len
+
+[ 2016-11-16T16:58:06+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.222013s][吞吐率：4.50req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T16:58:07+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.059003s][吞吐率：16.95req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T16:58:22+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.173010s][吞吐率：5.78req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T16:58:27+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.085005s][吞吐率：11.76req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:01:48+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index
+[ log ] www.liuhao.com/api/forum/index [运行时间：0.338019s][吞吐率：2.96req/s] [内存消耗：1,712.74kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = 2  AND `atype` = 3  )
+
+[ 2016-11-16T17:03:28+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index
+[ log ] www.liuhao.com/api/forum/index [运行时间：0.201012s][吞吐率：4.97req/s] [内存消耗：1,712.74kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = 2  AND `atype` = 3  )
+
+[ 2016-11-16T17:03:34+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.173010s][吞吐率：5.78req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:03:40+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.164009s][吞吐率：6.10req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:03:45+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.066004s][吞吐率：15.15req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:03:55+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.174010s][吞吐率：5.75req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:06:16+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.148008s][吞吐率：6.76req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:06:19+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.205012s][吞吐率：4.88req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:10:14+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.166010s][吞吐率：6.02req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:10:16+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.064004s][吞吐率：15.62req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:10:25+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.160010s][吞吐率：6.25req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:10:53+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.166009s][吞吐率：6.02req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:10:54+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.056003s][吞吐率：17.86req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:11:04+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.228013s][吞吐率：4.39req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:11:19+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.164009s][吞吐率：6.10req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:11:30+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.163009s][吞吐率：6.13req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:12:08+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.188010s][吞吐率：5.32req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:15:42+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.162009s][吞吐率：6.17req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:15:44+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.171010s][吞吐率：5.85req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:18:19+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.071004s][吞吐率：14.08req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:18:34+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.170010s][吞吐率：5.88req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:18:44+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=4&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=4&curpage=1&page_size=12 [运行时间：0.115007s][吞吐率：8.70req/s] [内存消耗：1,694.09kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '4'  )
+
+[ 2016-11-16T17:20:07+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.183010s][吞吐率：5.46req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:20:08+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.050003s][吞吐率：20.00req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:20:14+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.166009s][吞吐率：6.02req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:20:29+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.162009s][吞吐率：6.17req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:21:54+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.180010s][吞吐率：5.56req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:22:35+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.166009s][吞吐率：6.02req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:22:36+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.080005s][吞吐率：12.50req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:22:58+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.148008s][吞吐率：6.76req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:23:07+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.154009s][吞吐率：6.49req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:23:14+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.167009s][吞吐率：5.99req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:23:45+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.179010s][吞吐率：5.59req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:23:46+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.063004s][吞吐率：15.87req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:26:48+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.170010s][吞吐率：5.88req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:27:15+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.169010s][吞吐率：5.92req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:27:25+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.188011s][吞吐率：5.32req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:27:37+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.176010s][吞吐率：5.68req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:28:05+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.154008s][吞吐率：6.49req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:28:49+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.157009s][吞吐率：6.37req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:29:20+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.167010s][吞吐率：5.99req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:31:12+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.175010s][吞吐率：5.71req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:34:34+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.175010s][吞吐率：5.71req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:34:45+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.164010s][吞吐率：6.10req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:34:47+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.069004s][吞吐率：14.49req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:34:57+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.169010s][吞吐率：5.92req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:35:45+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.154009s][吞吐率：6.49req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:35:56+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.164010s][吞吐率：6.10req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:36:08+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.174010s][吞吐率：5.75req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:36:23+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.172010s][吞吐率：5.81req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:37:45+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.167009s][吞吐率：5.99req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:38:15+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.175010s][吞吐率：5.71req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:38:21+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.174010s][吞吐率：5.75req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:39:05+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12 [运行时间：0.084005s][吞吐率：11.90req/s] [内存消耗：1,676.68kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+
+[ 2016-11-16T17:39:09+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=2&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=2&curpage=1&page_size=12 [运行时间：0.193011s][吞吐率：5.18req/s] [内存消耗：1,776.74kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = 1  AND `atype` = 2  )
+
+[ 2016-11-16T17:39:12+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=4&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=4&curpage=1&page_size=12 [运行时间：0.146008s][吞吐率：6.85req/s] [内存消耗：1,694.09kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '4'  )
+
+[ 2016-11-16T17:39:13+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=1&typeid=3&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=1&typeid=3&curpage=1&page_size=12 [运行时间：0.178010s][吞吐率：5.62req/s] [内存消耗：1,730.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '1'  AND `typeid` = '3'  )
+
+[ 2016-11-16T17:39:16+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=3&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=3&curpage=2&page_size=12&key= [运行时间：0.122007s][吞吐率：8.20req/s] [内存消耗：1,716.53kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '3'  )
+
+[ 2016-11-16T17:40:40+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.204011s][吞吐率：4.90req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:40:54+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.172010s][吞吐率：5.81req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:41:13+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=4&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=4&curpage=1&page_size=12 [运行时间：0.130008s][吞吐率：7.69req/s] [内存消耗：1,694.09kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '4'  )
+
+[ 2016-11-16T17:41:14+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=1&typeid=3&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=1&typeid=3&curpage=1&page_size=12 [运行时间：0.152009s][吞吐率：6.58req/s] [内存消耗：1,730.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '1'  AND `typeid` = '3'  )
+
+[ 2016-11-16T17:42:02+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.197012s][吞吐率：5.08req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:42:03+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.065004s][吞吐率：15.38req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:42:26+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.163009s][吞吐率：6.13req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:43:13+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.154009s][吞吐率：6.49req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:43:14+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.067004s][吞吐率：14.92req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:43:37+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.164009s][吞吐率：6.10req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:43:39+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&ctype=1&typeid=5&curpage=2&page_size=12&key= [运行时间：0.072004s][吞吐率：13.89req/s] [内存消耗：1,676.66kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = 1  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:44:16+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.162009s][吞吐率：6.17req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:44:18+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=2&page_size=12&key= [运行时间：0.144009s][吞吐率：6.94req/s] [内存消耗：1,728.80kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:44:20+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=3&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=3&page_size=12&key= [运行时间：0.155009s][吞吐率：6.45req/s] [内存消耗：1,732.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:44:41+08:00 ] 127.0.0.1 127.0.0.1 GET /api/index
+[ log ] www.liuhao.com/api/index [运行时间：0.207012s][吞吐率：4.83req/s] [内存消耗：1,730.70kb] [文件加载：59]
+[ error ] [8]未定义索引 : len
+
+[ 2016-11-16T17:44:57+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.157009s][吞吐率：6.37req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:44:58+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=2&page_size=12&key= [运行时间：0.132007s][吞吐率：7.58req/s] [内存消耗：1,728.80kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:44:59+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=3&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=3&page_size=12&key= [运行时间：0.119007s][吞吐率：8.40req/s] [内存消耗：1,732.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:45:00+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=4&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=4&page_size=12&key= [运行时间：0.151009s][吞吐率：6.62req/s] [内存消耗：1,732.92kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:45:01+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=5&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=5&page_size=12&key= [运行时间：0.133007s][吞吐率：7.52req/s] [内存消耗：1,749.23kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T17:45:24+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=1&page_size=12 [运行时间：0.205011s][吞吐率：4.88req/s] [内存消耗：1,776.77kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T18:03:53+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=2&page_size=12&key=
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=5&curpage=2&page_size=12&key= [运行时间：0.211012s][吞吐率：4.74req/s] [内存消耗：1,728.80kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '5'  )
+
+[ 2016-11-16T21:55:09+08:00 ] 127.0.0.1 127.0.0.1 GET /api/index
+[ log ] www.liuhao.com/api/index [运行时间：4.273245s][吞吐率：0.23req/s] [内存消耗：1,730.70kb] [文件加载：59]
+[ error ] [8]未定义索引 : len
+
+[ 2016-11-16T21:55:11+08:00 ] 127.0.0.1 127.0.0.1 POST /api/mall/index/index
+[ log ] www.liuhao.com/api/mall/index/index [运行时间：0.894051s][吞吐率：1.12req/s] [内存消耗：2,004.26kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_mall_goods` WHERE  `score_price` <> 0  )
+[ sql ] ( SELECT * FROM `fi_mall_goods` WHERE  `score_price` = 0  )
+
+[ 2016-11-16T21:56:02+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12 [运行时间：0.124008s][吞吐率：8.06req/s] [内存消耗：1,678.03kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+
+[ 2016-11-16T21:57:03+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index
+[ log ] www.liuhao.com/api/forum/index [运行时间：0.279016s][吞吐率：3.58req/s] [内存消耗：1,712.74kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = 2  AND `atype` = 3  )
+
+[ 2016-11-16T21:57:06+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12 [运行时间：0.089005s][吞吐率：11.24req/s] [内存消耗：1,678.03kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+
+[ 2016-11-16T21:57:30+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12 [运行时间：0.128007s][吞吐率：7.81req/s] [内存消耗：1,678.03kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+
+[ 2016-11-16T22:48:42+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12 [运行时间：0.120007s][吞吐率：8.33req/s] [内存消耗：1,678.03kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+
+[ 2016-11-16T22:48:43+08:00 ] 127.0.0.1 127.0.0.1 GET /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=2&page_size=12&key=b7eef8de4b71419ab51b1f6781a39a2c
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=2&page_size=12&key=b7eef8de4b71419ab51b1f6781a39a2c [运行时间：0.110007s][吞吐率：9.09req/s] [内存消耗：1,678.08kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+
+[ 2016-11-16T22:48:47+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12 [运行时间：0.102006s][吞吐率：9.80req/s] [内存消耗：1,678.03kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+
+[ 2016-11-16T22:59:28+08:00 ] 127.0.0.1 127.0.0.1 GET /api/index
+[ log ] www.liuhao.com/api/index [运行时间：0.126007s][吞吐率：7.94req/s] [内存消耗：1,730.70kb] [文件加载：59]
+[ error ] [8]未定义索引 : len
+
+[ 2016-11-16T23:00:39+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12 [运行时间：0.072005s][吞吐率：13.89req/s] [内存消耗：1,678.03kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+
+[ 2016-11-16T23:00:40+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12 [运行时间：0.076004s][吞吐率：13.16req/s] [内存消耗：1,678.03kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+
+[ 2016-11-16T23:00:42+08:00 ] 127.0.0.1 127.0.0.1 POST /api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12
+[ log ] www.liuhao.com/api/forum/index/index?ctype=1&atype=2&typeid=10&curpage=1&page_size=12 [运行时间：0.102006s][吞吐率：9.80req/s] [内存消耗：1,678.03kb] [文件加载：50]
+[ sql ] ( SELECT * FROM `fi_forum_article_list` WHERE  `ctype` = '1'  AND `atype` = '2'  AND `typeid` = '10'  )
+

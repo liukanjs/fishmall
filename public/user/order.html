@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>订单详情</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/swiper-3.3.1.min.css" />
+
+	</head>
+
+	<body>
+		<header class="layout boxshow">
+			<div class="height-large bg-white clearfix">
+				<div class="float-left"><span class="margin-left text-big ticon-back win-back block"></span>
+				</div>
+				<div class="float-right margin-right">
+					<!--<a href="javascript:;" class="button button-little ">取消订单</a>-->
+					<!--<a href="logistics.html" class="button button-little ">查看物流</a>-->
+					<!--<a href="support.html" class="button button-little ">申请售后</a>-->
+					<a  href="tel:075526608649"  class="button button-little ">联系客服</a>
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-big">订单详情</div>
+			</div>
+		</header>
+
+		<div id="main-container"></div>
+
+		<script type="text/html" id="order_info">
+			<section class="margin-top">
+				<div class="padding  boxshow">
+					<div class="height-small">
+						<span>订单编号:</span>
+						<span class="text-gray margin-small-left"><%=order_info.order_sn%></span>
+					</div>
+
+					<div class="height-small">
+						<span>订单状态:</span>
+						<span class="text-gray margin-small-left">
+							<%if(order_info.order_state==0){%>
+								已取消
+							<%}else if(order_info.order_state==10){%>
+								待付款
+							<%}else if(order_info.order_state==20){%>
+								待收货
+							<%}else if(order_info.order_state==30){%>
+								已发货
+							<%}else if(order_info.order_state==40){%>
+								已完成
+							<%}%>
+						</span>
+					</div>
+
+					<div class="height-small">
+						<span>订单金额:</span>
+
+						<%if(order_info.total_rmb_price>0){%>
+						<span class="text-main margin-small-left">￥<%=parseFloat(order_info.total_rmb_price)%></span>
+						<%if(order_info.total_score_price>0){%> +
+						<%=order_info.total_score_price%>鱼古
+						<%}%>
+						<%}else{%>
+						<%=order_info.total_score_price%>鱼古
+						<%}%>
+
+					</div>
+				</div>
+				<%for(var i in order_info.order_goods_list){%>
+				<div class="padding bg-white border-bottom">
+					<a href="/mall/goods.html?goods_id=<%=order_info.order_goods_list[i].id%>">
+					<div class="media media-x relative">
+						<span class="float-left">
+								<img src="<%=order_info.order_goods_list[i].img%>" width="60" class="radius">
+							</span>
+						<div class="media-body">
+							<div class="text-oneline height">
+								<%=order_info.order_goods_list[i].title%>
+							</div>
+							<div class="height-little text-gray">
+								<span class="margin-small-left">数量：<%=order_info.order_goods_list[i].goods_num%></span>
+							</div>
+							<div class="height">
+						<%if(order_info.order_goods_list[i].rmb_price>0){%>
+						<span class="text-bold text-main">￥<%=parseFloat(order_info.order_goods_list[i].rmb_price)%></span>
+						<%if(order_info.order_goods_list[i].score_price>0){%> +
+						<%=order_info.order_goods_list[i].score_price%>鱼古
+						<%}%>
+						<%}else{%>
+						<%=order_info.order_goods_list[i].score_price%>鱼古
+						<%}%>
+
+							</div>
+
+						</div>
+					</div></a>
+				</div>
+				<%}%>
+
+				<div class="margin-top  boxshow">
+					<div class="padding  border-bottom text-default">收货人 ></div>
+
+					<div class="padding">
+						<div class="height clearfix">
+							<div class="media madia-x">
+								<span class="float-left margin-right">收&nbsp;货&nbsp;人&nbsp;：</span>
+								<div class="media-body text-gray wx-md">
+									<%=order_info.address_info.username%>
+								</div>
+							</div>
+						</div>
+
+						<div class="height">
+							<div class="media madia-x">
+								<span class="float-left margin-right">手机号码：</span>
+								<div class="media-body text-gray wx-md">
+									<%=order_info.address_info.telphone%>
+								</div>
+							</div>
+						</div>
+
+						<div class="height clearfix">
+							<div class="media madia-x">
+								<span class="float-left margin-right">收货地址：</span>
+								<div class="media-body text-gray wx-md">
+									<%=order_info.address_info.address%>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="margin-top  boxshow">
+					<div class="padding  border-bottom text-default">费用详情</div>
+
+					<div class="padding">
+						<div class="height clearfix">
+							<span class="float-left margin-right">商品总金额</span>
+							<div class="float-right text-gray">
+									<%if(order_info.total_rmb_price>0){%> 
+									￥<%=parseFloat(order_info.total_rmb_price)%>
+									<%if(order_info.total_score_price>0){%> +
+									<%=order_info.total_score_price%>鱼古
+									<%}%>
+									<%}else{%>
+									<%=order_info.total_score_price%>鱼古
+									<%}%>
+									
+							</div>
+						</div>
+						<div class="height clearfix">
+							<span class="float-left margin-right">运费</span>
+							<div class="float-right text-gray">￥
+								<%=order_info.order_postage%>
+							</div>
+						</div>
+						<%if(order_info.total_score_price>0){%>
+						<div class="height clearfix">
+							<span class="float-left margin-right">鱼古抵扣</span>
+							<div class="float-right text-gray">
+								-<%=order_info.total_score_price%>分
+							</div>
+						</div>
+						<%}%>
+						<div class="height clearfix">
+							<span class="float-left margin-right">应付金额</span>
+							<div class="float-right text-main text-default text-bold">￥
+									<%=order_info.total_pay_price%> 
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</section>
+
+			<section class="margin-top">
+
+				<%if(order_info.order_state==0){%> 已取消
+
+				<%}else if(order_info.order_state==10){%>
+				<!--未付款状态-->
+				<div class="line padding boxshow">
+					<div class="x7 height-big text-default">订单总金额：<span class="text-main text-bold">￥<%=order_info.total_pay_price%> </span>
+					</div>
+					<div class="x5 text-right">
+						<a href="javascript:;" class="order_pay button button-small bg-main">立即支付</a>
+					</div>
+				</div>
+				<%}else if(order_info.order_state==20){%>
+				<!--已付款状态，对应-查看物流-->
+				<div class="line padding boxshow hide">
+					<a href="tel:075526608649" class="button button-block bg-main text-center"><span class="ticon-phone"></span>&nbsp;联系客服</a>
+				</div>
+				<%}else if(order_info.order_state==30){%>
+				<!--已发货状态，对应-申请售后-->
+				<div class="line padding boxshow hide">
+					<a href="javascript:;" class="button button-block text-center bg-main">确认收货</a>
+				</div>
+				<%}else if(order_info.order_state==40){%>
+				<!--已确认收货状态，对应-申请售后-->
+				<!--<div class="line padding boxshow hide">
+					<a href="comment.html" class="button button-block text-center bg-main"><span class="ticon-comment"></span>&nbsp;去评价</a>
+				</div>-->
+				<%}%>
+
+			</section>
+		</script>
+
+		<section class="blank"></section>
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/swiper-3.3.1.jquery.min.js"></script>
+		<script src="../static/js/tmpl/user/order.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+	</body>
+
+</html>

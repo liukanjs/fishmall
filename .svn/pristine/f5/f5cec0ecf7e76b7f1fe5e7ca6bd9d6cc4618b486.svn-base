@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>狂野钓鱼总后台</title>
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="../../../../../public/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../../../../../public/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+
+    <link href="../../../../../public/static/css/animate.min.css" rel="stylesheet">
+    <link href="../../../../../public/static/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="../../../../../public/static/js/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>商品列表
+                        <small>由后台添加的钓场信息列表</small>
+                    </h5>
+                    <div class="ibox-tools">
+                        <a href="/admin/index/mall/goods_add" class="btn btn-primary btn-xs"> 添加商品 </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <button type="button" onclick="window.location.reload();" id="loading-example-btn" class="btn btn-white btn-sm"><i
+                                    class="fa fa-refresh"></i> 刷新
+                            </button>
+                        </div>
+                        
+                        <form action="" method="post">
+                            <div class="col-sm-2 m-b-xs">
+                                <select class="input-sm form-control input-s-sm inline" name="typeid">
+                                    <option value="">商品分类</option>
+                                    <option value="1">钓具</option>
+                                    <option value="2">诱饵</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" name="keyword" placeholder="请输入关键词" class="input-sm form-control"> <span
+                                        class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="project-list">
+                        <div class="row list-search">
+                            <div class="col-md-3 text-center">
+                                <div class="col-md-4 active list-title">全部</div>
+                            </div>
+                            <div class="col-md-2 col-md-offset-7 keyword">
+
+                            </div>
+                        </div>
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th colspan="3" class="text-center">商品</th>
+                                <th>价格</th>
+                                <th>库存</th>
+                                <th>分类</th>
+                                <th>总销量</th>
+                                <th>操作</th>
+                            </tr>
+                            {foreach name="result.data" item="vo" key="k" }
+                            <tr>
+                                <td><input name="id" type="checkbox" value="{$vo.id}"/></td>
+                                <td class="col-md-1"><img class="img-responsive" src="{$vo.img}"/></td>
+                                <td>{$vo.title}</td>
+                                <td>￥{$vo.rmb_price} + {$vo.score_price}鱼古</td>
+                                <td>{$vo.stock}</td>
+                                <td>{$vo.typeid}</td>
+                                <td>{$vo.sale_num}</td>
+                                <td><a href="/admin/index/mall/goods_add/id/{$vo.id}" class="btn btn-white btn-sm"><i
+                                        class="fa fa-edit"></i> 编辑 </a><br/>
+                                    <a href="javascript:;" onclick="$delete('goods_down','id={$vo.id}');" class="btn btn-white btn-sm"><i
+                                            class="fa fa-close"></i> 下架 </a><br/>
+                                    <a href="javascript:;" onclick="$delete('goods_del','id={$vo.id}');" class="btn btn-white btn-sm"><i
+                                            class="fa fa-close"></i> 删除 </a></td>
+                            </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                        {$result.show}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../../../public/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="../../../../../public/static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../../../../../public/static/js/content.min.js?v=1.0.0"></script>
+<script src="../../../../../public/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#loading-example-btn").click(function () {
+            btn = $(this);
+            simpleLoad(btn, true);
+            simpleLoad(btn, false)
+        })
+    });
+    function simpleLoad(btn, state) {
+        if (state) {
+            btn.children().addClass("fa-spin");
+            btn.contents().last().replaceWith(" Loading")
+        } else {
+            setTimeout(function () {
+                btn.children().removeClass("fa-spin");
+                btn.contents().last().replaceWith(" Refresh")
+            }, 2000)
+        }
+    }
+    ;
+</script>
+</body>
+</html>

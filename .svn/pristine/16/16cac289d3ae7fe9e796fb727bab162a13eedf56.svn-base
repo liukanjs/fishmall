@@ -1,0 +1,39 @@
+<?php
+namespace common\model;
+
+use think\Model;
+
+class Interest extends Model
+{
+    protected $type = [
+        'create_time' => 'timestamp:Y/m/d H:i:s',
+        'update_time' => 'timestamp:Y/m/d H:i:s'
+    ];
+
+    /**
+     * TODO 获取有兴趣的会员
+     * @param $topic_id
+     * @param int $type
+     * @return false|static[]
+     */
+    public function Interest_List($topic_id, $type = 1)
+    {
+        $interest_list = $this->db()->where('art_id', 'eq', $topic_id)->where('type', 'eq', $type)->order('id desc')->select();
+        foreach ($interest_list as $key => $value) {
+            $UserInfo = $this->hasOne('UserInfo')->where('id', 'eq', $value['user_id'])->find();
+            $interest_list[$key]['user_icon'] = $UserInfo['user_icon'];
+        }
+        return $interest_list;
+    }
+
+    /**
+     * TODO 统计有兴趣的会员
+     * @param $topic_id
+     * @return int
+     */
+    public function Interest_Count($topic_id, $type = 1)
+    {
+        $interest_list = $this->db()->where('art_id', 'eq', $topic_id)->where('type', 'eq', $type)->order('id desc')->count();
+        return $interest_list;
+    }
+}

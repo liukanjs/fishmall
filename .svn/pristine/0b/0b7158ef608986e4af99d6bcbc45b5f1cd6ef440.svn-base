@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>狂野钓鱼总后台</title>
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="../../../../../public/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../../../../../public/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+
+    <link href="../../../../../public/static/css/animate.min.css" rel="stylesheet">
+    <link href="../../../../../public/static/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="../../../../../public/static/js/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>活动列表</h5>
+
+                    <div class="ibox-tools">
+                        <a href="/admin/index/forum/active_edit" class="btn btn-primary btn-xs">发起活动</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row m-b-sm m-t-sm">
+                        <div class="col-md-1">
+                            <button type="button"  onclick="window.location.reload();"  id="loading-example-btn" class="btn btn-white btn-sm"><i
+                                    class="fa fa-refresh"></i> 刷新
+                            </button>
+                        </div>
+                        
+                        <form action="" method="get">
+                        <!--<div class="col-sm-2 m-b-xs">-->
+                            <!--<select class="input-sm form-control input-s-sm inline">-->
+                                <!--<option value="">全部</option>-->
+                                <!--<option value="1">待审核</option>-->
+                                <!--<option value="2">报名中</option>-->
+                                <!--<option value="3">进行中</option>-->
+                                <!--<option value="4">已结束</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                        <div class="col-md-9">
+                            <div class="input-group">
+                                <input type="text" name="keyword"  placeholder="请输入活动名称" class="input-sm form-control"> <span
+                                    class="input-group-btn">
+                                        <button type="submit" name="keyword"  class="btn btn-sm btn-primary"> 搜索</button> </span>
+                            </div>
+                        </div>
+                        </form>
+                        
+                    </div>
+                    <div class="row list-search">
+                        <div class="col-md-5 text-center">
+                            <div class="col-md-2 active list-title">全部</div>
+                            <!--<div class="col-md-2 list-title">待审核</div>
+                            <div class="col-md-2 list-title">报名中</div>
+                            <div class="col-md-2 list-title">进行中</div>
+                            <div class="col-md-2 list-title">已结束</div>-->
+                        </div>
+                    </div>
+                    <div class="project-list">
+
+                        <table class="table table-hover">
+                            <tbody>
+                            {volist name="result.data" id="vo"}
+                            <tr>
+                                <td class="project-num">
+                                    {$vo.id}
+                                </td>
+                                <td class="project-status">
+                                    {$vo.user_name}
+                                </td>
+                                <td class="project-title" width="40%">
+                                    <a href="/admin/index/forum/active_detail/id/{$vo.id}/">{$vo.title}</a>
+                                    <br/>
+                                    {eq name="$vo.ishome" value="1"}
+                                    <span class="label label-primary">首页推荐</span>
+                                    {/eq}
+                                </td>
+                                <td class="project-completion">
+                                    <small>开始时间: <br /> {$vo.start_time}</small>
+                                </td>
+                                <td class="project-completion">
+                                    <small>结束时间： <br /> {$vo.end_time}</small>
+                                </td>
+                                <!--<td class="project-status">
+                                    {switch name="vo.status"}
+                                    {case value="0"}<span class="label label-danger m-l-lg">待审核</span>{/case}
+                                    {case value="1"}<span class="label label-success m-l-lg">进行中</span>{/case}
+                                    {case value="2"}<span class="label label-primary m-l-lg">报名中</span>{/case}
+                                    {case value="3"}<span class="label label-default m-l-lg">已结束</span>{/case}
+                                    {default /}default
+                                    {/switch}
+                                </td>-->
+                                <td class="project-actions">
+                                    <a href="javascript:;"  onclick="$to_index('/admin/index/forum/to_index','id={$vo.id}');"  class="btn btn-white btn-sm"><i
+                                            class="fa fa-home"></i> 首页推荐 </a>
+                                    <a href="/admin/index/forum/active_detail/id/{$vo.id}/" class="btn btn-white btn-sm"><i
+                                            class="fa fa-hourglass-1"></i> 详情 </a>
+                                    <a href="/admin/index/forum/active_edit/id/{$vo.id}/" class="btn btn-white btn-sm"><i
+                                            class="fa fa-edit"></i> 编辑 </a>
+                                    <a href="javascript:;" onclick="$delete('/admin/index/forum/active_del','id={$vo.id}');" class="btn btn-white btn-sm"><i
+                                            class="fa fa-close"></i> 删除 </a>
+                                </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+
+                        {$result.show}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../../../public/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="../../../../../public/static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../../../../../public/static/js/content.min.js?v=1.0.0"></script>
+<script src="../../../../../public/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#loading-example-btn").click(function () {
+            btn = $(this);
+            simpleLoad(btn, true);
+            simpleLoad(btn, false)
+        })
+    });
+    function simpleLoad(btn, state) {
+        if (state) {
+            btn.children().addClass("fa-spin");
+            btn.contents().last().replaceWith(" Loading")
+        } else {
+            setTimeout(function () {
+                btn.children().removeClass("fa-spin");
+                btn.contents().last().replaceWith(" Refresh")
+            }, 2000)
+        }
+    };
+    //初始化图片url
+    var imglist_val = [];
+    var pic_len = 9;
+
+    function doUpload() {
+        // 上传方法
+        $.upload({
+            // 上传地址
+            url: '/admin/index/upload',
+            // 文件域名字
+            fileName: 'filedata',
+            // 其他表单数据
+            params: {
+                name: 'pxblog'
+            },
+            // 上传完成后, 返回json, text
+            dataType: 'json',
+            // 上传之前回调,return true表示可继续上传
+            onSend: function () {
+                if ($('.updata_pic').size() >= pic_len) {
+                    toastr.info("最多上传9张");
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+            // 上传之后回调
+            onComplate: function (data) {
+                var img_h = '<div class="pull-left clearfix relative addimg margin-bottom"><div class="margin-right"><img class="updata_pic" width="200" height="200"/></div><span class="fa fa-close img_del"></span></div>'
+                $('.img-list').prepend(img_h);
+                $('.updata_pic').eq(0).attr('src', data.datas).show();
+
+                var deval = $('input[name=image]').val();
+                if (deval != "") {
+                    imglist_val.unshift(deval);
+                }
+                imglist_val.unshift(data.datas);
+                console.log(data.datas);
+                $("input[name=image]").val(imglist_val.toString());
+
+                //删除图片事件
+                del_img();
+            }
+        });
+    }
+
+    function del_img() {
+        Array.prototype.del = function (n) {
+            if (n < 0) {
+                return this;
+            } else {
+                return this.slice(0, n).concat(this.slice(n + 1, this.length));
+            }
+        };
+
+        $('.img_del').each(function (i, e) {
+            $(this).click(function () {
+                var index = $('.img_del').index($(this)); //当前按钮的索引值
+                var html = $(this).parent('.addimg');
+                html.remove();
+                var val = $("input[name=image]").val().split(',');
+                console.log(val);
+                val = val.del(index);
+                imglist_val = imglist_val.del(index);
+                $("input[name=image]").val(val.toString());
+            })
+        });
+
+    }
+</script>
+</body>
+</html>

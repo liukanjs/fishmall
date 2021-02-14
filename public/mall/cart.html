@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>购物车</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+
+	</head>
+
+	<body>
+
+		<header class="layout margin-bottom boxshow app-top">
+			<div class="height-large clearfix relative">
+				<div class="float-left">
+					<span class="margin-left text-big ticon-back win-back block"></span>
+				</div>
+				<div class="float-right margin-right">
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-default win-refresh">购物车</div>
+			</div>
+		</header>
+		<section style="height: 42px;"></section>
+
+		<section class="layout margin-big-top margin-bottom" id="main-container"></section>
+
+		<script type="text/html" id="address_info">
+
+			<!--收货地址-->
+			<div class="relative  bg-white">
+				<%if(address==""||address==null){%>
+				<!--无地址状态-->
+				<div class="padding">
+					<a href="javascript:;" class="add_address block">
+						<div class="height">
+							<span class="ticon-location text-main"></span>
+							<span>添加收货地址</span>
+						</div>
+					</a>
+				</div>
+				<%}else{%>
+
+				<div class="padding">
+					<a href="javascript:;" class="block select_address" id="address_check_done">
+						<div class="height">
+							<span><%=username%></span>
+							<span><%=telphone%></span>
+						</div>
+						<div class="text-gray height margin-large-right">
+							<%=address%>
+						</div>
+					</a>
+				</div>
+				<%}%>
+				<div class="user-right"><span class="ticon-right text-gray"></span>
+				</div>
+			</div>
+
+		</script>
+
+		<script type="text/html" id="cart_list">
+			<div class="relative">
+				<ul class="wx-home-list border-top margin-big-top">
+					<%for(var i in item){%>
+					<li class="item relative">
+						<div class="clearfix padding-small relative">
+							<div class="float-left">
+								<a href="javascript:;">
+									<img class="padding-small" src="<%=item[i].img%>" width="80" />
+								</a>
+							</div>
+							<div class="cart-list-main h80">
+								<div class="text-oneline">
+									<%=item[i].title%>
+								</div>
+								<div class="text-gray text-little height-big">
+									<%if(item[i].rmb_price>0){%> ￥
+									<%=parseFloat(item[i].rmb_price)%>
+									<%if(item[i].score_price>0){%> +
+									<%=item[i].score_price%><img src="../static/images/yugu.png" alt="" width="20px" height="20px"  style="position: relative;top: -2px;">
+									<%}%>
+									<%}else{%>
+									<%=item[i].score_price%><img src="../static/images/yugu.png" alt="" width="20px" height="20px"  style="position: relative;top: -2px;">
+									<%}%>
+
+								</div>
+								<div class="margin-small-top margin-small-bottom">
+									<div class="wx-cart-num radius" goods_id="<%=item[i].id%>">
+										<span class="wx-cart-num-remove goods_num_edit" edit="remove"><i class="icon-minus text-gray"></i></span>
+										<span class="goods_num"><%=item[i].goods_num%></span>
+										<span class="wx-cart-num-add goods_num_edit" edit='add'><i class="icon-plus "></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="wx-money"><span class="text-big">
+									<%if(item[i].total_score_price>0){%>
+									<span class="tag bg-main margin-right">
+              						  <small>鱼古兑换</small>
+             				  </span>
+								<%}%>
+								</span>
+							</div>
+						</div>
+					<div class="goods_del" style="position: absolute;right: 20px;top: 20px;"  goods_id="<%=item[i].id%>"><span class="ticon-delete text-default"></span></div>
+					</li>
+					
+					<%}%>
+				</ul>
+			</div>
+		</script>
+
+		<script type="text/html" id="pay_info">
+
+			<section class="layout border-top margin-top">
+				<div class="padding  bg-white">
+					<div class="clearfix border-bottom height-big">
+						<div class="float-left text-gray">商品总金额</div>
+						<div class="float-right text-big text-main" id="total_amount">￥
+							<%= goods_price %>
+						</div>
+					</div>
+					<div class="clearfix border-bottom height-big">
+						<div class="float-left text-gray">邮费</div>
+						<div class="float-right">￥
+							<%=post_price%>
+						</div>
+					</div>
+					<%if(my_score>0){%>
+					<!--余额/鱼古为0则不显示以下内容-->
+					<div class="bg-trs">
+						<div class="height-big border-bottom clearfix">
+							<div class="float-left">
+								<span class="text-gray">目前鱼古：<%=my_score%></span>
+							</div>
+							<div class="float-right">-
+								<%=use_score%>鱼古</div>
+						</div>
+					</div>
+					<%}%>
+				</div>
+			</section>
+
+			<section class="layout fixed" data-style="fixed-bottom">
+				<div class="bg-white margin-top boxshow">
+					<div class="line">
+						<div class="x8 height-big padding-left">
+							<span>商品实付款:</span>
+							<span class="text-main text-big text-bold" id="payment_amount">￥<%=pay_price%></span>
+
+						</div>
+						<div class="x4">
+							<a href="javascript:;" id="pay" class="button button-block bg-green text-center radius-none">微信支付</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		</script>
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/tmpl/mall/cart.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+	</body>
+
+</html>

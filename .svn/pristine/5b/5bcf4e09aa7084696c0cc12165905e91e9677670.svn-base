@@ -1,0 +1,51 @@
+<?php
+namespace common\model;
+
+use think\Model;
+use common\model\MallGoods as MG;
+
+class Order extends Model
+{
+    protected $type = [
+        'pay_time' => 'timestamp:Y/m/d H:i:s',
+        'deliver_time' => 'timestamp:Y/m/d H:i:s',
+        'finish_time' => 'timestamp:Y/m/d H:i:s',
+        'create_time' => 'timestamp:Y/m/d H:i:s',
+        'update_time' => 'timestamp:Y/m/d H:i:s'
+    ];
+
+
+    public function getOrderList($user_id = 0, $curpage = 1, $page_size = 12, $search = array())
+    {
+        $result = array();
+        $model = $this->db();
+        if ($user_id > 0) $model->where('user_id', 'eq', $user_id);
+        if (isset($search['state'])) {
+            if ($search['state'] == -1) $model->where('order_state', 'eq', 0);
+            else if ($search['state'] != '') $model->where('order_state', 'eq', $search['state']);
+        }
+        if (isset($search['keyword'])) {
+            if (!empty($search['keyword'])) {
+                $model->where('order_sn', 'eq', $search['keyword']);
+            }
+        }
+        $options = $model->getOptions();
+        $num_rows = $model->count();
+        trace($model->options($options)->buildSql(), 'sql');
+        $data_rows = $model->options($options)->order('id desc')->page($curpage, $page_size)->select();
+        foreach ($data_rows as $key => $value) {
+            $data_rows[$key]['address_info'] = unserialize($value['address_info']);
+            $goods_img = $this->hasOne('OrderGoods')->where('order_id', 'eq', $value['id'])->find();
+            $data_rows[$key]['user_info'] = $this->hasOne('UserInfo')->where('id', 'eq', $value['user_id'])->field('user_name')->find();
+            $data_rows[$key]['img'] = $goods_img['img'];
+            if (isset($search['show_goods'])) {
+                if ($search['show_goods']) {
+                    $data_rows[$key]['goods_list'] = $this->hasOne('OrderGoods')->where('order_id', 'eq', $value['id'])->select();
+                }
+            }
+        }
+        $result['data'] = $data_rows;
+        $result['page'] = ceil($num_rows / $page_size);
+        return $result;
+    }
+}

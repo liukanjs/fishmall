@@ -1,0 +1,357 @@
+<!doctype html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>狂野钓鱼</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="static/css/swiper-3.3.1.min.css" />
+	</head>
+
+	<body>
+		<header class="layout margin-bottom app-top boxshow">
+			<div class="height-large text-white bg-main clearfix">
+				<div class="text-center margin-large-left margin-large-right text-oneline text-default win-refresh">狂野钓鱼</div>
+			</div>
+		</header>
+		<div class="blank"></div>
+
+		<section>
+			<div class="line">
+				<a href="http://m.51kydy.com/forum/article-info.html?article_id=322"><img src="static/images/index/indeximg_02.jpg" width="100%" alt="" /></a>
+			</div>
+			<div class="line">
+				<div class="x20">
+					<a href="http://mp.weixin.qq.com/s?__biz=MzI1ODIwNzQ3MQ==&mid=2650407183&idx=4&sn=989fd52c364ea70de7c4de70efa3d1fb&chksm=f2051a8fc5729399feba3928b5b31f2ecd0a796f75ddb35b81200f1d058b97553757194cba5d&scene=1&srcid=0924QnkI0IwcNEOcjr6oofXS#wechat_redirect"><img src="static/images/index/indeximg_03.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a href="http://m.51kydy.com/forum/index.html?ctype=1&atype=2&typeid=12"><img src="static/images/index/indeximg_04.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a href="http://m.51kydy.com/forum/index.html?ctype=1&atype=1&typeid=6"><img src="static/images/index/indeximg_05.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a href="http://m.51kydy.com/mall/list.html?goods_type=2"><img src="static/images/index/indeximg_06.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a href="http://m.51kydy.com/mall/index.html"><img src="static/images/index/indeximg_07.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a href="http://m.51kydy.com/forum/index.html?ctype=1&atype=2&typeid=5"><img src="static/images/index/indeximg_08.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a href="http://m.51kydy.com/forum/index.html?ctype=1&atype=1&typeid=3"><img src="static/images/index/indeximg_09.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a class="will" href="javascript:;"><img src="static/images/index/indeximg_10.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a class="will" href="javascript:;"><img src="static/images/index/indeximg_11.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a class="will" href="javascript:;"><img src="static/images/index/indeximg_12.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a href="http://m.51kydy.com/place/index.html"><img src="static/images/index/indeximg_13.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a href="http://m.51kydy.com/place/index.html"><img src="static/images/index/indeximg_14.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a class="will" href="javascript:;"><img src="static/images/index/indeximg_15.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a class="will" href="javascript:;"><img src="static/images/index/indeximg_16.jpg" width="100%" alt="" /></a>
+				</div>
+				<div class="x20">
+					<a class="will" href="javascript:;"><img src="static/images/index/indeximg_17.jpg" width="100%" alt="" /></a>
+				</div>
+			</div>
+			<div class="line">
+				<a href="http://m.51kydy.com/forum/activity-info.html?activity_id=286"><img src="static/images/index/indeximg_18.jpg" width="100%" alt="" /></a>
+			</div>
+
+		</section>
+
+		<section id="main-container"></section>
+
+		<script type="text/html" id="adv_list">
+			<section class="layout adv_list hidden">
+				<!--轮播图-->
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<% for (var i in item) { %>
+						<div class="swiper-slide">
+							<a href="<%= item[i].url %>"><img src="<%= item[i].image %>" width="100%" /></a>
+						</div>
+						<% } %>
+					</div>
+					<!-- 分页器 -->
+					<div class="swiper-pagination"></div>
+					<!-- 滚动条 -->
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+		</script>
+
+		<script type="text/html" id="nav_list">
+			<section class="margin-small-top nav_list hidden">
+				<!--导航列表-->
+				<div class="line text-center boxshow">
+					<% for (var i in item) { %>
+					<div class="x20">
+						<div class="padding">
+							<a href="<%= item[i].url %>">
+								<img src="<%= item[i].image %>" width="100%" />
+							</a>
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</section>
+		</script>
+
+		<script type="text/html" id="pic3_list">
+			<section class="layout margin-top pic3_list hide">
+				<!--广告位-->
+				<div class="line boxshow">
+					<div class="x6">
+						<a href="<%= left.url %>"><img src="<%= left.image %>" width="100%" /></a>
+					</div>
+					<div class="x6">
+						<a href="<%= right_top.url %>"><img src="<%= right_top.image %>" width="100%" /></a>
+						<a href="<%= right_sub.url %>"><img src="<%= right_sub.image %>" width="100%" /></a>
+					</div>
+				</div>
+			</section>
+		</script>
+
+		<script type="text/html" id="active_list">
+			<section class="layout  margin-top active_list">
+				<div class="subtitle clearfix padding-small height boxshow">
+					<span class="float-left margin-right text-main text-bold">|</span>
+					<span class="float-left"><%= title %></span>
+					<span class="float-right"><a href="<%= more_url %>">更多>></a></span>
+				</div>
+				<!--活动版块-->
+				<% for (var i in item) { %>
+				<div class="margin-top boxshow">
+					<div class="relative">
+						<a href="forum/activity-info.html?activity_id=<%= item[i].id %>" class="block relative">
+							<img src="../static/images/16-9.jpg" data-src="<%= item[i].img_list[0].img %>" width="100%" />
+
+							<div style="position:absolute;left: 0;right: 0;top: 0;bottom: 0;background: url(<%= item[i].img_list[0].img %>) 50% 50% / 100% no-repeat;"></div>
+						</a>
+
+						<div class="countdown"><span class="ticon-time"></span>
+							<%= item[i].time_str %>
+						</div>
+					</div>
+
+					<div class="padding-small">
+						<div class="line clearfix">
+							<div class="x10 text-oneline">
+								<%= item[i].title %>
+							</div>
+							<div class="x2 text-right">
+								<span class="text-gray text-oneline"><%= item[i].join_num %>人参加</span>
+							</div>
+						</div>
+						<div class="clearfix text-gray">
+							<div class="float-left">
+								<%= item[i].start_time %>
+							</div>
+							<div class="float-right">
+								<%= item[i].fish_name %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<% } %>
+			</section>
+		</script>
+
+		<script type="text/html" id="strategy_list">
+			<section class="layout margin-top strategy_list">
+				<div class="subtitle clearfix padding-small height boxshow">
+					<span class="float-left margin-right text-main text-bold">|</span>
+					<span class="float-left"><%= title %></span>
+					<span class="float-right"><a href="<%= more_url %>">更多>></a></span>
+				</div>
+				<!--文章版块-->
+				<% for (var i in item) { %>
+				<div class="media media-x relative boxshow padding-small">
+					<a href="/forum/article-info.html?article_id=<%= item[i].id %>">
+						<div class="float-left block relative">
+							<img src="../static/images/1-1.jpg" data-src="<%= item[i].img_list[0].img %>" width="80" class="radius">
+
+							<div style="position:absolute;left: 0;right: 0;top: 0;bottom: 0;background: url(<%= item[i].img_list[0].img %>) 50% 50% / 100% no-repeat;"></div>
+						</div>
+						<div class="media-body relative">
+							<div class="text-twoline height">
+								<%= item[i].title %>
+							</div>
+							<div class="height-big">
+								<span class="text-gray"><%= item[i].tags %></span>
+							</div>
+							<div class="clearfix text-gray">
+								<div class="float-left">
+									<%= item[i].create_time %>
+								</div>
+								<div class="float-right padding-right">
+									<span class="ticon-appreciate margin-small-right"></span>
+									<%= item[i].top_num %>
+									<span class="ticon-comment"></span>
+									<%= item[i].discuss %>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<% } %>
+			</section>
+		</script>
+
+		<section class="h50"></section>
+
+		<script type="text/html" id="footer">
+			<footer class="wx-footer padding-small-top padding-small-bottom">
+				<div class="wx-menu line text-center text-white">
+					<% for (var i in item) { %>
+					<a class="<%= item[i].active %>" href="<%= item[i].url %>">
+						<div class="x20">
+							<div class="text-big"><span class="<%= item[i].icon %> "></span>
+							</div>
+							<div class="">
+								<%= item[i].txt %>
+							</div>
+						</div>
+					</a>
+					<% } %>
+				</div>
+			</footer>
+		</script>
+
+		<section class="meiqia boxshow hide" id="to-top">
+			<a class="text-white win-backtop" href="javascript:;"><span class="text-large ticon-top wx-ticon"></span></a>
+		</section>
+
+		<!--切换标签的ajax加载效果-->
+		<!--<div class="text-center text-big padding text-gray">
+    <span class="ticon-loading icon-spin"></span> 加载中...
+</div>-->
+
+		<script src="static/js/config.js"></script>
+		<script src="static/js/common.js"></script>
+		<script src="static/js/jquery.js"></script>
+		<script src="static/js/base.js"></script>
+		<script src="static/js/template.js"></script>
+		<script src="static/js/jquery.ios.js"></script>
+		<script src="static/js/nprogress.js"></script>
+		<script src="static/js/swiper-3.3.1.jquery.min.js"></script>
+		<script src="static/js/tmpl/index.js"></script>
+		<script src="static/js/tmpl/footer.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.configure({
+					template: $('#diy-loading').html()
+				});
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			});
+			$('.will').click(function(){
+				$(window).appalert({msg:'功能开发中，敬请期待...'});
+			})
+		</script>
+
+		<script src="http://map.qq.com/api/js?v=2.exp&key=2N2BZ-KKZA4-ZG4UB-XAOJU-HX2ZE-HYB4O&libraries=geometry,convertor"></script>
+
+		<script type="text/javascript">
+			//精确定位地址
+			jQuery(function($) {
+				var qqcGeocoder = null;
+				var clientLatLng = null;
+				$.gpsposition = function() {
+					var translatePoint = function(position) {
+						var currentLat = position.coords.latitude;
+						var currentLon = position.coords.longitude;
+						clientLatLng = new qq.maps.LatLng(currentLat, currentLon);
+
+						qq.maps.convertor.translate(new qq.maps.LatLng(currentLat, currentLon), 1, function(res) {
+							latlng = res[0];
+							console.log(latlng);
+							qqcGeocoder.getAddress(latlng);
+						});
+					}
+
+					qqcGeocoder = new qq.maps.Geocoder({
+						complete: function(result) {
+							console.log(result);
+							var lat = result.detail.location.lat;
+							var lng = result.detail.location.lng;
+							var city_name = result.detail.addressComponents.city;
+
+							addcookie('lat', lat);
+							addcookie('lng', lng);
+							addcookie('city_name', city_name);
+
+							var nowNearPoi = null;
+							var nearPoi;
+
+							for(var nearPoiKey in result.detail.nearPois) {
+								nearPoi = result.detail.nearPois[nearPoiKey];
+								if(nowNearPoi == null || nowNearPoi.dist > nearPoi.dist) {
+									nowNearPoi = nearPoi;
+								}
+							}
+
+							var address = nowNearPoi.address + nowNearPoi.name;
+							var reg = new RegExp("^" + result.detail.addressComponents.country, "gi");
+							address = address.replace(reg, '');
+							/*reg = new RegExp("^" + result.detail.addressComponents.province, "gi");
+							 address = address.replace(reg, '');
+							 reg = new RegExp("^" + result.detail.addressComponents.city, "gi");
+							 address = address.replace(reg, '');
+							 reg = new RegExp("^" + result.detail.addressComponents.district, "gi");
+							 address = address.replace(reg, '');*/
+							addcookie('address', address);
+						}
+					});
+
+					var citylocation = new qq.maps.CityService({
+						complete: function(result) {
+							clientLatLng = result.detail.latLng;
+							qqcGeocoder.getAddress(result.detail.latLng);
+						}
+					});
+
+					if(navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(translatePoint, function(error) {
+							citylocation.searchLocalCity();
+						}, {
+							enableHighAccuracy: true
+						});
+					} else {
+						citylocation.searchLocalCity();
+					}
+				}
+				$.gpsposition();
+
+			});
+		</script>
+	</body>
+
+</html>

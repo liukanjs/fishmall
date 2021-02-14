@@ -1,0 +1,108 @@
+<!--发起活动-->
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>发表文章</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+
+	</head>
+
+	<body>
+
+		<header class="layout margin-bottom boxshow">
+			<div class="height-large clearfix relative">
+				<div class="float-left">
+					<span class="margin-left text-big ticon-back win-back block"></span>
+				</div>
+				<div class="float-right">
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-default win-refresh">发表文章</div>
+			</div>
+		</header>
+
+		<section class="layout">
+			<form class="form form-block" id="art_add">
+				<section>
+					<div class="padding">
+						<div class="form-group">
+							<div class="field">
+								<input type="text" class="input" id="title" name="title" placeholder="文章标题"></input>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="field line">
+								<div class="x6 padding-right">
+									<select class="input" name="typeid" id="typeid">
+									<option value="">请选择社区频道</option>									
+								</select>
+								</div>
+								<div class="x6">
+									<select class="input" name="tags_id" id="tags_id">
+									<option value="">请选择文章分类</option>									
+								</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field line" id="upimg">
+								<div class="x4 w_h padding-little" style="height: 202px;">
+									<a class="w_h_img updata_img  input-file" id="ppp">+图片
+										<input size="100" name="img_list" id="img_list" value="" type="hidden">
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="field">
+								<textarea rows="8" type="text" class="input" id="message" name="message" placeholder="文章内容..."></textarea>
+							</div>
+							<div class="text-right text-gray height" id="word_len">3000</div>
+						</div>
+
+						<div class="form-button">
+							<button class="button button-small  button-block bg-main" type="submit" id="tpbtn">提交</button>
+						</div>
+					</div>
+				</section>
+
+			</form>
+		</section>
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/jquery.validate.min.js"></script>
+		<script src="../static/js/messages_zh.min.js"></script>
+		<script src="../static/js/plugins/upload/jquery.upload.js"></script>
+		<script src="../static/js/tmpl/forum/article-add.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+
+	</body>
+
+</html>

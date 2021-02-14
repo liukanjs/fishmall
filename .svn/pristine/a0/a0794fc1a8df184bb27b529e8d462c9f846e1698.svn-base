@@ -1,0 +1,178 @@
+$(function () {
+    var key = getcookie('key');
+    if (key == '') {
+        location.href = '/login.html';
+    }
+    var isok = false;
+    var main = "";
+    var loadpage = 0;
+
+    init();
+
+    function init() {
+        //初始化社区首页内容
+        $.ajax({
+            url: ApiUrl + "/forum/index",
+            type: 'post',
+            data: {
+                key: key,
+                ismy: true
+            },
+            timeout: '16000',
+            error: function (a, b, c) {
+                NProgress.done();
+                if (c != "error") {
+                    $(window).apptip({
+                        msg: c
+                    });
+                } else {
+                    $(window).apptip({
+                        msg: "加载失败，请检查网络设置"
+                    });
+                }
+            },
+            success: function (result) {
+                NProgress.done();
+                var data = result.datas;
+                var html = '';
+                if (data == null) {
+                    location.href = '/404.html';
+                    return;
+                }
+                isok = true;
+                $("input[name=hasmore]").val(result.hasmore);
+                $("input[name=page_total]").val(result.page_total);
+                //初始化页面
+                html = template.render("strategy_list", data);
+                $("#main-container").html(html);
+
+                //相册
+                $('.swipebox').swipebox();
+                wh();
+                content_del();
+            }
+        });
+
+    };
+    
+	function content_del() {
+		$('.content_del').click(function() {
+			var id = $(this).attr('id');
+			$(window).appconfirm({
+				msg: "是否删除这个帖子？",
+				yes: function() {
+					$.ajax({
+						type: "post",
+						url: ApiUrl + "/forum/index/forum_del",
+						dataType: 'json',
+						data: {
+							id: id,
+							key: key
+						},
+						timeout: '10000',
+						error: function(a, b, c) {
+							if (c != "error") {
+								$(window).apptip({
+									msg: c
+								});
+							} else {
+								$(window).apptip({
+									msg: "加载失败，请检查网络设置"
+								});
+							}
+						},
+						success: function(result) {
+							var data = result.datas;
+							if (result.code == 1) {
+								$(window).apptip({
+									msg: "删除中..."
+								});
+								init();
+							} else {
+								$(window).apptip({
+									msg: "请检查网络设置"
+								})
+							}
+						}
+					});
+				}
+			})
+			return false;
+		})
+	};
+
+	//点赞
+	function zambia() {
+		$('.appreciate').click(function() {
+
+			var id = $(this).attr('myid');
+			if (key == '') {
+				$(window).appconfirm({
+					msg: '您尚未登录，请登录后进行评论！',
+					yes: function() {
+						location.href = location.href = '/login.html';
+					}
+				});
+			} else {
+				$.ajax({
+					type: "post",
+					url: ApiUrl + "/index/index/set_praise",
+					dataType: 'json',
+					data: {
+						id: id,
+						key: key
+					},
+					timeout: '10000',
+					error: function(a, b, c) {
+						if (c != "error") {
+							$(window).apptip({
+								msg: c
+							});
+						} else {
+							$(window).apptip({
+								msg: "加载失败，请检查网络设置"
+							});
+						}
+					},
+					success: function(result) {
+						var data = result.datas;
+						if (data == 1) {
+							$('.appreciate').removeClass('ticon-appreciate').addClass('ticon-appreciatefill');
+
+							$(window).apptip({
+								msg: "已点赞！"
+							});
+						} else if (data == 2) {
+							$('.appreciate').removeClass('ticon-appreciatefill').addClass('ticon-appreciate');
+							$(window).apptip({
+								msg: "已取消"
+							})
+						} else {
+							$(window).apptip({
+								msg: "请检查网络..."
+							})
+						}
+					}
+				});
+			}
+			return false;
+		})
+	};
+
+	//接口设置初始化
+	function setListUrl() {
+		$("input[name=hasmore]").val('');
+		$("input[name=page_total]").val('');
+		$("input[name=curpage]").val(1);
+	};
+
+	function wh() {
+		//图片等高
+		$('.w_h.x4').each(function() {
+			$(this).height($(this).width());
+		});
+
+	}
+
+
+});

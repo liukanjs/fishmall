@@ -1,0 +1,5 @@
+var SiteUrl = "http://" + window.location.host + "/";
+var ApiUrl = SiteUrl + "api";
+var pagesize = 12;
+var WapSiteUrl = "http://" + window.location.host;
+var client = "wechat";

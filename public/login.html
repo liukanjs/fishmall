@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="wx" style="background-color: #fff;">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" type="text/css" href="static/css/nprogress.css"/>
+    <link rel="stylesheet" type="text/css" href="static/css/base.css">
+    <link rel="stylesheet" type="text/css" href="static/css/icon.css">
+    <link rel="stylesheet" type="text/css" href="static/css/fishicon.css">
+    <link rel="stylesheet" type="text/css" href="static/css/wx.css">
+</head>
+
+<body style="background-color: #fff;">
+
+<header class="layout boxshow">
+    <div class="height-large bg-main text-white clearfix">
+        <div class="float-left"><span class="margin-left text-big ticon-back win-back block"></span>
+        </div>
+        <div class="float-right">
+            <a class="margin-right button button-little text-white" href="/register.html">注册</a>
+        </div>
+        <div class="text-center margin-large-left margin-large-right text-oneline text-big win-refresh">登陆</div>
+    </div>
+</header>
+
+<section class="layout margin-top" id="web-login">
+    <form id="login-form">
+        <div class="padding-large text-center">
+            <a id="logoutbtn"><img src="static/images/logo.jpg" width="50%"/></a>
+        </div>
+        <div class="padding-big">
+            <div class="form-group">
+                <div class="field">
+                    <input type="text" class="input" id="mobile" name="mobile" size="50" placeholder="请输入您的手机号">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="field">
+                    <input type="password" class="input" id="password" name="password" size="50" placeholder="请输入密码">
+                </div>
+            </div>
+            <div class="error-tips height text-red text-small"></div>
+            <div class="form-button">
+                <button class="button button-small  button-block bg-main" type="submit" id="loginbtn">立即登录</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<section id="wx-login" class="hide">
+    <div class="padding-big">
+        <a id="login-select-wx" href="javascript:;" class="button button-small button-block bg-green text-center">微信账号登陆</a>
+    </div>
+</section>
+
+<section class="h50"></section>
+
+<script type="text/html" id="footer">
+    <footer class="wx-footer padding-small-top padding-small-bottom">
+        <div class="wx-menu line text-center text-white">
+            <% for (var i in item) { %>
+            <a class="<%= item[i].active %>" href="<%= item[i].url %>">
+						<div class="x20">
+                    <div class="text-big"><span class="<%= item[i].icon %> "></span>
+                    </div>
+                    <div class="">
+                        <%= item[i].txt %>
+                    </div>
+                </div>
+            </a>
+            <% } %>
+        </div>
+    </footer>
+</script>
+
+<script src="static/js/config.js"></script>
+<script src="static/js/common.js"></script>
+<script src="static/js/jquery.js"></script>
+<script src="static/js/base.js"></script>
+<script src="static/js/template.js"></script>
+<script src="static/js/jquery.ios.js"></script>
+<script src="static/js/nprogress.js"></script>
+<script src="static/js/jquery.validate.min.js"></script>
+<script src="static/js/tmpl/login.js"></script>
+<script src="static/js/tmpl/footer.js"></script>
+<script>
+    /*全局进度条事件*/
+    $(function () {
+        NProgress.start();
+    });
+    $(window).load(function () {
+        NProgress.done();
+    })
+</script>
+		<script src="http://map.qq.com/api/js?v=2.exp&key=2N2BZ-KKZA4-ZG4UB-XAOJU-HX2ZE-HYB4O&libraries=geometry,convertor"></script>
+		
+		<script type="text/javascript">
+			//精确定位地址
+			jQuery(function($) {
+				var qqcGeocoder = null;
+				var clientLatLng = null;
+				$.gpsposition = function() {
+					var translatePoint = function(position) {
+						var currentLat = position.coords.latitude;
+						var currentLon = position.coords.longitude;
+						clientLatLng = new qq.maps.LatLng(currentLat, currentLon);
+
+						qq.maps.convertor.translate(new qq.maps.LatLng(currentLat, currentLon), 1, function(res) {
+							latlng = res[0];
+							console.log(latlng);
+							qqcGeocoder.getAddress(latlng);
+						});
+					}
+
+					qqcGeocoder = new qq.maps.Geocoder({
+						complete: function(result) {
+							console.log(result);
+							var lat=result.detail.location.lat;
+							var lng=result.detail.location.lng;
+							var city_name=result.detail.addressComponents.city;
+							
+							addcookie('lat',lat);
+							addcookie('lng',lng);
+							addcookie('city_name',city_name);
+							
+							var nowNearPoi = null;
+							var nearPoi;
+
+							for (var nearPoiKey in result.detail.nearPois) {
+								nearPoi = result.detail.nearPois[nearPoiKey];
+								if (nowNearPoi == null || nowNearPoi.dist > nearPoi.dist) {
+									nowNearPoi = nearPoi;
+								}
+							}
+
+							var address = nowNearPoi.address + nowNearPoi.name;
+							var reg = new RegExp("^" + result.detail.addressComponents.country, "gi");
+							address = address.replace(reg, '');
+							/*reg = new RegExp("^" + result.detail.addressComponents.province, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.city, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.district, "gi");
+							address = address.replace(reg, '');*/
+							addcookie('address',address);
+						}
+					});
+
+					var citylocation = new qq.maps.CityService({
+						complete: function(result) {
+							clientLatLng = result.detail.latLng;
+							qqcGeocoder.getAddress(result.detail.latLng);
+						}
+					});
+
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(translatePoint, function(error) {
+							citylocation.searchLocalCity();
+						}, {
+							enableHighAccuracy: true
+						});
+					} else {
+						citylocation.searchLocalCity();
+					}
+				}
+				$.gpsposition();
+
+			});
+		</script>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>我的话题</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/swipebox.min.css" />
+
+	</head>
+
+	<body>
+
+		<header class="layout margin-bottom boxshow">
+			<div class="height-large clearfix relative">
+				<div class="float-left">
+					<span class="margin-left text-big ticon-back win-back block"></span>
+				</div>
+				<div class="float-right">
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-default win-refresh">我的话题</div>
+			</div>
+		</header>
+		
+		<div id="main-container"></div>
+		
+		
+		<script type="text/html" id="strategy_list">
+			<!--话题列表样式-->
+			<% for (var i in strategy_list) { %>
+			<div class="boxshow padding margin-bottom">
+				<a href="topic-info.html?topic_id=<%= strategy_list[i].id %>">
+					<div class="clearfix relative">
+						<div class="float-left">
+							<img src="<%= strategy_list[i].user_icon %>" width="50" class="radius-circle">
+						</div>
+						<div class="float-left margin-left">
+							<div class="media-body relative">
+								<div class="text-twoline height">
+									<%= strategy_list[i].user_name %>
+									<!--<span class="tag bg-main"><%= strategy_list[i].level %></span>-->
+								</div>
+								<div class="">
+									<span class="text-gray"><%= strategy_list[i].last_time %></span>
+								</div>
+							</div>
+						</div>
+						
+						<%if(strategy_list[i].ismy==1){%>
+						<!--仅支持发起人可见及删除-->
+						<div class="content_del" id="<%= strategy_list[i].id %>">
+							<span class="ticon-delete"></span>
+						</div>
+						<% }%>
+						
+					</div>
+					<div class="margin-small-top">
+						<div class="height-small">
+							<pre class="tppre"><%=strategy_list[i].note %></pre>
+						</div>
+					</div>
+				</a>
+					
+					<div class="margin-small-top img_list">
+						<%if(strategy_list[i].img_list.length==1 &&  strategy_list[i].img_list[0].img==""){%>
+							<div></div>
+						<%}else if(strategy_list[i].img_list.length>2 ){%>
+						<div class="line">
+							<% for (var j in strategy_list[i].img_list) { %>
+							<a class="x4 w_h text-center border border-white swipebox" href="<%= strategy_list[i].img_list[j].img %>" title="<%=i%> / <%=strategy_list[i].img_list.length%>"  rel="gallery-100<%=i%>"  style="background: url(<%= strategy_list[i].img_list[j].img %>) no-repeat;background-position:center center;background-size: 200%;">
+									<img src="<%= strategy_list[i].img_list[j].img %>"  alt="image"  class="hide" />
+							</a>
+							<% }%>
+						</div>
+						<% }else{ %>
+						<div class="div-table clearfix">
+							<% for (var j in strategy_list[i].img_list) { %>
+							<div class="table-cell border border-white">
+								<a href="<%= strategy_list[i].img_list[j].img %>" class="swipebox"  rel="gallery-<%=i%>" title="<%=i%>">
+									<img src="<%= strategy_list[i].img_list[j].img %>"  alt="image"  width="100%" />
+								</a>
+							</div>
+							<% }%>
+						</div>
+
+						<% } %>
+
+					</div>
+					<div class="clearfix margin-small-top text-gray">
+						<%if(strategy_list[i].address!="正在获取定位地址..." && strategy_list[i].address!=''){%>
+						<div class="float-left">
+							<span class="ticon-location"><%= strategy_list[i].address %></span>
+						</div>
+						<%}%>
+						<div class="float-right padding-right">
+							<%if(strategy_list[i].like==1){%> 
+								<span class="ticon-appreciatefill ticon-appreciate margin-small-right appreciate" myid="<%=strategy_list[i].id%>" type='1'></span><%if(strategy_list[i].top_num>0){%><%= strategy_list[i].top_num %><%}%>
+							<%}else{%>
+								<span class="ticon-appreciate ticon-appreciate margin-small-right appreciate" myid="<%=strategy_list[i].id%>" type='1'></span><%if(strategy_list[i].top_num>0){%><%= strategy_list[i].top_num %><%}%>
+							<%}%>
+							 <%if(strategy_list[i].discuss>0){%><span class="ticon-comment"></span><%= strategy_list[i].discuss %><%}%>
+						</div>
+					</div>
+			</div>
+			<% } %>
+		</script>
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/jquery.swipebox.js"></script>
+		<script src="../static/js/tmpl/user/mymessage.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+	</body>
+</html>

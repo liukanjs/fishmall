@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>渔具商城</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/swiper-3.3.1.min.css" />
+
+	</head>
+
+	<body>
+
+		<header class="layout margin-bottom boxshow app-top">
+			<div class="height-large clearfix relative">
+				<div class="float-left ">
+				</div>
+				<div class="float-right  relative">
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-default win-refresh">渔具商城</div>
+			</div>
+		</header>
+		<section style="height: 42px;"></section>
+
+		<section id="main-container"></section>
+		<section class="blank"></section>
+
+		<section class="meiqia boxshow hide" id="to-top">
+			<!--返回顶部样式-->
+			<a class="text-white win-backtop" href="javascript:;"><span class="text-large ticon-top wx-ticon"></span></a>
+		</section>
+
+		<!--切换标签的ajax加载效果-->
+		<!--<div class="text-center text-big padding text-gray">
+			<span class="ticon-loading icon-spin"></span> 加载中...
+		</div>-->
+
+		<script type="text/html" id="adv_list">
+			<section class="layout adv_list">
+				<!--轮播图-->
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<% for (var i in item) { %>
+						<div class="swiper-slide">
+							<a href="<%= item[i].url %>"><img src="<%= item[i].image %>" width="100%" /></a>
+						</div>
+						<% } %>
+					</div>
+					<!-- 分页器 -->
+					<div class="swiper-pagination"></div>
+					<!-- 滚动条 -->
+					<div class="swiper-scrollbar"></div>
+				</div>
+			</section>
+		</script>
+
+		<script type="text/html" id="my_info">
+			<section class="margin-small-top ">
+				<!--导航列表-->
+				<div class="line text-center boxshow">
+					<div class="x4">
+						<div class="padding  text-main">
+							<div class="text-large"><img src="../static/images/yugu.png" alt="" width="24px" height="24px">
+							</div>
+							<div class="text-gray">
+								<%=score%>鱼古</div>
+						</div>
+					</div>
+					<div class="x4">
+						<a href="/user/mypoint.html">
+							<div class="padding text-sub">
+								<div class="text-large"><span class="ticon-form"></span>
+								</div>
+								<div class="text-gray">兑换记录</div>
+							</div>
+						</a>
+					</div>
+					<div class="x4">
+						<div class="padding text-green">
+							<div class="text-large"><span class="ticon-list"></span>
+							</div>
+							<div class="text-gray">鱼古规则</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</script>
+
+		<script type="text/html" id="score_list">
+			<section class="layout margin-top">
+				<div class="subtitle clearfix padding-small height boxshow">
+					<span class="float-left margin-right text-bold">|</span>
+					<span class="float-left">鱼古兑换</span>
+					<span class="float-right"><a class="text-gray" href="list.html?goods_type=2">更多>></a></span>
+				</div>
+				<div class="line">
+					<%for(var i in item){%>
+					<div class="x6 padding radius">
+						<div class="boxshow">
+							<div class="relative">
+								<a href="goods.html?goods_id=<%=item[i].id%>">
+									<img class="pre" src="<%=item[i].img%>"  width="100%" />
+								</a>
+								<%if(item[i].stock<=0){%>
+								<!--无货提醒-->
+								<div class="goods-tip">
+									<div class="text-center">
+										<a href="javascript:;" class="text-white text-default  padding-small bg-tr"><span class="ticon-emoji wx-ticon"></span> 抢光啦! </a>
+									</div>
+								</div>
+								<%}%>
+							</div>
+							<div class="bg padding-small-left padding-small-right ">
+								<div class="text-twoline height goods-tit text-default text-main">
+									<%=item[i].title%>
+								</div>
+								<div class="clearfix height" style="height: 30px;">
+									<div class="float-left">
+										<%if(item[i].rmb_price>0){%> ￥
+										<span class="text-big text-default text-main"><%=parseFloat(item[i].rmb_price)%></span>
+										<%if(item[i].score_price>0){%> +
+										<%=item[i].score_price%><img src="../static/images/yugu.png" alt="" width="20px" height="20px"  style="position: relative;top: -2px;">
+										<%}%>
+										<%}else{%>
+										<%=item[i].score_price%><img src="../static/images/yugu.png" alt="" width="20px" height="20px"  style="position: relative;top: -2px;">
+										<%}%>
+									</div>
+
+								</div>
+<!--								
+							<div class="height">
+								<span class="text-big"><span class="tag bg-main margin-right"><small>鱼古兑换</small></span></span>
+							</div>-->
+
+							</div>
+						</div>
+					</div>
+					<%}%>
+				</div>
+			</section>
+		</script>
+
+		<script type="text/html" id="mall_type">
+			<section class="layout margin-top">
+				<div class="subtitle clearfix padding-small height boxshow">
+					<span class="float-left margin-right text-bold">|</span>
+					<span class="float-left">热卖单品</span>
+					<span class="float-right"><a class="text-gray" href="list.html">更多>></a></span>
+				</div>
+
+				<div id="type_list" class="line padding boxshow margin-top">
+					<div class="x20 padding-small">
+						<div class="bg-main text-center height-small"><a class=" text-white" href="list.html">全部</a></div>
+					</div>
+					<%for(var i in item){%>
+					<div class="x20 padding-small">
+						<div class="text-center bg-gray height-small">
+							<a class="text-white" href="list.html?typeid=<%=item[i].id%>">
+								<%=item[i].title%>
+							</a>
+						</div>
+					</div>
+					<%}%>
+				</div>
+			</section>
+		</script>
+
+		<script type="text/html" id="rmb_list">
+			<section class="margin-top">
+				<%for(var i in item){%>
+				<div class="media media-x relative boxshow padding-small">
+					<a href="goods.html?goods_id=<%=item[i].id%>">
+						<div class="float-left">
+							<img class="pre" src="<%=item[i].img%>" width="80" class="radius">
+						</div>
+						<div class="media-body relative">
+							<div class="text-twoline height">
+								<%=item[i].title%>
+							</div>
+							<div class="height-big">
+								<span>￥</span>
+								<span class="text-main text-large"><%=parseFloat(item[i].rmb_price)%></span>
+							</div>
+							<div class="clearfix text-gray">
+								<div class="float-left">最近成交
+									<%=item[i].sale_num%>笔</div>
+								<div class="float-right padding-right" style="position: relative;top: -5px;">
+									<span class="button button-little bg-main radius-none">立即购买</span>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+				<%}%>
+			</section>
+		</script>
+
+		<script type="text/html" id="footer">
+			<footer class="wx-footer padding-small-top padding-small-bottom">
+				<div class="wx-menu line text-center text-white">
+					<% for (var i in item) { %>
+					<a class="<%= item[i].active %>" href="<%= item[i].url %>">
+						<div class="x20">
+							<div class="text-big"><span class="<%= item[i].icon %> "></span>
+							</div>
+							<div class="">
+								<%= item[i].txt %>
+							</div>
+						</div>
+					</a>
+					<% } %>
+				</div>
+			</footer>
+		</script>
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/swiper-3.3.1.jquery.min.js"></script>
+		<script src="../static/js/tmpl/mall/index.js"></script>
+		<script src="../static/js/tmpl/footer.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+
+		<script src="http://map.qq.com/api/js?v=2.exp&key=2N2BZ-KKZA4-ZG4UB-XAOJU-HX2ZE-HYB4O&libraries=geometry,convertor"></script>
+
+		<script type="text/javascript">
+			//精确定位地址
+			jQuery(function($) {
+				var qqcGeocoder = null;
+				var clientLatLng = null;
+				$.gpsposition = function() {
+					var translatePoint = function(position) {
+						var currentLat = position.coords.latitude;
+						var currentLon = position.coords.longitude;
+						clientLatLng = new qq.maps.LatLng(currentLat, currentLon);
+
+						qq.maps.convertor.translate(new qq.maps.LatLng(currentLat, currentLon), 1, function(res) {
+							latlng = res[0];
+							console.log(latlng);
+							qqcGeocoder.getAddress(latlng);
+						});
+					}
+
+					qqcGeocoder = new qq.maps.Geocoder({
+						complete: function(result) {
+							console.log(result);
+							var lat = result.detail.location.lat;
+							var lng = result.detail.location.lng;
+							var city_name = result.detail.addressComponents.city;
+
+							addcookie('lat', lat);
+							addcookie('lng', lng);
+							addcookie('city_name', city_name);
+
+							var nowNearPoi = null;
+							var nearPoi;
+
+							for (var nearPoiKey in result.detail.nearPois) {
+								nearPoi = result.detail.nearPois[nearPoiKey];
+								if (nowNearPoi == null || nowNearPoi.dist > nearPoi.dist) {
+									nowNearPoi = nearPoi;
+								}
+							}
+
+							var address = nowNearPoi.address + nowNearPoi.name;
+							var reg = new RegExp("^" + result.detail.addressComponents.country, "gi");
+							address = address.replace(reg, '');
+							/*reg = new RegExp("^" + result.detail.addressComponents.province, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.city, "gi");
+							address = address.replace(reg, '');
+							reg = new RegExp("^" + result.detail.addressComponents.district, "gi");
+							address = address.replace(reg, '');*/
+							addcookie('address',address);
+						}
+					});
+
+					var citylocation = new qq.maps.CityService({
+						complete: function(result) {
+							clientLatLng = result.detail.latLng;
+							qqcGeocoder.getAddress(result.detail.latLng);
+						}
+					});
+
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(translatePoint, function(error) {
+							citylocation.searchLocalCity();
+						}, {
+							enableHighAccuracy: true
+						});
+					} else {
+						citylocation.searchLocalCity();
+					}
+				}
+				$.gpsposition();
+
+			});
+		</script>
+	</body>
+
+</html>

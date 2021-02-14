@@ -1,0 +1,57 @@
+<!doctype html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>搜索</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="static/css/swiper-3.3.1.min.css" />
+	</head>
+
+	<body>
+		<header class="header boxshow">
+			<div class="header-left">
+				<a class="ticon-back text-big ticon-back win-back"></a>
+			</div>
+			<div class="search">
+				<span class="ticon-search"></span>
+				<span class="input-main">
+				<input type="search" maxlength="24" id="keyword" placeholder="文章关键字"></span>
+				<span class="ticon-roundclosefill hide" id="clearkeyword"></span>
+			</div>
+			<div class="header-right">
+				<button type="button" class="search_buttom text-oneline">搜索</button>
+			</div>
+		</header>
+		<div class="blank"></div>
+
+		<div class="layout boxshow">
+			<div class="padding">
+				<div class="height">热门关键字</div>
+				<hr>
+				<ul class="keyword-list margin-bottom" id="hotkey">
+					<li>垂钓水域</li>
+					<li>钓技</li>
+					<li>鱼饵</li>
+				</ul>
+				<hr>
+				<div class="padding-big  text-center">
+					<a class="button button-block border-main" href="/forum/index.html">去社区逛逛</a>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="categroy-cnt" id="categroy-cnt"></div>
+		</div>

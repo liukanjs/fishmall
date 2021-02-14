@@ -1,0 +1,48 @@
+<?php
+namespace common\model;
+
+use think\Model;
+
+class PlaceList extends Model
+{
+    protected $type = [
+        'create_time' => 'timestamp:Y/m/d H:i:s',
+        'update_time' => 'timestamp:Y/m/d H:i:s'
+    ];
+
+    /**
+     * TODO 获取钓场列表
+     * @param $order
+     * @param $city_id
+     * @param $lat
+     * @param $lng
+     * @param $curpage
+     * @param $page_size
+     * @return array
+     * @internal param $type
+     */
+    public function Place_List($order, $city_id, $lat, $lng, $curpage, $page_size)
+    {
+        $result = array();
+        $model = $this->db();
+        if ($city_id > 0) $model->where('city', 'eq', $city_id);
+        //$model->where('lng','eq','0');
+        $options = $model->getOptions();
+        $num_rows = $model->count();
+        $model->options($options);
+        $model->field('*,ROUND(6378.138*2*ASIN(SQRT(POW(SIN((' . $lat . '*PI()/180-lat*PI()/180)/2),2)+COS(' . $lat . '*PI()/180)*COS(lat*PI()/180)*POW(SIN((' . $lng . '*PI()/180-lng*PI()/180)/2),2))),1) AS distance');
+        $model->order($order);
+        $model->page($curpage, $page_size);
+        $data_rows = $model->select();
+        $result['data'] = $data_rows;
+        $result['page'] = ceil($num_rows / $page_size);
+        /*foreach ($data_rows as $key => $value) {
+            $test = http('http://api.map.baidu.com/geocoder/v2/', array('ak' => 'HGCZVZTqEtwesMRG3DUqfyZhw91EydvS', 'output' => 'json', 'address' => $value['address'], 'city' => $value['city']), 'get');
+            if (!empty($test['result'])) {
+                $this->save(['lat' => $test['result']['location']['lat'], 'lng' => $test['result']['location']['lng']], ['id' => $value['id']]);
+                $data_rows[$key]['title'] .= $test['result']['location']['lat'];
+            }
+        }*/
+        return $result;
+    }
+}

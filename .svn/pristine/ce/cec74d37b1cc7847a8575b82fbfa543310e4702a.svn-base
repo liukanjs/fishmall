@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="wx">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>话题详情</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/swipebox.min.css" />
+
+	</head>
+
+	<body>
+
+		<header class="layout margin-bottom boxshow app-top">
+			<div class="height-large clearfix relative">
+				<div class="float-left">
+					<span class="margin-left text-big ticon-back win-back block"></span>
+				</div>
+				<div class="float-right">
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-default win-refresh">话题详情</div>
+			</div>
+		</header>
+		<section style="height: 42px;"></section>
+
+		<section class="layout" id="main-container"></section>
+
+		<section class="meiqia boxshow hide" id="to-top">
+			<!--返回顶部样式-->
+			<a class="text-white win-backtop" href="javascript:;"><span class="text-large ticon-top wx-ticon"></span></a>
+		</section>
+
+		<script type="text/html" id="topic">
+			<!--话题样式-->
+			<div class="boxshow padding margin-bottom">
+				<div class="clearfix relative">
+					<div class="float-left">
+						<img src="<%= user_icon %>" width="50" height="50" class="radius-circle">
+					</div>
+					<div class="float-left margin-left">
+						<div class="media-body relative">
+							<div class="text-twoline height">
+								<%= user_name %>
+								<!--<span class="tag bg-main"><%= level %></span>-->
+							</div>
+							<div class="">
+								<span class="text-gray"><%= last_time %></span>
+							</div>
+						</div>
+					</div>
+					
+						<%if(ismy==1){%>
+						<!--仅支持发起人可见及删除-->
+						<div class="content_del">
+							<span class="ticon-delete"></span>
+						</div>
+						<% }%>
+						
+					
+				</div>
+				<div class="margin-small-top">
+					<div class="height-small">
+						<pre class="tppre"><%== content %></pre>
+					</div>
+				</div>
+				<div class="margin-small-top" id="img_list">
+					<div class="line">
+						<% for (var j in img_list) { %>
+						<div class="clearfix margin-bottom">
+							<a href="<%=img_list[j].img%>" class="swipebox">
+								<img src="<%=img_list[j].img%>" class="img-responsive"/>
+								</a>
+						</div>
+						<% } %>
+					</div>
+				</div>
+				<div class="clearfix margin-small-top text-gray">
+					<%if(address!="正在获取定位地址..." && address!=''){%>
+					<div class="float-left">
+						<span class="ticon-location"><%= address %></span>
+					</div>
+					<%}%>
+					<div class="float-right padding-right">
+						<span class="<%if(like==1){%>ticon-appreciatefill <%}else{%>  ticon-appreciate<%}%>  margin-small-right appreciate"></span><%= top_num %>
+						<span class="ticon-comment"></span><%= discuss %>
+					</div>
+				</div>
+			</div>
+		</script>
+
+		<script type="text/html" id="top_list">
+			<% if(item.length>0) { %>
+			<div class="boxshow margin-top">
+				<!--点赞模块-->
+				<div class="clearfix height-big padding-right border-bottom">
+					<div class="float-left two-tit">
+						<span>有兴趣</span>
+					</div>
+					<div class="float-right">
+						<span class="text-gray"><%= item.length %></span>
+					</div>
+				</div>
+				<div class="clearfix padding">
+					<% for (var i in item) { %>
+					<div class="float-left margin-small"><img src="<%= item[i].user_icon %>" width="30" height="30" class="radius" /></div>
+					<% } %>
+				</div>
+			</div>
+			<% } %>
+		</script>
+
+		<script type="text/html" id="discuss_list">
+			<% if(item.length>0) { %>
+			<div class="boxshow margin-top" id="comment_list">
+				<!--评论模块-->
+				<div class="clearfix height-big padding-right border-bottom">
+					<div class="float-left two-tit">
+						<span class="ticon-comment">&nbsp;评论</span>
+					</div>
+					<div class="float-right">
+						<span class="text-gray"><%= item.length %></span>
+					</div>
+				</div>
+				<div class="clearfix padding">
+
+					<% for (var i in item) { %>
+					<div class="line border-bottom margin-bottom">
+						<div class="x2">
+							<img class="pre radius-circle" src="<%= item[i].user_icon %>" data-img="images/1-1.jpg" width="40" height="40" class="radius" alt="...">
+						</div>
+						<div class="x10">
+							<div class="clearfix height text-default">
+								<div class="float-left">
+									<%= item[i].user_name %>
+								</div>
+								<div class="float-right"><span class="text-gray"><%= item[i].last_time %></span></div>
+							</div>
+							<div class="clearfix height-big facelist">
+								<%==replace_em(item[i].messages) %>
+							</div>
+						</div>
+					</div>
+
+					<% } %>
+					<div class="height text-center"><span class="text-gray">没有更多的评论了...</span></div>
+
+				</div>
+			</div>
+
+			<% } %>
+		</script>
+
+		<script type="text/html" id="my_info">
+			<section class="layout boxshow" id="comment_add">
+				<!--评论-->
+				<div class=" margin-top">
+					<div class="clearfix height-big padding-right border-bottom">
+						<div class="float-left two-tit">
+							<span class="ticon-comment">&nbsp;发表评论</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="padding">
+					<div class="line margin-bottom">
+						<div class="x2">
+							<img class="pre radius-circle" src="<%= user_icon %>" width="40" height="40" class="radius" alt="...">
+						</div>
+						<div class="x10">
+							<div class="pinglun-textarea">
+								<textarea rows="4" class="input" name="message" id="message" placeholder="说点什么吧..."></textarea>
+								<div class="height clearfix">
+									<div class="float-left height">
+										<span class="emotion ticon-emoji text-large text-bold"></span>
+									</div>
+									<div class="float-right"><button id="comment" class="button button-small margin-small-top margin-small-right">发送</button></div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</section>
+		</script>
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/jquery.swipebox.js"></script>
+		<script src="../static/js/jquery-browser.js"></script>
+		<script src="../static/js/jquery.qqFace.js"></script>
+		<script src="../static/js/tmpl/forum/topic-info.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+			$(window).load(function() {
+				NProgress.done();
+			})
+		</script>
+
+	</body>
+
+</html>

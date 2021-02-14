@@ -1,0 +1,112 @@
+$(function () {
+    var key = getcookie('key');
+    if (key == '') {
+        location.href = '/login.html';
+    }
+    var isok = false;
+    $.ajax({
+        url: ApiUrl + "/member/index/index",
+        type: 'POST',
+        data: {
+            key: key
+        },
+        timeout: '16000',
+        error: function (a, b, c) {
+            if (c != "error") {
+                $(window).apptip({
+                    msg: c
+                });
+            } else {
+                $(window).apptip({
+                    msg: "加载失败，请检查网络设置"
+                });
+            }
+        },
+        success: function (result) {
+            NProgress.done();
+            var data = result.datas;
+            var html = '';
+            if (data == null) {
+                location.href = '/login.html';
+                return;
+            }
+            isok = true;
+            $.each(data, function (k, v) {
+                html += template.render(k, v);
+            });
+            $("#main-container").html(html);
+
+            //图片预加载
+            $('img.pre').each(function (i, e) {
+                var _src = $(this).attr("data-img");
+                $(this).attr("src", _src);
+            });
+
+            logout();
+        }
+    });
+
+    function logout() {
+        //登出
+        $('#logoutbtn').click(function () {
+            var key = getcookie('key');
+            $.ajax({
+                type: 'get',
+                url: ApiUrl + '/member/login/logout',
+                data: {
+                    key: key,
+                    client: client
+                },
+                timeout: '10000',
+                error: function (a, b, c) {
+                    console.log(b);
+                    if (c != "error") {
+                        $(window).apptip({
+                            msg: c
+                        });
+                    } else {
+                        $(window).apptip({
+                            msg: "加载失败，请检查网络设置"
+                        });
+                    }
+                },
+                success: function (result) {
+                    if (result) {
+                        delCookie('username');
+                        delCookie('key');
+						delCookie('key');
+						delCookie('lat');
+						delCookie('lng');
+						delCookie('city_name');
+						delCookie('address');
+						delCookie('iscart');
+                        $(window).apptip({
+                            msg: "登出成功"
+                        });
+                        setTimeout(function () {
+                            location.href = WapSiteUrl + '/login.html';
+                        }, 500);
+                    }
+                }
+            });
+        });
+    }
+
+
+    //自动显示回到顶部按钮
+    var scrolll_hght;
+    var totophtml = '';
+    $(window).scroll(function () {
+        var dh = $(document).height(); //整个页面文档的高度
+        var to_top = $(this).scrollTop(); //滚动条的高度
+        var wh = $(this).height(); //窗口的高度；
+        scrolll_hght = dh - to_top - wh; //滚动到底部的位置；
+        //返回到顶部按钮
+        if (to_top > wh) {
+            $("#to-top").show();
+        } else {
+            $("#to-top").hide();
+        }
+    });
+
+});

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>狂野钓鱼总后台-发货单</title>
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="../../../../../public/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../../../../../public/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+
+    <link href="../../../../../public/static/css/animate.min.css" rel="stylesheet">
+    <link href="../../../../../public/static/css/style.min.css?v=4.1.0" rel="stylesheet">
+</head>
+		<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox-content p-xl">
+                    <div class="row">
+                    	<h2 class="text-center">狂野钓鱼发货单</h2>
+                    	
+                        <div class="col-sm-6">
+                            <address>
+                            <h4>订单编号：</h4>
+                            <h4 class="text-navy">{$result.order_info.order_sn}</h4>
+                                        <strong>收货人</strong><br>
+                                        {$result.order_info.address_info.username}<br>
+                                        <abbr title="Phone">电话：</abbr> {$result.order_info.address_info.telphone}<br>
+                                        {$result.order_info.address_info.address}
+                                    </address>
+                        </div>
+
+                        <div class="col-sm-6 text-right">
+                            <address>
+                                        <strong>发货人</strong><br>
+                                        深圳狂野钓鱼手游<br>
+                                        <abbr title="Phone">电话：</abbr> 0755-88888888
+                                    </address>
+                            <p>
+                                <span><strong>下单时间：</strong> {$result.order_info.create_time}</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive m-t">
+                        <table class="table invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>清单</th>
+                                    <th>单价</th>
+                                    <th>数量</th>
+                                    <th>小计</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	
+                        	{volist name="$result.order_info.order_goods_list" id="vo"}
+                        	<tr>
+                        		<td>
+                        			{$vo.title}
+                        		</td>
+                        		<td>￥{$vo.rmb_price}+{$vo.score_price}鱼古</td>
+                        		<td>{$vo.goods_num}</td>
+                        		<td>￥{$vo.rmb_price*$vo.goods_num}+{$vo.score_price*$vo.goods_num}鱼古</td>
+                        		</td>
+                        	</tr>
+						{/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /table-responsive -->
+
+                    <table class="table invoice-total">
+                        <tbody>
+                            <tr>
+                                <td><strong>邮费：</strong>
+                                </td>
+                                <td>&yen;{$result.order_info.order_postage}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>实际支付</strong>
+                                </td>
+                                <td>&yen;{$result.order_info.total_pay_price}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="well m-t"><strong>温馨提醒：</strong> 请当面签收，认真检查包裹是否正常，商品是否有损坏，一旦发现问题请拒收此件。并致电0755-26608649联系客服处理。未拒收且无凭证的情况下，将不接受七天无理由退换货。
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.5"></script>
+    <script src="js/content.min.js?v=1.0.0"></script>
+</body>
+
+	</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>狂野钓鱼总后台</title>
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="../../../../../public/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../../../../../public/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+
+    <link href="../../../../../public/static/css/animate.min.css" rel="stylesheet">
+    <link href="../../../../../public/static/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="../../../../../public/static/js/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+<style type="text/css">
+	.project-list table tr td{padding:3px 0;}
+</style>
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>商品分类
+                        <small>设置商品分类，支持商品二级分类设置</small>
+                    </h5>
+                    <div class="ibox-tools">
+                        <a href="/admin/index/mall/class_edit" class="btn btn-primary btn-xs"> 添加商品分类 </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="project-list">
+                        <div class="row list-search">
+                            <div class="col-md-6 text-center">
+                                <div class="col-md-4 active list-title">全部分类</div>
+                            </div>
+                        </div>
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>id</th>
+                                <th  colspan="2">分类名</th>
+                                <th>分类级别</th>
+                                <th>排序</th>
+                                <th>操作</th>
+                            </tr>
+                            
+                        	{volist name="$list" id="vo"}
+                        	<tr>
+                                <td>{$vo.id}</td>
+                                <td  colspan="2"><b>{$vo.title}</b> 
+                                	<a href="/admin/index/mall/class_edit/id/{$vo.id}/add/true?add=true">新增下级</a></td>
+                                </td>
+                                <td>{$vo.level}级</td>
+                                <td>{$vo.sort}</td>
+                               
+                                <td><a href="/admin/index/mall/class_edit/id/{$vo.id}" class="btn btn-white btn-sm"><i
+                                        class="fa fa-edit"></i> 编辑 </a>
+                                    <a href="javascript:;" onclick="$delete('class_del','id={$vo.id}');" class="btn btn-white btn-sm"><i
+                                            class="fa fa-close"></i> 删除 </a></td>	
+                                </td>
+                        	</tr>
+                        	
+                        	{volist name="$vo.son" id="son"}
+                        	<tr>
+                                <td>{$son.id}</td>
+                                <td  colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├──{$son.title}
+                                </td>
+                                <td>{$son.level}级</td>
+                                <td>{$vo.sort}</td>
+                               
+                                <td><a href="/admin/index/mall/class_edit/id/{$son.id}" class="btn btn-white btn-sm"><i
+                                        class="fa fa-edit"></i> 编辑 </a>
+                                    <a href="#" onclick="$delete('class_del','id={$son.id}');" class="btn btn-white btn-sm"><i
+                                            class="fa fa-close"></i> 删除 </a></td>	
+                                </td>
+                        	</tr>
+						{/volist}
+                        	
+						{/volist}
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../../../public/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="../../../../../public/static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../../../../../public/static/js/content.min.js?v=1.0.0"></script>
+<script src="../../../../../public/static/js/plugins/sweetalert/sweetalert.min.js"></script>
+</body>
+</html>

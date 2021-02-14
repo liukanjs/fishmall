@@ -1,0 +1,40 @@
+<?php
+namespace common\model;
+
+use think\Model;
+
+class DiscussList extends Model
+{
+    protected $type = [
+        'create_time' => 'timestamp:Y/m/d H:i:s',
+        'update_time' => 'timestamp:Y/m/d H:i:s'
+    ];
+
+    /**
+     * TODO 获取文章评论
+     * @param $id
+     * @return false|static[]
+     */
+    public function Discuss_List($id, $type = 1)
+    {
+        $discuss_list = $this->db()->where('art_id', 'eq', $id)->where('type', 'eq', $type)->order('id desc')->select();
+        foreach ($discuss_list as $key => $value) {
+            $UserInfo = $this->hasOne('UserInfo')->where('id', 'eq', $value['user_id'])->find();
+            $discuss_list[$key]['user_icon'] = $UserInfo['user_icon'];
+            $discuss_list[$key]['user_name'] = $UserInfo['user_name'];
+            $discuss_list[$key]['last_time'] = mdate(to_timespan($value['create_time']));
+        }
+        return $discuss_list;
+    }
+
+    /**
+     * TODO 统计文章评论
+     * @param $id
+     * @return int
+     */
+    public function Discuss_Count($id, $type = 1)
+    {
+        $discuss_list = $this->db()->where('art_id', 'eq', $id)->where('type', 'eq', $type)->order('id desc')->count();
+        return $discuss_list;
+    }
+}

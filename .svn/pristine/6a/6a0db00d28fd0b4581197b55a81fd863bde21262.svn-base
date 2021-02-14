@@ -1,0 +1,339 @@
+//收藏商品
+//http://www.fish.com/api.php/member/index/fav_goods
+//POST['key'] = '1234'
+//  
+//渔具详情
+//http://www.fish.com/api.php/mall/index/goods_info
+//POST['goods_id'] = 100
+//POST['key'] = '1234'
+
+$(function() {
+	var key = getcookie('key');
+	//  if (key == '') {
+	//      location.href = '/login.html';
+	//  }
+	var goods_id = GetQueryString("goods_id");
+	var goods_style_id = 0;
+	var goods_style_info_id = 0;
+	var goods_style;
+	console.log(goods_id);
+	if (goods_id == null) {
+		location.href = '/404.html';
+	}
+
+	var isok = false;
+	$.ajax({
+		url: ApiUrl + "/mall/index/goods_info",
+		type: 'POST',
+		data: {
+			goods_id: goods_id,
+			key: key
+		},
+		timeout: '16000',
+		error: function(a, b, c) {
+			NProgress.done();
+			if (c != "error") {
+				$(window).apptip({
+					msg: c
+				});
+			} else {
+				$(window).apptip({
+					msg: "加载失败，请检查网络设置"
+				});
+			}
+		},
+		success: function(result) {
+			NProgress.done();
+			$('title,#title').html(result.datas.goods_info.title);
+			var data = result.datas;
+			var html = '';
+			if (data == null) {
+				location.href = '/404.html';
+				return;
+			}
+			//规格数据处理
+			goods_style = data.goods_info.style;
+
+			if(goods_style.length>0){
+				data.goods_info.rmb_price=goods_style[goods_style_id][goods_style_info_id].price;
+			}
+
+			isok = true;
+			$.each(data, function(k, v) {
+				html += template.render(k, v);
+			});
+			$("#main-container").html(html);
+			goods_style_chage();
+
+			//判断是否可以鱼古兑换
+
+			if (key != '') {
+				var my_score = data.my_info.score;
+				var goods_score = data.goods_info.score_price;
+				if (my_score < goods_score) {
+					$('#exchange_now').css("background-color", "rgba(80,158,224,0.5)").attr('iscart', 'nocart');
+				}
+			}
+
+			var banner = new Swiper('.swiper-container', {
+					autoplay: 5000,
+					pagination: '.swiper-pagination',
+					scrollbar: '.swiper-scrollbar',
+				})
+				//图片预加载
+			$('img.pre').each(function(i, e) {
+				var _src = $(this).attr("data-img");
+				$(this).attr("src", _src);
+			});
+
+			$('.i-minus').click(function() {
+				var goods_num = $('#goods_num').val();
+				if (parseInt(goods_num) > 1) {
+					goods_num = parseInt(goods_num) - 1;
+					$('#goods_num').val(goods_num);
+				}
+			})
+			$('.i-add').click(function() {
+				var goods_num = $('#goods_num').val();
+				goods_num = parseInt(goods_num) + 1;
+				$('#goods_num').val(goods_num);
+			})
+
+			set_like();
+
+			//购物车事件
+			$('.to_cart').click(function() {
+
+				if (key == '') {
+					location.href = '/login.html';
+				}
+
+				if ($(this).attr('iscart') == 'nocart') {
+					$(window).appalert({
+						msg: "您拥有" + my_score + "鱼古，暂不足以兑换此商品"
+					})
+				} else {
+					var cart_type = $(this).attr('id');
+					var goods_num = parseInt($('#goods_num').val());
+					if (goods_num) {
+						if (goods_num == NaN) {
+							goods_num = 1;
+						}
+					} else {
+						goods_num = 1;
+					}
+
+					console.log(goods_num);
+
+					$.ajax({
+						url: ApiUrl + "/mall/index/cart_add",
+						type: 'post',
+						data: {
+							key: key,
+							goods_id: goods_id,
+							goods_num: goods_num,
+							style_id: goods_style_id,
+							style_info_id: goods_style_info_id,
+						},
+						timeout: '16000',
+						error: function(a, b, c) {
+							NProgress.done();
+							if (c != "error") {
+								$(window).apptip({
+									msg: c
+								});
+							} else {
+								$(window).apptip({
+									msg: "加载失败，请检查网络设置"
+								});
+							}
+						},
+						success: function(result) {
+							var data = result.datas;
+							if (result.code == 1) {
+
+								if (cart_type == "add_cart") {
+									$(window).appconfirm({
+										msg: "添加到购物车，您选择是",
+										bts: ["去购物车", "再逛逛"],
+										yes: function() {
+											window.location.href = "/mall/cart.html?showwxpaytitle=1";
+										}
+									})
+
+								} else {
+									window.location.href = "/mall/cart.html?showwxpaytitle=1";
+								}
+							} else {
+								$(window).apptip({
+									msg: result.error
+								})
+
+							}
+						}
+					});
+
+				}
+			})
+
+		}
+	});
+
+	//收藏
+	function set_like() {
+		$('#like').click(function() {
+			var like = $(this).attr('like');
+
+			if (key == '') {
+				$(window).appconfirm({
+					msg: '您尚未登录，请登录后进行评论！',
+					yes: function() {
+						location.href = location.href = '/login.html';
+					}
+				});
+			} else {
+
+				$.ajax({
+					type: "post",
+					url: ApiUrl + "/index/index/set_like",
+					dataType: 'json',
+					data: {
+						id: goods_id,
+						key: key
+					},
+					timeout: '10000',
+					error: function(a, b, c) {
+						if (c != "error") {
+							$(window).apptip({
+								msg: c
+							});
+						} else {
+							$(window).apptip({
+								msg: "加载失败，请检查网络设置"
+							});
+						}
+					},
+					success: function(result) {
+						var data = result.datas;
+						if (result.code == 1) {
+							if (like == 1) {
+								$('#like').attr({
+									'like': 0
+								});
+								$('#like').removeClass('ticon-likefill');
+								$('#like').addClass('ticon-like');
+								$(window).apptip({
+									msg: "取消收藏！"
+								});
+							} else {
+								$('#like').attr({
+									'like': 1
+								});
+								$('#like').removeClass('ticon-like');
+								$('#like').addClass('ticon-likefill');
+								$(window).apptip({
+									msg: "收藏成功！"
+								});
+							}
+
+						} else {
+							$(window).apptip({
+								msg: "请检查网络设置"
+							})
+						}
+					}
+				});
+			}
+		})
+	}
+
+
+	function goods_style_chage(){
+		$('.goods-style').unbind().click(function(){
+			$(this).addClass('active').siblings().removeClass('active');
+			goods_style_id=$(this).attr('styleid');
+			var html = '';
+			$(goods_style).each(function(i,v){
+				if(i == goods_style_id){
+					$(v).each(function(j,o) {
+						goods_style_info_id = 0;
+						html += '<a href="javascript:void(0);" class="'+((j==0)?'active':'')+' goods-style-info" styleinfoid="' + j + '">' + o.info + '</a>';
+					});
+				}
+			});
+			$('#goods-style-info').html(html);
+			goods_style_chage();
+			get_price();
+		})
+
+		$('.goods-style-info').unbind().click(function(){
+			$(this).addClass('active').siblings().removeClass('active');
+			goods_style_info_id=$(this).attr('styleinfoid');
+			get_price();
+		})
+	}
+
+	function get_price(){
+		var price=goods_style[goods_style_id][goods_style_info_id];
+		$('#price').text(price.price);
+	}
+
+	//自动显示回到顶部按钮
+	var scrolll_hght;
+	var totophtml = '';
+	$(window).scroll(function() {
+		var dh = $(document).height(); //整个页面文档的高度
+		var to_top = $(this).scrollTop(); //滚动条的高度
+		var wh = $(this).height(); //窗口的高度；
+		scrolll_hght = dh - to_top - wh; //滚动到底部的位置；
+		//返回到顶部按钮
+		if (to_top > wh) {
+			$("#to-top").show();
+		} else {
+			$("#to-top").hide();
+		};
+	});
+
+	if (is_weixn()) {
+		getScript("http://res.wx.qq.com/open/js/jweixin-1.0.0.js", function() {
+			getScript(ApiUrl + '/index/WechatApi/jsapi?url==' + encodeURIComponent(location.href), function() {
+				wx.ready(function() {
+					pageUrl = location.href;
+					wx.onMenuShareTimeline({
+						title: '', // 分享标题
+						link: pageUrl, // 分享链接
+						imgUrl: '', // 分享图标
+						success: function() {
+							// 用户确认分享后执行的回调函数
+						},
+						cancel: function() {
+							// 用户取消分享后执行的回调函数
+						},
+						fail: function(res) {
+							alert("分享失败，请重新尝试");
+						}
+					});
+					wx.onMenuShareAppMessage({
+						title: '', // 分享标题
+						desc: '', // 分享描述
+						link: pageUrl, // 分享链接
+						imgUrl: '', // 分享图标
+						type: 'link', // 分享类型,music、video或link，不填默认为link
+						dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+						success: function() {
+							// 用户确认分享后执行的回调函数
+						},
+						cancel: function() {
+							// 用户取消分享后执行的回调函数
+						}
+					});
+				});
+				wx.error(function(res) {
+					/*$(window).appalert({
+					 msg: res.errMsg
+					 });*/
+				});
+			});
+		});
+	}
+});

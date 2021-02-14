@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>狂野钓鱼总后台</title>
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="../../../../../public/static/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../../../../../public/static/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+
+    <link href="../../../../../public/static/css/animate.min.css" rel="stylesheet">
+    <link href="../../../../../public/static/css/style.min.css?v=4.1.0" rel="stylesheet">
+
+
+</head>
+
+<body class="gray-bg">
+
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>配套服务
+                        <small>针对钓场只是的配套服务</small>
+                    </h5>
+                    <div class="ibox-tools">
+                        <a href="?" class="btn btn-primary btn-xs"> 添加配套服务 </a>
+                    </div>
+                </div>
+                <div class="ibox-content" style="padding-left: 40px; padding-right: 40px;">
+                    <div class="row list-group">
+                        <div class="col-md-6 list-group-item">
+                            <div class="row list-search">
+                                <div class="col-md-3 active list-title">配套服务列表</div>
+                            </div>
+                            <div class="row p-m">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th width="70%">配套服务</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>精品</td>
+                                        <td>编辑 删除</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>精品</td>
+                                        <td>编辑 删除</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>精品</td>
+                                        <td>编辑 删除</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>精品</td>
+                                        <td>编辑 删除</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>精品</td>
+                                        <td>编辑 删除</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-5 list-group-item col-md-offset-1">
+                            <div class="row list-search text-center">
+                                <div class="col-md-4 active list-title">添加/修改配套服务</div>
+                            </div>
+                            <div class="row"><form class="form-horizontal m-t" id="commentForm" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">标签名：</label>
+
+                                    <div class="col-sm-8">
+                                        <input id="cname" name="cname" minlength="2" type="text" class="form-control" required="" aria-required="true">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-3">
+                                        <button class="btn btn-primary" type="submit">修改/保存</button>
+                                    </div>
+                                </div>
+                            </form></div>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-white"><i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-white">1</button>
+                        <button class="btn btn-white  active">2</button>
+                        <button class="btn btn-white">3</button>
+                        <button class="btn btn-white">4</button>
+                        <button type="button" class="btn btn-white"><i class="fa fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../../../public/static/js/jquery.min.js?v=2.1.4"></script>
+<script src="../../../../../public/static/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../../../../../public/static/js/content.min.js?v=1.0.0"></script>
+</body>
+</html>

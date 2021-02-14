@@ -1,0 +1,284 @@
+//发布文章接口
+//http://www.fish.com/api.php/forum/index/article_add
+//POST['key'] = '1234'
+//POST['title'] = '1234'
+//POST['note'] = '1234'
+//POST['type'] = '1'
+//POST['img'] = '123.jpg'
+//POST['message'] = '123.jpg'
+//ctype:类型：1社区|2活动
+//atype:类型：1话题|2文章|3活动
+
+$(function () {
+    var key = getcookie('key');
+    if (key == '') {
+        location.href = '/login.html';
+    }
+
+    //初始化图片url
+    var imglist_val = "";
+
+    $.ajax({
+        url: ApiUrl + "/forum/index/nav_type",
+        type: 'post',
+        data: {
+            ctype: 1,
+            atype: 2
+        },
+        timeout: '16000',
+        error: function (a, b, c) {
+            NProgress.done();
+            if (c != "error") {
+                $(window).apptip({
+                    msg: c
+                });
+            } else {
+                $(window).apptip({
+                    msg: "加载失败，请检查网络设置"
+                });
+            }
+        },
+        success: function (result) {
+            var data = result.datas.class_type;
+            if (result.code == 1) {
+                $.each(data, function (i, e) {
+                    var html = '<option value="' + e.id + '">' + e.name + '</option>';
+                    $('#typeid').append(html);
+                });
+
+                //取文章分类tag的值
+                $('#typeid').change(function () {
+                    var typeid = $('#typeid').val();
+                    $.ajax({
+                        url: ApiUrl + "/forum/index/article_type",
+                        type: 'post',
+                        data: {
+                            typeid: typeid
+                        },
+                        timeout: '16000',
+                        error: function (a, b, c) {
+                            NProgress.done();
+                            if (c != "error") {
+                                $(window).apptip({
+                                    msg: c
+                                });
+                            } else {
+                                $(window).apptip({
+                                    msg: "加载失败，请检查网络设置"
+                                });
+                            }
+                        },
+                        success: function (result) {
+                            var data = result.datas.article_list;
+                            if (result.code == 1) {
+                                $('#tags_id').html('<option value="">请选择文章分类</option>	');
+                                $.each(data, function (i, e) {
+                                    var html = '<option value="' + e.id + '">' + e.tags_name + '</option>';
+                                    $('#tags_id').append(html);
+                                });
+                            } else {
+                                $(window).apptip({
+                                    msg: result.error
+                                })
+                            }
+                        }
+                    });
+
+                });
+
+            } else {
+                $(window).apptip({
+                    msg: "请检查网络设置"
+                })
+            }
+        }
+    });
+
+    //话题图片等高
+    $('.w_h').each(function () {
+        $(this).height($(this).width());
+    });
+
+    //字数监控
+    $('#message').keyup(function () {
+        var len = $(this).val().length;
+        $('#word_len').text(3000 - len);
+    })
+
+    //表单验证
+	jQuery.validator.addMethod("checkPic", function(value, element) {
+		var filepath = $(element).val();
+		//获得上传文件名
+		var fileArr = filepath.split(",");
+		var fileTArr = fileArr[fileArr.length - 1].toLowerCase().split(".");
+		var filetype = fileTArr[fileTArr.length - 1];
+		console.log(filetype);
+		//切割出后缀文件名
+		if (filetype === "jpg" || filetype === "gif" || filetype === "jpeg" || filetype === "png") {
+			return true;
+		} else {
+			return false;
+		}
+	}, "上传图片格式不适合");
+
+    var checkForm = $("#art_add").validate({
+		ignore: [],
+        rules: {
+            title: {
+                required: true,
+                minlength: 6,
+                maxlength: 30
+            },
+            typeid: {
+                required: true
+            },
+            img_list: {
+                required: true,
+                checkPic: true
+            },
+            message: {
+                required: true,
+                minlength: 5,
+                maxlength: 3000
+            }
+
+        },
+        messages: {
+            title: {
+                required: "请输入文章标题",
+                minlength: "文章标题不得少于6个字",
+                maxlength: "字太多啦。。。"
+            },
+            typeid: {
+                required: "请选择社区频道"
+            },
+            img_list: {
+                required: "请上传图片",
+                checkPic: "请使用jpg的图片格式"
+            },
+            message: {
+                required: "内容必填",
+                minlength: "字太少啦。。。",
+                maxlength: "字太多啦。。。"
+            }
+        },
+        submitHandler: function () {
+            tpbtn();
+        }
+    });
+
+    //发起帖子
+    function tpbtn() {
+        var title = $("#title").val();
+        var ctype = 1;
+        var atype = 2;
+        var typeid = $("#typeid").val();
+        var tags_id = $("#tags_id").val();
+        var message = $("#message").val();
+        var img_list = $("#img_list").val();
+        if (message.length >= 20) {
+            var note = message.substr(0, 20);
+        } else {
+            var note = message.substr(0, 6);
+        }
+
+        $.ajax({
+            type: "post",
+            url: ApiUrl + "/forum/index/article_add",
+            dataType: 'json',
+            data: {
+                key: key,
+                ctype: ctype,
+                atype: atype,
+                typeid: typeid,
+                tags_id: tags_id,
+                title: title,
+                note: note,
+                message: message,
+                img_list: img_list
+            },
+            timeout: '10000',
+            error: function (a, b, c) {
+                if (c != "error") {
+                    $(window).apptip({
+                        msg: c
+                    });
+                } else {
+                    $(window).apptip({
+                        msg: "加载失败，请检查网络设置"
+                    });
+                }
+            },
+            success: function (result) {
+                var data = result.datas;
+                if (result.code == 1) {
+                    $(window).appalert({
+                        tit: "操作提示",
+                        msg: "操作成功，文章已发布！",
+                        cbk: function () {
+                            window.location.href = WapSiteUrl + '/forum/index.html';
+                        }
+                    });
+                    return false;
+                } else {
+                    $(window).apptip({
+                        msg: "请检查网络设置"
+                    })
+                }
+            }
+        });
+
+    };
+
+    //上传图片
+    $('#ppp').click(function () {
+        var pic_len = 9;
+        // 上传方法
+        $.upload({
+            // 上传地址
+            url: '/api/index/upload',
+            // 文件域名字
+            fileName: 'filedata',
+            // 其他表单数据
+            params: {
+				up: 1,
+                key: key
+            },
+            // 上传完成后, 返回json, text
+            dataType: 'json',
+            // 上传之后回调
+            onComplate: function (data) {
+                var img_html = '<div class="x4 w_h padding-little"><div class="w_h_img" style="background: url(' + SiteUrl + data.datas + ') center no-repeat;"></div></div>'
+                var img_h = '<a class="x4 w_h padding-little text-center"><img class="updata_pic" style="height:100%;width:100%;" scr="" /></a>'
+                $('#upimg').prepend(img_h);
+                $('.updata_pic').eq(0).attr('src', data.datas).show();
+
+                //话题图片等高
+                $('.w_h').each(function () {
+                    $(this).height($(this).width());
+                });
+
+                if (imglist_val == "") {
+                    imglist_val = data.datas;
+                } else {
+                    imglist_val = data.datas + "," + imglist_val;
+                }
+
+                console.log(data.datas);
+                $("input[name=img_list]").val(imglist_val);
+            },
+            // 上传之前回调,return true表示可继续上传
+            onSend: function () {
+                if ($('.updata_pic').size() >= pic_len) {
+                    $(window).appalert({
+                        msg: "每个帖子最多只能上传9张图片"
+                    });
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        });
+    })
+
+})

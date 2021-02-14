@@ -1,0 +1,276 @@
+$(function () {
+
+    //key 排序方式 1-销量 2-浏览量 3-价格 空-按最新发布排序					4			3
+    //order 排序方式 1-升序 2-降序									1			1
+    //page 每页数量											10			10
+    //curpage 当前页码											2			2
+    //hasmore 当前页码											false		true
+    //gc_id 分类编号											4			4
+    //keyword 搜索关键字										null		null
+    //gc_id和keyword二选一不能同时出现
+
+    $("input[name=keyword]").val(escape(GetQueryString('keyword')));
+    $("input[name=gc_id]").val(GetQueryString('gc_id'));
+    $("input[name=store_id]").val(GetQueryString('store_id'));
+    $("input[name=page]").val(pagesize);
+    $("input[name=key]").val(4);
+    var loadpage = 0;
+
+    //加载效果
+    var listloading = $("<div class='text-center padding text-gray' id='listloading'><span class='ticon-loading icon-spin'></span> 加载中...</div>");
+    var htmlDone = $('<div class="padding-big text-center text-gray" id="htmlDone">已经到底啦。。。</div>');
+
+
+    //判断通过关键字搜索还是通过商品类别筛选
+    var productListUrl;
+    if ($("input[name=gc_id]").val() != '') {
+        productListUrl = ApiUrl + "/index.php?act=goods&op=goods_list&key=4&page=" + pagesize + "&curpage=1" + '&gc_id=' + $("input[name=gc_id]").val();
+    } else if ($("input[name=keyword]").val() != '' && $("input[name=keyword]").val() != 'null') {
+        productListUrl = ApiUrl + "/index.php?act=goods&op=goods_list&key=4&page=" + pagesize + "&curpage=1" + '&keyword=' + $("input[name=keyword]").val();
+    } else if ($("input[name=store_id]").val() != '') {
+        productListUrl = ApiUrl + "/index.php?act=store&op=goods_list&key=4&page=" + pagesize + "&curpage=1" + '&store_id=' + $("input[name=store_id]").val();
+    } else {
+        productListUrl = ApiUrl + "/index.php?act=store&op=goods_list&key=4&page=" + pagesize + "&curpage=1";
+    }
+
+    //初始化商品列表页
+    $.ajax({
+        url: productListUrl,
+        type: 'get',
+        dataType: 'json',
+        timeout: '10000',
+        error: function (a, b, c) {
+            $(window).apptip({
+                msg: "加载失败，请检查网络设置"
+            });
+        },
+        success: function (result) {
+            $("input[name=hasmore]").val(result.hasmore);
+            var html = template.render('home_body', result.datas);
+            $("#product_list").append(html);
+            if ($("input[name=store_id]").val() != '') {
+                $('.win-refresh').text(result.datas.store_info.store_name);
+                $('title').text(result.datas.store_info.store_name);
+            }
+            if ($("input[name=gc_id]").val() != '') {
+                $('.win-refresh').text('商品分类 - ' + result.datas.class_info.gc_name);
+                $('title').text('艾美e族 - 商品分类 - ' + result.datas.class_info.gc_name);
+            }
+            setTimeout(function () {
+                waterfall("#product_list", "#product_list>.box", 2)
+                $("#product_list").css('visibility', 'visible');
+                preimg();
+                loadTip();
+            }, 300)
+            $(window).scrollTop(0);
+            //滚动加载
+            scrollLoad();
+        }
+    });
+
+
+    $('.keyorder').click(function () {
+        setListUrl();
+        $("input[name=gc_id]").val(GetQueryString('gc_id'));
+        $("input[name=keyword]").val(escape(GetQueryString('keyword')));
+        $("input[name=store_id]").val(GetQueryString('store_id'));
+
+        var key = parseInt($("input[name=key]").val());
+        var order = parseInt($("input[name=order]").val());
+        var curpage = parseInt($("input[name=curpage]").val());
+        var gc_id = parseInt($("input[name=gc_id]").val());
+        var keyword = $("input[name=keyword]").val();
+        var store_id = $("input[name=store_id]").val();
+
+        curkey = $(this).attr('key'); //1.销量 2.浏览量 3.价格 4.最新排序
+        if (curkey == key) {
+            if (order == 1) {
+                var curorder = 2;
+            } else {
+                var curorder = 1;
+            }
+        } else {
+            var curorder = 1;
+        }
+
+        if (curkey == 1) {
+            if (curorder == 1) {
+                $(this).find('span').removeClass('ticon-unfold').addClass('ticon-fold');
+            } else {
+                $(this).find('span').removeClass('ticon-fold').addClass('ticon-unfold');
+            }
+        }
+        if (curkey == 2) {
+            if (curorder == 1) {
+                $(this).find('span').removeClass('ticon-unfold').addClass('ticon-fold');
+            } else {
+                $(this).find('span').removeClass('ticon-fold').addClass('ticon-unfold');
+            }
+        }
+        if (curkey == 3) {
+            if (curorder == 1) {
+                $(this).find('span').removeClass('ticon-unfold').addClass('ticon-fold');
+            } else {
+                $(this).find('span').removeClass('ticon-fold').addClass('ticon-unfold');
+            }
+        }
+
+        $(this).addClass("current").siblings().removeClass("current");
+
+
+        if ($("input[name=gc_id]").val() != '') {
+            var url = ApiUrl + "/index.php?act=goods&op=goods_list&key=" + curkey + "&order=" + curorder + "&page=" + pagesize + "&curpage=1&gc_id=" + gc_id;
+        } else if ($("input[name=keyword]").val() != '' && $("input[name=keyword]").val() != 'null') {
+            var url = ApiUrl + "/index.php?act=goods&op=goods_list&key=" + curkey + "&order=" + curorder + "&page=" + pagesize + "&curpage=1&keyword=" + keyword;
+        } else if ($("input[name=store_id]").val() != '') {
+            var url = ApiUrl + "/index.php?act=store&op=goods_list&key=" + curkey + "&order=" + curorder + "&page=" + pagesize + "&curpage=1&store_id=" + store_id;
+        }
+
+
+        $.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function (result) {
+                $("input[name=hasmore]").val(result.hasmore);
+
+                var html = template.render('home_body', result.datas);
+                $("#product_list").empty();
+                $("#product_list").css('visibility', 'hidden');
+                $("#product_list").append(html);
+
+                $("input[name=key]").val(curkey);
+                $("input[name=order]").val(curorder);
+                $("input[name=curpage]").val(1);
+                setTimeout(function () {
+                    waterfall("#product_list", "#product_list>.box", 2)
+                    $("#product_list").css('visibility', 'visible');
+                    scrollLoad();
+                    preimg();
+                    loadTip();
+                }, 200)
+            }
+        });
+        $(window).scrollTop(0);
+    });
+
+
+    //滚动加载
+    function scrollLoad() {
+        var _hght; //初始化滚动条总长
+        $(window).scroll(function () {
+            var dh = $(document).height(); //整个页面文档的高度
+            var to_top = $(this).scrollTop(); //滚动条的高度
+            var wh = $(this).height(); //窗口的高度；
+            _hght = dh - to_top - wh; //滚动到底部的位置；
+            //返回到顶部按钮
+            if (to_top > wh) {
+                $("#to-top").show();
+            } else {
+                $("#to-top").hide();
+            }
+            ;
+        });
+
+        var list_load = setInterval(function () {
+            var dh = $(document).height(); //整个页面文档的高度
+            var to_top = $(this).scrollTop(); //滚动条的高度
+            var wh = $(this).height(); //窗口的高度；
+            _hght = dh - to_top - wh; //滚动到底部的位置；
+            if (_hght < ($(document).height() / 3)) {
+                var hasmore = $('input[name=hasmore]').val();
+                if (hasmore == "false") {
+                    clearInterval(list_load);
+                    if ($('#htmlDone').size() == 0) {
+                        $('body').append(htmlDone);
+                        $('#listloading').remove();
+                    }
+                    ;
+                } else if (hasmore == "true") {
+                    loadmoredata();
+                    if ($('#listloading').size() == 0) {
+                        $('body').append(listloading);
+                        $('#htmlDone').remove();
+                    }
+                    ;
+                }
+                ;
+            }
+            ;
+        }, 1000);
+    };
+
+
+    //滚动加载取值
+    function loadmoredata() {
+        $("input[name=keyword]").val(escape(GetQueryString('keyword')));
+        $("input[name=gc_id]").val(GetQueryString('gc_id'));
+        $("input[name=store_id]").val(GetQueryString('store_id'));
+
+        var key = parseInt($("input[name=key]").val());
+        var order = parseInt($("input[name=order]").val());
+        var curpage = eval(parseInt($("input[name=curpage]").val()) + 1);
+        var gc_id = parseInt($("input[name=gc_id]").val());
+        var keyword = $("input[name=keyword]").val();
+        var store_id = $("input[name=store_id]").val();
+
+        if ($("input[name=gc_id]").val() != '') {
+            var loadurl = ApiUrl + "/index.php?act=goods&op=goods_list&key=" + key + "&order=" + order + "&page=" + pagesize + "&curpage=" + curpage + "&gc_id=" + gc_id;
+        } else if ($("input[name=keyword]").val() != '' && $("input[name=keyword]").val() != 'null') {
+            var loadurl = ApiUrl + "/index.php?act=goods&op=goods_list&key=" + key + "&order=" + order + "&page=" + pagesize + "&curpage=" + curpage + "&keyword=" + keyword;
+        } else if ($("input[name=store_id]").val() != '') {
+            var loadurl = ApiUrl + "/index.php?act=store&op=goods_list&key=" + key + "&order=" + order + "&page=" + pagesize + "&curpage=" + curpage + "&store_id=" + store_id;
+        }
+
+        if (loadpage !== curpage) {
+            loadpage = curpage;
+            $.ajax({
+                url: loadurl,
+                type: 'get',
+                dataType: 'json',
+            }).done(function (result) {
+                $("input[name=curpage]").val(curpage);
+                var html = template.render('home_body', result.datas);
+                $("#product_list").append(html);
+                setTimeout(function () {
+                    waterfall("#product_list", "#product_list>.box", 2)
+                    preimg();
+                    $("input[name=hasmore]").val(result.hasmore);
+                }, 200)
+                loadTip();
+            }).fail(function (e) {
+            }).always(function (e) {
+            });
+        }
+    };
+
+    //链接设置初始化
+    function setListUrl() {
+        $("input[name=hasmore]").val('');
+        $("input[name=gc_id]").val('');
+        $("input[name=keyword]").val('');
+        $("input[name=store_id]").val('');
+        $("input[name=curpage]").val(1);
+        $("#htmlDone").remove();
+        $("#listloading").remove();
+    };
+
+    //加载提示
+    function loadTip() {
+        var hasmore = $('input[name=hasmore]').val();
+        if (hasmore == "false") {
+            if ($('#htmlDone').size() == 0) {
+                $('body').append(htmlDone);
+                $('#listloading').remove();
+            }
+            ;
+        } else if (hasmore == "true") {
+            if ($('#listloading').size() == 0) {
+                $('body').append(listloading);
+                $('#htmlDone').remove();
+            }
+            ;
+        }
+        ;
+    };
+});

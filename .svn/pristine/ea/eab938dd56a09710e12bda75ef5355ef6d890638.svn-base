@@ -1,0 +1,17 @@
+<?php
+namespace common\model;
+
+use think\Model;
+
+class PraiseList extends Model
+{
+    protected $type = [
+        'create_time' => 'timestamp:Y/m/d H:i:s',
+        'update_time' => 'timestamp:Y/m/d H:i:s'
+    ];
+
+    public function get_praise_state($id = 0, $type = 1)
+    {
+        return $this->get(['art_id' => $id, 'type' => $type]) ? 1 : 0;
+    }
+}

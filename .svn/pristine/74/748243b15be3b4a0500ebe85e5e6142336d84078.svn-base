@@ -1,0 +1,140 @@
+<!doctype html>
+<html class="m">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>添加地址</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" type="text/css" href="../static/css/nprogress.css" />
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/icon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/fishicon.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/wx.css">
+		<link rel="stylesheet" type="text/css" href="../static/css/swiper-3.3.1.min.css" />
+
+	</head>
+
+	<body>
+		<header class="layout boxshow  app-top">
+			<div class="height-large bg-white clearfix">
+				<div class="float-left"><span class="margin-left text-big ticon-back win-back block"></span>
+				</div>
+				<div class="float-right">
+				</div>
+				<div class="text-center margin-large-left margin-large-right text-oneline text-big win-refresh">添加地址</div>
+			</div>
+		</header>
+		<div class="blank"></div>
+
+		<section class="layout margin-bottom boxshow padding">
+			<h4>收货地址</h4>
+			<form id="address_add">
+				<table class="table  margin-top">
+					<tbody>
+						<tr>
+							<td class="w20">姓名</td>
+							<td class="text-gray w80">
+								<div class="form-group">
+									<div class="field">
+										<input type="text" id="username" name="username" class="input input-small" placeholder="收货人姓名">
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>手机号</td>
+							<td class="text-gray w80">
+								<div class="form-group">
+									<div class="field">
+										<input type="text" id="telphone" name="telphone" class="input input-small" placeholder="收货人手机号码">
+									</div>
+								</div>
+
+							</td>
+						</tr>
+						<tr>
+							<td>省</td>
+							<td class="text-gray w80">
+								<div class="form-group">
+									<div class="field">
+										<select id="province" name="province" class="input input-small">
+											<option value="">请选择省份</option>
+										</select>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>市</td>
+							<td class="text-gray w80">
+								<div class="form-group">
+									<div class="field">
+										<select id="city" name="city" class="input input-small">
+											<option value="">请选择城市</option>
+										</select>
+									</div>
+								</div>
+
+							</td>
+						</tr>
+						<tr>
+							<td>区</td>
+							<td class="text-gray w80">
+								<div class="form-group">
+									<div class="field">
+										<select id="county" name="county" class="input input-small">
+											<option value="">请选择区域</option>
+										</select>
+									</div>
+								</div>
+
+							</td>
+						</tr>
+						<tr>
+							<td>地址</td>
+							<td class="text-gray w80">
+								<div class="form-group">
+									<div class="field">
+										<textarea id="address" name="address" rows="3" cols="" class="input" placeholder="收货人详细地址"></textarea>
+									</div>
+								</div>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="error-tips"></div>
+
+				<div class="padding">
+					<button class="button bg-main add_address button-block" type="submit">保存地址</button>
+				</div>
+			</form>
+
+		</section>
+
+		<script src="../static/js/config.js"></script>
+		<script src="../static/js/common.js"></script>
+		<script src="../static/js/jquery.js"></script>
+		<script src="../static/js/base.js"></script>
+		<script src="../static/js/template.js"></script>
+		<script src="../static/js/jquery.ios.js"></script>
+		<script src="../static/js/nprogress.js"></script>
+		<script src="../static/js/jquery.validate.min.js"></script>
+		<script src="../static/js/messages_zh.min.js"></script>
+		<script src="../static/js/plugins/citys/citys.js"></script>
+		<script src="../static/js/tmpl/user/address_add.js"></script>
+		<script>
+			/*全局进度条事件*/
+			$(function() {
+				NProgress.start();
+			});
+		</script>
+
+	</body>
+
+</html>

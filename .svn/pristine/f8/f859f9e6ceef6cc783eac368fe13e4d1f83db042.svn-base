@@ -1,0 +1,145 @@
+//活动报名接口
+//http://www.fish.com/api.php/forum/index/get_activity_join
+//POST['id'] = 100
+//POST['key'] = '1234'
+//POST['username'] = 'username'
+//POST['tel'] = '1300000000'
+//POST['message'] = '你好！！！'
+
+$(function() {
+	var key = getcookie('key');
+	if (key == '') {
+		location.href = '/login.html';
+	}
+	var activity_id = GetQueryString("activity_id");
+
+	//表单验证
+	$.validator.addMethod("ismobile", function(value, element) {
+		var length = value.length;
+		var mobiles = /^(1[3|4|5|7|8])+\d{9}?$/;
+		return this.optional(element) || (length == 11 && mobiles.test(value));
+	}, "请正确填写您的手机号码");
+	$.validator.addMethod("chinese", function(value, element) {
+		var length = value.length;
+		var chinese = /^[\u0391-\uFFE5]+$/;
+		return this.optional(element) || (length <= 4 && chinese.test(value));
+	}, "请正确填写中文姓名");
+	jQuery.validator.addMethod("checkPic", function(value, element) {
+		var filepath = $("#logo").val();
+		//获得上传文件名
+		var fileArr = filepath.split("\\");
+		var fileTArr = fileArr[fileArr.length - 1].toLowerCase().split(".");
+		var filetype = fileTArr[fileTArr.length - 1];
+		//切割出后缀文件名
+		if (filetype != "jpg") {
+			return false;
+		} else {
+			return true;
+		}
+	}, "上传图片格式不适合");
+
+	var checkForm = $("#reg").validate({
+		ignore: [],
+		rules: {
+			username: {
+				required: true,
+				minlength: 2,
+				maxlength: 20
+			},
+			message: {
+				required: true,
+				minlength: 2,
+				maxlength: 140
+			},
+			mobile: {
+				required: true,
+				ismobile: true
+			}
+
+		},
+		messages: {
+			username: {
+				required: '请输入您的称呼’',
+				minlength: "字太少了",
+				maxlength: "字太多啦。。。"
+			},
+			message: {
+				required: "请输入备注内容",
+				minlength: "帖子内容不得少于2个字",
+				maxlength: "字太多啦。。。"
+			},
+			mobile: {
+				required: "请输入手机号码",
+				ismobile: "手机号码有误"
+			},
+		},
+		submitHandler: function() {
+			join();
+		}
+	});
+
+	function join() {
+
+		var username = $("input[name=username]").val();
+		var tel = $("input[name=mobile]").val();
+		var message = $("textarea[name=message]").val();
+
+		$(window).apploading({
+			autoload: false,
+			time: 20000
+		});
+		$.ajax({
+			type: 'post',
+			url: ApiUrl + "/forum/index/get_activity_join",
+			data: {
+				key: key,
+				activity_id: activity_id,
+				username: username,
+				tel: tel,
+				message: message
+			},
+			dataType: 'json',
+			timeout: '10000',
+			error: function(a, b, c) {
+				//console.log(b);
+				if (c != "error") {
+					$(window).apptip({
+						msg: c
+					});
+				} else {
+					$(window).apptip({
+						msg: "加载失败，请检查网络设置"
+					});
+				}
+			},
+			success: function(result) {
+				$(window).appcloseload();
+				var data = result.datas;
+				if (result.code == 1) {
+					$(window).appalert({
+						msg: "报名成功！",
+						cbk: function() {
+							location.href = '/forum/activity-info.html?activity_id=' + activity_id
+						}
+					});
+				} else {
+					$(window).apptip({
+						msg: result.error
+					})
+				}
+			}
+		});
+	}
+
+	function checkinput() {
+		var isok = true;
+		$(".input").each(function() {
+			var inputlen = $(this).val().length;
+			if (inputlen == 0) {
+				isok = false
+			}
+		});
+		return isok;
+	}
+
+});
